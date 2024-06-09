@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+       <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Articulo Reglamento</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{articuloReglamBeans.cargarList()}
+                                                    <p:dataTable var="art" value="#{articuloReglamBeans.listArt}" sortBy="#{art.articuloreglamPK.id}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Articulo" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
+
+                                                            </div>
+                                                            
+                                                        </f:facet>
+
+                                                        <p:column headerText="ID" style="text-align: center" priority="2" width="16%" sortBy="#{art.articuloreglamPK.id}" filterBy="#{art.articuloreglamPK.id}">
+                                                            <h:outputText value="#{art.articuloreglamPK.id}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Capitulo" style="text-align: center" priority="2" width="16%" sortBy="#{art.articuloreglamPK.capituloid}" filterBy="#{art.articuloreglamPK.capituloid}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="Capitulo: #{art.articuloreglamPK.capituloid}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Descripcion" priority="2" sortBy="#{art.descripcion}" filterBy="#{art.descripcion}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{art.descripcion}"/>
+                                                        </p:column>
+                                                        <p:column width="100" headerText="Opciones" priority="5">
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{articuloReglamBeans.delete(art)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este articulo?. Esta accion puede eliminar posibles evaluacion registradas con este articulo ." icon="ui-icon-alert" />
+                                                            </p:commandButton>  
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{art}" target="#{articuloReglamBeans.artReglam}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true" width="500">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white"> 
+                                                            
+                                                            <h:outputLabel value="ID:"/>
+                                                            <p:inputText value="#{articuloReglamBeans.id}" type="text"  placeholder="ID" />
+                                                            
+                                                            <h:outputLabel value="Capitulo:" for="capitulo"/>
+                                                            <p:selectOneMenu id="capitulo" value="#{articuloReglamBeans.capituloId}" title="Capitulo">
+                                                                <f:selectItem itemLabel="- Seleccione una capitulo -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{articuloReglamBeans.map_capitulos}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Descripcion:"/>
+                                                            <p:inputText value="#{articuloReglamBeans.descripcion}" type="text"  placeholder="Descripcion" />               
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{articuloReglamBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+                                                <h:form id="editar">
+
+                                                    #{articuloReglamBeans.setId(articuloReglamBeans.artReglam.articuloreglamPK.id)}
+                                                    #{articuloReglamBeans.setCapituloId(articuloReglamBeans.artReglam.articuloreglamPK.capituloid)}
+                                                    #{articuloReglamBeans.setDescripcion(articuloReglamBeans.artReglam.descripcion)}
+                                                    
+                                                    <p:dialog header="Modificar Articulo" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >                            
+
+                                                            <h:outputLabel value="Descripcion:"/>
+                                                            <p:inputText value="#{articuloReglamBeans.descripcion}" type="text"  placeholder="Descripcion" />
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{articuloReglamBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Becados</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{becadoBeans.cargarList()}
+
+                                                    <p:dataTable var="pa" value="#{becadoBeans.listbecad}" sortBy="#{pa.ci}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Becado" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+
+                                                            </div>
+                                                            <div align="left">
+
+                                                            </div>
+                                                        </f:facet>
+                                                        
+                                                        <p:column headerText="CI" style="text-align: center" priority="2" sortBy="#{pa.ci}" filterBy="#{pa.ci}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{pa.ci}"/>
+                                                        </p:column>
+                                                        
+                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{pa.nombre}" filterBy="#{pa.nombre}">
+                                                            <h:outputText value="#{pa.nombre}"/>
+                                                        </p:column>
+                                                        
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{becadoBeans.delete(pa)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este becado?" icon="ui-icon-alert" />
+                                                            </p:commandButton>  
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{pa}" target="#{becadoBeans.becado}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form>
+
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="4" style="background: white">    
+                                                            
+                                                            <h:outputLabel for="@next" value="CI"/>
+                                                            <p:inputMask value="#{becadoBeans.ci}" mask="99999999999" />
+                                                            <h:outputLabel for="@next" value="Codigo"/>
+                                                            <p:inputText value="#{becadoBeans.codigo}" type="text"  placeholder="codigo" />
+                                                            <h:outputLabel for="@next" value="Nombre"/>
+                                                            <p:inputText value="#{becadoBeans.nombre}" type="text"  placeholder="nombre" />
+                                                            <h:outputLabel for="@next" value="Segundo Nombre"/>
+                                                            <p:inputText value="#{becadoBeans.segundoNombre}" type="text"  placeholder="Segundo Nombre" />
+                                                            <h:outputLabel for="@next" value="Apellidos"/>
+                                                            <p:inputText value="#{becadoBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <h:outputLabel for="@next" value="Activo" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.activo}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                    
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Apto Para Esfuerzo Fisico" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.aptoEsfuerzoFisico}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                   
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Fuma" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.fumar}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                   
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Bebe" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.beber}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                   
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Nucleo Familiar" />
+                                                            <p:inputText value="#{becadoBeans.nucleoFamiliar}" type="text"  
+                                                                         placeholder="Nucleo Familiar" />
+                                                            <h:outputLabel for="@next"  value="Carrera" />
+                                                            <p:inputText value="#{becadoBeans.carrera}" type="text"  
+                                                                         placeholder="Carrera" />
+                                                            <h:outputLabel for="@next" value="Año" />
+                                                            <p:spinner value="#{becadoBeans.anno}" min="2020" max="2030" rotate="true" />
+                                                            <p:outputLabel for="@next" value="Sexo" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.sexo}"  
+                                                                                   onLabel="Femenino" offLabel="Masculino" 
+                                                                                   
+                                                                                   style="width:200px"/>
+                                                            
+                                                            <p:outputLabel for="@next" value="Telefono" />
+                                                            <p:inputMask value="#{becadoBeans.telefono}" mask="99999999"/>
+                                                            <h:outputLabel for="@next" value="Facultad"/>
+                                                            <p:inputText value="#{becadoBeans.facultad}" type="text"  placeholder="Facultad" />
+                                                            <h:outputLabel for="@next" value="Cuarto" />
+                                                            <p:selectOneMenu  value="#{becadoBeans.cuartoId}" title="Becado">
+                                                                <f:selectItem itemLabel="- Seleccione un cuarto -" noSelectionOption="false"/>
+                                                                <f:selectItems value="#{becadoBeans.map_cuartos}"/>
+                                                            </p:selectOneMenu>
+                                                            
+                                                            
+                                                            
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{becadoBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+
+                                                <h:form id="editar">
+                                                    #{becadoBeans.setCi(becadoBeans.becado.ci)}
+                                                    #{becadoBeans.setCodigo(becadoBeans.becado.codigo)}
+                                                    #{becadoBeans.setNombre(becadoBeans.becado.nombre)}
+                                                    #{becadoBeans.setSegundoNombre(becadoBeans.becado.segundonombre)}
+                                                    #{becadoBeans.setApellidos(becadoBeans.becado.apellidos)}
+                                                    #{becadoBeans.setActivo(becadoBeans.becado.activo)}
+                                                    #{becadoBeans.setAptoEsfuerzoFisico(becadoBeans.becado.aptoesfuerzofisico)}
+                                                    #{becadoBeans.setFumar(becadoBeans.becado.fumar)}
+                                                    #{becadoBeans.setBeber(becadoBeans.becado.beber)}
+                                                    #{becadoBeans.setNucleoFamiliar(becadoBeans.becado.nucleofamiliar)}
+                                                    #{becadoBeans.setCarrera(becadoBeans.becado.carrera)}
+                                                    #{becadoBeans.setAnno(becadoBeans.becado.anno)}
+                                                    #{becadoBeans.setSexo(becadoBeans.becado.sexo)}
+                                                    #{becadoBeans.setTelefono(becadoBeans.becado.telefono)}
+                                                    #{becadoBeans.setFacultad(becadoBeans.becado.facultad)}
+                                                    #{becadoBeans.setCuartoId(becadoBeans.becado.cuarto)}
+                                                    
+                                                    
+                                                    <p:dialog header="Modificar Becado" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="4" style="background: white">    
+                                                            
+                                                            <h:outputLabel for="@next" value="CI"/>
+                                                            <p:inputMask value="#{becadoBeans.ci}" mask="99999999999" disabled="true" />
+                                                            <h:outputLabel for="@next" value="Codigo"/>
+                                                            <p:inputText value="#{becadoBeans.codigo}" type="text"  placeholder="codigo" />
+                                                            <h:outputLabel for="@next" value="Nombre"/>
+                                                            <p:inputText value="#{becadoBeans.nombre}" type="text"  placeholder="nombre" />
+                                                            <h:outputLabel for="@next" value="Segundo Nombre"/>
+                                                            <p:inputText value="#{becadoBeans.segundoNombre}" type="text"  placeholder="Segundo Nombre" />
+                                                            <h:outputLabel for="@next" value="Apellidos"/>
+                                                            <p:inputText value="#{becadoBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <h:outputLabel for="@next" value="Activo" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.activo}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                    
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Apto Para Esfuerzo Fisico" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.aptoEsfuerzoFisico}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                   
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Fuma" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.fumar}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                   
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Bebe" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.beber}" 
+                                                                                   onLabel="Si" offLabel="No" 
+                                                                                   
+                                                                                   style="width:100px"/>
+                                                            <h:outputLabel for="@next" value="Nucleo Familiar" />
+                                                            <p:inputText value="#{becadoBeans.nucleoFamiliar}" type="text"  
+                                                                         placeholder="Nucleo Familiar" />
+                                                            <h:outputLabel for="@next"  value="Carrera" />
+                                                            <p:inputText value="#{becadoBeans.carrera}" type="text"  
+                                                                         placeholder="Carrera" />
+                                                            <h:outputLabel for="@next" value="Año" />
+                                                            <p:spinner value="#{becadoBeans.anno}" min="2020" max="2030" rotate="true" />
+                                                            <p:outputLabel for="@next" value="Sexo" />
+                                                            <p:selectBooleanButton value="#{becadoBeans.sexo}"  
+                                                                                   onLabel="Femenino" offLabel="Masculino" 
+                                                                                   
+                                                                                   style="width:200px"/>
+                                                            
+                                                            <p:outputLabel for="@next" value="Telefono" />
+                                                            <p:inputMask value="#{becadoBeans.telefono}" mask="99999999"/>
+                                                            <h:outputLabel for="@next" value="Facultad"/>
+                                                            <p:inputText value="#{becadoBeans.facultad}" type="text"  placeholder="Facultad" />
+                                                            <h:outputLabel for="@next" value="Cuarto" />
+                                                            <p:selectOneMenu  value="#{becadoBeans.cuartoId}" title="Becado" >
+                                                                <f:selectItems value="#{becadoBeans.map_cuartos}"/>
+                                                                
+                                                            </p:selectOneMenu>
+                                                            
+                                                            
+                                                            
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{becadoBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

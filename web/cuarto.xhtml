@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                       
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Cuartos</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{cuartoBeans.cargarList()}
+                                                    <p:dataTable var="cuart" value="#{cuartoBeans.listCuart}" sortBy="#{cuart.cuartoPK.id}">
+                                                        <f:facet name="header" >
+                                                            <div align="left">
+                                                                <p:commandButton value="Añadir Cuarto" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
+                                                            </div>
+                                                        </f:facet>
+                                                        <p:column headerText="Cuarto" sortBy="#{cuart.cuartoPK.id}" filterBy="#{cuart.cuartoPK.id}" style="text-align: center">
+                                                            <h:outputText value="Cuarto: #{cuart.cuartoPK.id}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Piso" sortBy="#{cuart.cuartoPK.pisoid}" filterBy="#{cuart.cuartoPK.pisoid}" style="text-align: center">
+                                                            <h:outputText value="Piso: #{cuart.cuartoPK.pisoid}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Edificio" sortBy="#{cuart.piso.edificio.nombre}" filterBy="#{cuart.piso.edificio.nombre}" style="text-align: center">
+                                                            <h:outputText value="Edificio: #{cuart.piso.edificio.nombre}"/>
+                                                        </p:column>
+
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            
+                                                            <p:commandButton update="formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{cuartoBeans.delete(cuart)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este cuarto?." icon="ui-icon-alert" />
+                                                            </p:commandButton>  
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false" position="">
+                                                        <p:panelGrid columns="2" style="background: lightgrey">
+                                                            
+                                                            <h:outputLabel value="Cuarto:" for="cu"/>
+                                                            <p:selectOneMenu id="cu" value="#{cuartoBeans.idCuarto}" title="Cuartos">
+                                                                <f:selectItem itemLabel="Cuarto 1" itemValue="1"/>
+                                                                <f:selectItem itemLabel="Cuarto 2" itemValue="2"/>
+                                                                <f:selectItem itemLabel="Cuarto 3" itemValue="3"/>
+                                                                <f:selectItem itemLabel="Cuarto 4" itemValue="4"/>
+                                                                <f:selectItem itemLabel="Cuarto 5" itemValue="5"/>
+                                                                <f:selectItem itemLabel="Cuarto 6" itemValue="6"/>
+                                                                <f:selectItem itemLabel="Cuarto 7" itemValue="7"/>
+                                                                <f:selectItem itemLabel="Cuarto 8" itemValue="8"/>
+                                                                <f:selectItem itemLabel="Cuarto 9" itemValue="9"/>
+                                                                <f:selectItem itemLabel="Cuarto 10" itemValue="10"/>
+                                                                <f:selectItem itemLabel="Cuarto 11" itemValue="11"/>
+                                                                <f:selectItem itemLabel="Cuarto 12" itemValue="12"/>
+                                                            </p:selectOneMenu> 
+
+                                                            <h:outputLabel value="Piso:" for="piso"/>
+                                                            <p:selectOneMenu id="piso" value="#{cuartoBeans.ubicacion}" title="Pisos">
+                                                                <f:selectItem itemLabel="- Seleccione un piso -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{cuartoBeans.map_piso}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Edificio:" for="edificio"/>
+                                                            <p:selectOneMenu id="edificio" value="#{cuartoBeans.ubicacion}" title="Edificio">
+                                                                <f:selectItem itemLabel="- Seleccione un edificio -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{cuartoBeans.map_edif}" />
+                                                            </p:selectOneMenu>
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{cuartoBeans.insert()}" style="color: black" oncomplete="PF('dlg1').hide()" />
+                                                        </p:panelGrid>
+                                                    </p:dialog>
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

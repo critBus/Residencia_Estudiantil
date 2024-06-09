@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Trabajadores</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{trabajadorBeans.cargarList()}
+                                                    <p:dataTable var="trab" value="#{trabajadorBeans.listTrab}" sortBy="#{trab.ci}">
+                                                        <f:facet name="header">
+                                                            <div align="left">
+                                                                <p:commandButton value="Añadir Trabajador" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
+
+                                                            </div>
+                                                        </f:facet>
+                                                        <p:column headerText="CI" sortBy="#{trab.ci}" filterBy="#{trab.ci}" style="text-align: center" priority="5">
+                                                            <h:outputText value="#{trab.ci}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Código" sortBy="#{trab.codigo}" filterBy="#{trab.codigo}" style="text-align: center" priority="1">
+                                                            <h:outputText value="#{trab.codigo}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Nombre y Apellidos" sortBy="#{trabajadorBeans.nombreApell(trab)}" filterBy="#{trabajadorBeans.nombreApell(trab)}" style="text-align: center" priority="1">
+                                                            <h:outputText value="#{trabajadorBeans.nombreApell(trab)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Estado" sortBy="#{trabajadorBeans.nombreApell(trab)}" filterBy="#{trabajadorBeans.nombreApell(trab)}" style="text-align: center" priority="1">
+                                                            <h:outputText value="#{trabajadorBeans.active(trab)}"/>
+                                                        </p:column>
+
+                                                        <p:column width="100" headerText="Opciones" priority="5">
+                                                            <p:commandButton update="formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{trabajadorBeans.delete(trab)}">                     
+                                                                <p:confirm message="¿Seguro de eliminar este trabajador?." icon="ui-icon-alert"/>
+                                                            </p:commandButton> 
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{trab}" target="#{trabajadorBeans.trabajador}"/>
+                                                            </p:commandButton>
+                                                        </p:column>
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false" position="">
+                                                        <p:panelGrid columns="2" style="background: lightgrey">
+                                                            <h:outputLabel value="CI:"/>
+                                                            <p:inputText value="#{trabajadorBeans.ci}" type="text"  placeholder="CI" />
+                                                            <h:outputLabel value="Código:"/>
+                                                            <p:inputText value="#{trabajadorBeans.codigo}" type="text"  placeholder="Código"/>
+                                                            <h:outputLabel value="Nombre:"/>
+                                                            <p:inputText value="#{trabajadorBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            <h:outputLabel value="Apellidos:"/>
+                                                            <p:inputText value="#{trabajadorBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <h:outputLabel value="Estado:" for="est"/>
+                                                            <p:selectOneMenu id="est" value="#{trabajadorBeans.enable}" title="Estado">
+                                                                <f:selectItem itemLabel="Activo" itemValue="true" />
+                                                                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                                                                
+                                                            </p:selectOneMenu> 
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{trabajadorBeans.insert()}" style="color: black" oncomplete="PF('dlg1').hide()" />
+                                                        </p:panelGrid>
+                                                    </p:dialog>
+                                                </h:form>
+
+                                                <h:form id="editar">
+
+                                                    #{trabajadorBeans.setCi(trabajadorBeans.trabajador.ci)}
+                                                    #{trabajadorBeans.setCodigo(trabajadorBeans.trabajador.codigo)}
+                                                    #{trabajadorBeans.setNombre(trabajadorBeans.trabajador.nombre)}
+                                                    #{trabajadorBeans.setApellidos(trabajadorBeans.trabajador.apellidos)}
+                                                    #{trabajadorBeans.setEnable(trabajadorBeans.trabajador.enable)}
+
+                                                    <p:dialog header="Modificar Trabajador" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+                                                        <p:panelGrid columns="2">
+                                                            <h:outputLabel value="CI:"/>
+                                                            <p:inputText value="#{trabajadorBeans.ci}" type="text"  placeholder="CI" disabled="true" style="background: lightgrey; color: black"/>
+                                                            <h:outputLabel value="Código:"/>
+                                                            <p:inputText value="#{trabajadorBeans.codigo}" type="text"  placeholder="Código"/>
+                                                            <h:outputLabel value="Nombre:"/>
+                                                            <p:inputText value="#{trabajadorBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            <h:outputLabel value="Apellidos:"/>
+                                                            <p:inputText value="#{trabajadorBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <h:outputLabel value="Estado:" for="est"/>
+                                                            <p:selectOneMenu id="est" value="#{trabajadorBeans.enable}" title="Estado">
+                                                                <f:selectItem itemLabel="Activo" itemValue="true"/>
+                                                                <f:selectItem itemLabel="Inactivo" itemValue="false"/>
+                                                            </p:selectOneMenu> 
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{trabajadorBeans.edit()}" style="color: black" oncomplete="PF('dlg2').hide()"/>
+                                                        </p:panelGrid>
+                                                    </p:dialog>
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

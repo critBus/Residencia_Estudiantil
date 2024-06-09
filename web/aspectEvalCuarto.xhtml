@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="row">
+                            
+                            <div class="col-lg-10">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="col-lg-10">
+                                        <h3 class="m-b-30 m-t-0">Aspecto Evaluativo del Cuarto</h3>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                
+                                                
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{aspectEvalCuartBeans.cargarList()}
+                                                    <p:dataTable var="aecuarto" value="#{aspectEvalCuartBeans.listAspEvalCuart}" sortBy="#{aecuarto.id}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Aspecto" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+
+                                                            </div>
+                                                            
+                                                        </f:facet>
+
+                                                        <p:column headerText="ID" style="text-align: center" priority="2" width="16%" sortBy="#{aecuarto.id}" filterBy="#{aecuarto.id}">
+                                                            <h:outputText value="#{aecuarto.id}" />
+                                                        </p:column>
+                                                        <p:column headerText="Aspecto Evaluativo" priority="2" sortBy="#{aecuarto.name}" filterBy="#{aecuarto.name}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{aecuarto.name}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Valor Máximo" priority="2" width="24%" sortBy="#{aecuarto.maxvalue}" filterBy="#{aecuarto.maxvalue}" style="text-align: center">
+                                                            <h:outputText value="#{aecuarto.maxvalue}"/>
+                                                        </p:column>
+
+
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{aecuarto}" target="#{aspectEvalCuartBeans.aspEvalCuart}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true" width="500">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white">    
+
+                                                            <h:outputLabel value="Aspecto Evaluativo:"/>
+                                                            <p:inputText value="#{aspectEvalCuartBeans.name}" type="text"  placeholder="Aspecto Evaluativo" />
+                                                            <h:outputLabel value="Valor Máximo:"/>
+                                                            <p:spinner value="#{aspectEvalCuartBeans.maxValue}" placeholder="Valor Máximo" min="0"/>
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{aspectEvalCuartBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+                                                <h:form id="editar">
+
+                                                    #{aspectEvalCuartBeans.setId(aspectEvalCuartBeans.aspEvalCuart.id)}
+                                                    #{aspectEvalCuartBeans.setName(aspectEvalCuartBeans.aspEvalCuart.name)}
+                                                    #{aspectEvalCuartBeans.setMaxValue(aspectEvalCuartBeans.aspEvalCuart.maxvalue)}
+                                                    
+                                                    <p:dialog header="Modificar Aspecto" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >                            
+
+                                                            <h:outputLabel value="Aspecto Evaluativo:"/>
+                                                            <p:inputText value="#{aspectEvalCuartBeans.name}" type="text"  placeholder="Aspecto Evaluativo" />
+                                                            <h:outputLabel value="Valor Máximo:"/>
+                                                            <p:spinner value="#{aspectEvalCuartBeans.maxValue}" placeholder="Valor Máximo"/>
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{aspectEvalCuartBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

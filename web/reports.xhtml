@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <h3 class="page-title m-0">Información de los becados</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-lg-6" >
+                                <div class="card">
+                                    <div class="card-body user-card" style="margin: 15px">
+                                        <h:form class="form-horizontal" >
+                                            
+                                            <h:panelGrid columns="2" styleClass="ui-panelgrid-blank" style="width: 100%" >   
+                                                <p:growl id="msg"/>
+                                                <div class="col-lg-5">
+                                                    <div class="list-group">
+                                                        <a href="aspectEvalCuarto.faces" class="list-group-item list-group-item-action">Aspectos Evaluativos del Cuarto</a>
+                                                        <a href="mostrarLasEvalBecado.faces" class="list-group-item list-group-item-action">Las Evaluaciones de todos los Becados</a>
+                                                        <a href="tipoEvalDeLosBecados.faces" class="list-group-item list-group-item-action">Tipo de Evaluaciones que realizan los Becado</a>
+                                                        <a href="listadoEvalGuardia.faces" class="list-group-item list-group-item-action">Listado de todas las Evaluaciones de Guardia</a>
+                                                        <a href="listadoEvalCuarteleria.faces" class="list-group-item list-group-item-action">Listado de todas las Evaluaciones de Cuarteleria</a>
+                                                        <a href="aspect_evalcuartel.faces" class="list-group-item list-group-item-action">Aspectos Evaluativos de la Cuartelería</a>
+                                                        <a href="medicamentoPorDosis.faces" class="list-group-item list-group-item-action">Medicamento dado tipo de Dosis</a>
+                                                        <a href="enfermedades.faces" class="list-group-item list-group-item-action">Enfermedades</a>
+                                                        <a href="reglament.faces" class="list-group-item list-group-item-action">Reglamento Interno de la Residencia Estudiantil</a>
+                                                        <a href="cantidadBecadoGuardia.faces" class="list-group-item list-group-item-action">Becado que han hecho la guardia</a>
+                                                        <a href="cantidadBecadoCuarteleria.faces" class="list-group-item list-group-item-action">Becado que han hecho la cuarteleria</a>
+                                                    </div> <!-- list-group -->
+                                                </div> <!-- col -->
+                                            </h:panelGrid>
+                                        </h:form>
+                                    </div> <!-- card-body -->
+                                </div>
+                            </div>
+                        </div> <!-- end row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

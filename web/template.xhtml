@@ -1,0 +1,365 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta charset="utf-8" />
+
+
+        <title>UNAH</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta content="Admin Dashboard" name="description" />
+        <meta content="ThemeDesign" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+        <link rel="shortcut icon" href="assets/img/logo.png"/>
+        <!-- DataTables -->
+        <link href="assets/plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/plugins/datatables/fixedHeader.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/plugins/datatables/scroller.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+
+
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/icons.css" rel="stylesheet" type="text/css"/>
+        <link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+
+
+
+
+        <style>
+            .ui-chkbox{
+                padding-right: 10px;
+            }
+            .ui-state-highlight .ui-icon{
+                background-image: url("/sigre_2.0/javax.faces.resource/primefaces-sam/images/ui-icons_454545_256x240.png.faces");
+            }
+        </style>
+
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">
+
+
+                <div class="header-bg">
+                    <!-- Navigation Bar-->
+                    <header id="topnav">
+                        <div class="topbar-main">
+                            <div class="container-fluid">
+
+                                <!-- Logo-->
+                                <div>
+                                    <a href="index.faces" class="logo">
+                                        <img src="assets/img/logo_2.png" class="logo-lg" alt="" height="60"/>
+                                    </a>
+                                </div>
+                                
+                                <!-- End Logo-->
+
+                                <div class="menu-extras topbar-custom navbar p-0">
+                                    <!--
+                                    <ul class="list-inline d-none d-lg-block mb-0">
+
+                                        <li class="hide-phone app-search float-left">
+                                            <form role="search" class="navbar-form">
+                                                <input type="text" placeholder="Search..." class="form-control search-bar" />
+                                                <a href=""><i class="fa fa-search"></i></a>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                    -->
+
+                                    <ul class="mb-0 nav navbar-right ml-auto list-inline">
+
+                                        <!--
+                                        <li class="list-inline-item dropdown notification-list">
+                                            <a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light notification-icon-box" data-toggle="dropdown" aria-expanded="true">
+                                                <i class="fa fa-bell"></i> <span class="badge badge-xs badge-danger"></span>
+                                            </a>
+                                            
+                                            <ul class="dropdown-menu dropdown-menu-lg">
+                                                <li class="text-center notifi-title">Notification <span class="badge badge-xs badge-success">3</span></li>
+                                                <li class="list-group">
+                                                    <a href="javascript:void(0);" class="dropdown-item notify-item mt-2">
+                                                        <div class="notify-icon bg-success"><i class="mdi mdi-cart-outline"></i></div>
+                                                        <p class="notify-details">Your order is placed<span class="text-muted">Dummy text of the printing and typesetting industry.</span></p>
+                                                    </a>
+                                                     item-->
+
+                                        <!-- item
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-info"><i class="mdi mdi-glass-cocktail"></i></div>
+                                            <p class="notify-details">Your item is shipped<span class="text-muted">It is a long established fact that a reader will</span></p>
+                                        </a>
+                                        -->
+
+                                        <!-- item
+                                        <a href="javascript:void(0);" class="dropdown-item notify-item mb-2">
+                                            <div class="notify-icon bg-danger"><i class="mdi mdi-message-text-outline"></i></div>
+                                            <p class="notify-details">New Message received<span class="text-muted">You have 87 unread messages</span></p>
+                                        </a>
+                                        -->
+
+                                        <!-- last list item
+                                        <a href="javascript:void(0);" class="list-group-item text-center">
+                                            <small class="text-primary mb-0">View all </small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                                        -->
+
+
+                                        <li class="list-inline-item notification-list d-none d-sm-inline-block">
+                                            <a href="#" id="btn-fullscreen" class="waves-effect waves-light notification-icon-box"><i class="fas fa-expand"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
+                                                <img src="assets/img/profile-user.png" alt="user-img" class="rounded-circle"/>
+                                                <span class="profile-username">
+                                                    Euclides/Oquendo <span class="mdi mdi-chevron-down font-15"></span>
+                                                </span>
+                                            </a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="profile.faces" class="dropdown-item"> Perfil</a></li>
+                                                <li><a href="setting.faces" class="dropdown-item"> Ajustes </a></li>
+                                                <li class="dropdown-divider"></li>
+                                                <li><a href="login.faces" class="dropdown-item"> Cerrar Sesión</a></li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="menu-item dropdown notification-list list-inline-item">
+                                            <!-- Mobile menu toggle-->
+                                            <a class="navbar-toggle nav-link">
+                                                <div class="lines">
+                                                    <span></span>
+                                                    <span></span>
+                                                    <span></span>
+                                                </div>
+                                            </a>
+                                            <!-- End mobile menu toggle-->
+                                        </li>
+
+                                    </ul>
+
+                                </div>
+                                <!-- end menu-extras -->
+
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <!-- end container -->
+                        </div>
+                        <!-- end topbar-main -->
+
+                        <!-- MENU Start -->
+                        <div class="navbar-custom">
+                            <div class="container-fluid">
+
+                                <div id="navigation">
+
+                                    <!-- Navigation Menu-->
+                                    <ul class="navigation-menu">
+
+                                        <li class="has-submenu">
+                                            <a href="index.faces"><i class="fas fa-home"></i> Inicio</a>
+                                        </li>
+
+                                        <li class="has-submenu">
+                                            <a href="#"><i class="fas fa-id-badge"></i> Estudiantes Becados <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                                            <ul class="submenu">
+
+                                                <li><a href="#">Registrar Becado</a></li>
+                                                <li><a href="enfermedades.faces">Enfermedades</a></li>
+                                                <li><a href="becado.faces">Becados</a></li>
+
+                                                <li class="has-submenu">
+                                                    <a href="#">Evaluaciones del becado</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="evalGuardia.faces">Evaluación de la Guardia</a></li>
+                                                        <li><a href="evalCuarteleria.faces">Evaluación de la Cuartelería</a></li>
+                                                        <li><a href="aspect_evalcuartel.faces">Aspectos Evaluativos del Cuarteleria</a></li>                                                       
+                                                        <li><a href="aspectEvalCuarto.faces">Aspectos Evaluativos del Cuarto</a></li>
+                                                        <li><a href="aspectEvalCuartoEvalCuarto.faces">Aspecto de Evaluación de los Cuartos</a></li>
+                                                        <li><a href="evalCuarto.faces">Evaluación del Cuarto</a></li>
+                                                        <li><a href="tipoEvalBecado.faces">Tipo Evaluación Becado</a></li>
+                                                        <li><a href="evalBecado.faces">Evaluación Becado</a></li>
+                                                        <li><a href="rangos.faces">Rangos</a></li>                                                       
+                                                    </ul>
+                                                </li>                                             
+                                            </ul>
+                                        </li>
+
+                                        <li class="has-submenu">
+                                            <a href="#"><i class="ti-layout-grid2-alt"></i> Residencia <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                                            <ul class="submenu">
+                                                <li class="has-submenu">
+                                                    <a href="">Planteamientos</a>
+                                                    <ul class="submenu">
+                                                <li><a href="planteamiento.faces">Realizar Planteamientos</a></li>
+                                                </ul>
+                                                </li>
+                                                <li class="has-submenu">
+                                                    <a href="#">Residencia estudiantil</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="edificio.faces">Edificio</a></li>
+                                                        <li><a href="piso.faces">Pisos</a></li>
+                                                        <li><a href="cuarto.faces">Cuartos</a></li>
+                                                        <li><a href="trabajoProductivo.faces">Trabajo Productivo</a></li>
+                                                        
+                                                    </ul>
+                                                </li>
+                                                
+                                                <li class="has-submenu">
+                                                    <a href="reglament.faces">Reglamento Interno de la Residencia Estudiantil</a>
+                                                    
+                                                    <ul class="submenu">
+                                                        <li><a href="sanciones.faces">Sanciones</a></li>
+                                                    </ul>
+                                                </li>
+
+                                                <li><a href="trabajador.faces">Trabajadores</a></li>
+
+                                            </ul>
+                                        </li>
+
+                                        <li class="has-submenu">
+                                            <a href="#"><i class="fas fa-book-medical"></i> Enfermería <i class="mdi mdi-chevron-down mdi-drop"></i></a>
+                                            <ul class="submenu">
+                                                <li><a href="medico.faces"> Médico</a></li>
+                                                <li><a href="pacientesAtendidos.faces"> Pacientes Atendidos</a></li>
+                                                <li><a href="pacienteAtendidoMedicamento.faces"> Pacientes que Recibieron Medicamento</a></li>
+                                                <li><a href="medicamentos.faces"> Medicamentos</a></li>
+                                            </ul>
+                                        </li>
+
+
+                                        <li class="has-submenu">
+                                            <a href="reports.faces"><i class="fas fa-file-alt"></i>Información de los becados</a>
+                                        </li>
+
+                                        <li class="has-submenu">
+                                                    <a href="#">Usuarios</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="users.faces">Usuarios</a></li>
+                                                        <li><a href="RolesAdmin.faces">Roles</a></li>
+                                                        
+                                                    </ul>
+                                                </li>
+                                        
+                                    </ul>
+                                    <!-- End navigation menu -->
+                                </div>
+                                <!-- end #navigation -->
+                            </div>
+                            <!-- end container -->
+                        </div>
+                        <!-- end navbar-custom -->
+                    </header>
+                    <!-- End Navigation Bar-->
+
+                </div>
+                <!-- header-bg -->
+
+
+
+            </ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+
+
+
+            </ui:insert>
+        </div>
+
+
+
+        <div id="bottom">
+            <ui:insert name="bottom">
+
+                <!-- Footer -->
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12">
+                                © 2024 NCM  - Universidad Agraria de La Habana (UNAH)
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End Footer -->
+            </ui:insert>
+        </div>
+
+
+
+        <!-- jQuery  -->
+        <h:outputScript library="primefaces" value="primefaces/jquery.js"/>
+
+
+
+
+        <script src="assets/js/bootstrap.min.js"></script>
+
+        <script src="assets/js/popper.min.js"></script>
+
+        <script src="assets/js/modernizr.min.js"></script>
+        <script src="assets/js/detect.js"></script>
+        <script src="assets/js/fastclick.js"></script>
+        <script src="assets/js/jquery.slimscroll.js"></script>
+        <script src="assets/js/jquery.blockUI.js"></script>
+        <script src="assets/js/waves.js"></script>
+        <script src="assets/js/wow.min.js"></script>
+        <script src="assets/js/jquery.nicescroll.js"></script>
+        <script src="assets/js/jquery.scrollTo.min.js"></script>
+
+
+
+
+        <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+
+        <script src="assets/plugins/datatables/dataTables.buttons.min.js"></script>
+        <script src="assets/plugins/datatables/buttons.bootstrap4.min.js"></script>
+
+        <script src="assets/plugins/datatables/jszip.min.js"></script>
+        <script src="assets/plugins/datatables/pdfmake.min.js"></script>
+        <script src="assets/plugins/datatables/vfs_fonts.js"></script>
+        <script src="assets/plugins/datatables/buttons.html5.min.js"></script>
+        <script src="assets/plugins/datatables/buttons.print.min.js"></script>
+        <script src="assets/plugins/datatables/dataTables.fixedHeader.min.js"></script>
+        <script src="assets/plugins/datatables/dataTables.keyTable.min.js"></script>
+        <script src="assets/plugins/datatables/dataTables.scroller.min.js"></script>
+
+
+
+
+        <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
+        <script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+
+
+        <script src="assets/pages/datatables.init.js"></script>
+
+
+        <script src="assets/js/app.js"></script>
+
+
+        
+
+        
+    </h:body>
+
+</html>

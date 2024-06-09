@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+        
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Pacientes Atendidos</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{pacientesAtendidosBeans.cargarList()}
+
+                                                    <p:dataTable var="pa" value="#{pacientesAtendidosBeans.listpacientesAtendidos}" sortBy="#{pa.id}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Paciente Atendido" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+
+                                                            </div>
+                                                            <div align="left">
+
+                                                            </div>
+                                                        </f:facet>
+                                                        
+                                                        <p:column headerText="ID" style="text-align: center" priority="2" sortBy="#{pa.id}" filterBy="#{pa.id}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{pa.id}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Fecha" style="text-align: center" priority="2" width="14%" sortBy="#{pacientesAtendidosBeans.dateFormat(pa.fecha)}" filterBy="#{pacientesAtendidosBeans.dateFormat(pa.fecha)}">
+                                                            <h:outputText value="#{pacientesAtendidosBeans.dateFormat(pa.fecha)}" />
+                                                        </p:column>
+                                                        <p:column headerText="Becado" priority="2" sortBy="#{pacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}" filterBy="#{pacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}" style="text-align: center">
+                                                            <h:outputText value="#{pacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Médico" priority="2" filterBy="#{pacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}" sortBy="#{pacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}" style="text-align: center">
+                                                            <h:outputText value="#{pacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Tipo Consulta" priority="2" width="24%" sortBy="#{pa.tipoconsulta}" filterBy="#{pa.tipoconsulta}" style="text-align: center">
+                                                            <h:outputText value="#{pa.tipoconsulta}"/>
+                                                        </p:column>
+
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{pacientesAtendidosBeans.delete(pa)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este paciente?" icon="ui-icon-alert" />
+                                                            </p:commandButton>  
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{pa}" target="#{pacientesAtendidosBeans.pacientesatendidos}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form>
+
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white">    
+                                                            
+                                                            <h:outputLabel value="ID:"/>
+                                                            <p:inputText value="#{pacientesAtendidosBeans.id}" type="text"  placeholder="ID" />
+                                                            <h:outputLabel value="Fecha:"/>
+                                                            <p:calendar value="#{pacientesAtendidosBeans.fecha}"  placeholder="fecha"/>
+                                                            <h:outputLabel value="Becado:" for="b"/>
+                                                            <p:selectOneMenu id="b" value="#{pacientesAtendidosBeans.becadoCi}" title="Becado">
+                                                                <f:selectItem itemLabel="- Seleccione un becado -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{pacientesAtendidosBeans.map_becado}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Médico:" for="tra"/>
+                                                            <p:selectOneMenu id="ins" value="#{pacientesAtendidosBeans.medicoCiMedico}" title="Médico">
+                                                                <f:selectItem itemLabel="- Seleccione un médico -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{pacientesAtendidosBeans.map_medicos}" />
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Tipo Consulta:"/>
+                                                            <p:inputText value="#{pacientesAtendidosBeans.tipoConsulta}" type="text"  placeholder="Tipo Consulta" />
+
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{pacientesAtendidosBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+
+                                                <h:form id="editar">
+                                                    
+                                                    #{pacientesAtendidosBeans.setId(pacientesAtendidosBeans.pacientesatendidos.id)}
+                                                    #{pacientesAtendidosBeans.setFecha(pacientesAtendidosBeans.pacientesatendidos.fecha)}
+                                                    #{pacientesAtendidosBeans.setBecadoCi(pacientesAtendidosBeans.pacientesatendidos.becadoci)}
+                                                    #{pacientesAtendidosBeans.setMedicoCiMedico(pacientesAtendidosBeans.pacientesatendidos.medicociMedico)}
+                                                    #{pacientesAtendidosBeans.setTipoConsulta(pacientesAtendidosBeans.pacientesatendidos.tipoconsulta)}
+                                                    
+                                                    <p:dialog header="Modificar Paciente" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >      
+                                                            
+                                                            <h:outputLabel value="ID:"/>
+                                                            <p:inputText value="#{pacientesAtendidosBeans.id}" type="text"  placeholder="ID" disabled="true"/>
+                                                            <h:outputLabel value="Fecha:"/>
+                                                            <p:calendar value="#{pacientesAtendidosBeans.fecha}"  placeholder="fecha" disabled="true"/>
+
+                                                            <h:outputLabel value="Becado:" for="be"/>
+                                                            <p:selectOneMenu id="be" value="#{pacientesAtendidosBeans.becadoCi}" title="Becado">
+                                                                <f:selectItem itemLabel="- Seleccione un becado -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{pacientesAtendidosBeans.map_becado}"/>
+                                                            </p:selectOneMenu>
+
+                                                            <h:outputLabel value="Médico:" for="tr"/>
+                                                            <p:selectOneMenu id="i" value="#{pacientesAtendidosBeans.medicoCiMedico}" title="Médico">
+                                                                <f:selectItem itemLabel="- Seleccione un Médico -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{pacientesAtendidosBeans.map_medicos}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Tipo Consulta:"/>
+                                                            <p:inputText value="#{pacientesAtendidosBeans.tipoConsulta}" type="text"  placeholder="Tipo Consulta" />
+
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{pacientesAtendidosBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

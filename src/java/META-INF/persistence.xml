@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="sigrePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entities.Articuloreglam</class>
+    <class>entities.AspectEvalcuartel</class>
+    <class>entities.AspectEvalcuarto</class>
+    <class>entities.AspectEvalcuartoEvalcuarto</class>
+    <class>entities.Authorities</class>
+    <class>entities.Becado</class>
+    <class>entities.Capituloreglam</class>
+    <class>entities.Cuarto</class>
+    <class>entities.Edificio</class>
+    <class>entities.Enfermedades</class>
+    <class>entities.Evalbecado</class>
+    <class>entities.Evalcuarteleria</class>
+    <class>entities.EvalcuarteleriaAspectevalcuartel</class>
+    <class>entities.Evalcuarto</class>
+    <class>entities.Evalguardia</class>
+    <class>entities.Incisoreglam</class>
+    <class>entities.Medicamentos</class>
+    <class>entities.Medico</class>
+    <class>entities.PacatendMedicamentos</class>
+    <class>entities.Pacientesatendidos</class>
+    <class>entities.Piso</class>
+    <class>entities.Planteamientos</class>
+    <class>entities.Rangos</class>
+    <class>entities.Sanciones</class>
+    <class>entities.Tipoevalbecado</class>
+    <class>entities.Trabajador</class>
+    <class>entities.Trabajoprod</class>
+    <class>entities.User</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Residencia_Unah"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="postgres"/>
+    </properties>
+  </persistence-unit>
+</persistence>

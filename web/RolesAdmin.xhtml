@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Gestión de Roles de usuario</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{authoritiesBeans.update_List()}
+                                                    #{authoritiesBeans.update_users_autorities()}
+                                                    <p:dataTable var="authority" value="#{authoritiesBeans.authorities_list}" rowKey="#{authority.authoritiesPK.user}" editable="true" sortBy="#{authority.authoritiesPK.user}">
+                                                        <f:facet name="header">
+                                                            <div align="left">
+                                                                <p:commandButton value="Añadir Roles" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
+                                                            </div>
+                                                        </f:facet>
+                                                        
+                                                        <p:column width="30">
+                                                           <h:selectBooleanCheckbox value="#{authority.isSelected}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Usuario" filterBy="#{authority.authoritiesPK.user}" filterMatchMode="contains" filterStyle="width:auto">
+                                                            <h:outputText value="#{authority.authoritiesPK.user}" />
+                                                        </p:column>
+                                                        <p:column headerText="Rol" filterBy="#{authority.authoritiesPK.authority}" filterMatchMode="contains" filterStyle="width:auto">
+                                                            <h:outputText value="#{authority.authoritiesPK.authority}" />
+                                                        </p:column>
+
+                                                        <p:column width="100" headerText="Opciones" priority="5">
+                                                            <p:commandButton update="formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{authoritiesBeans.eliminar()}">                     
+                                                                <p:confirm message="¿Seguro de eliminar el/los elementos?." icon="ui-icon-alert"/>
+                                                            </p:commandButton> 
+                                                        </p:column>
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false" position="">
+                                                        <p:panelGrid columns="2" style="background: lightgrey">
+                                                            
+                                                            <h:outputLabel value="Usuario:" style="color: #000"/>
+                                                            <p:selectOneMenu value="#{authoritiesBeans.user}" style="width: 250px">
+                                                                <f:selectItems value="#{authoritiesBeans.list_users}"/>
+                                                            </p:selectOneMenu>
+
+                                                            <h:outputLabel value="Rol:" style="color: #000"/>
+                                                            <p:selectOneMenu value="#{authoritiesBeans.authority_label}" style="width: 250px">
+                                                                <f:selectItems value="#{authoritiesBeans.list_authorities}"/>
+                                                            </p:selectOneMenu>
+                                                 
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{authoritiesBeans.añadir()}" style="color: black" oncomplete="PF('dlg1').hide()" />
+                                                        </p:panelGrid>
+                                                    </p:dialog>
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

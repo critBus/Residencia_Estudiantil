@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Edificios</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{edificioBeans.cargarList()}
+                                                    <p:dataTable var="edif" value="#{edificioBeans.listEdif}" sortBy="#{edif.id}">
+                                                        <f:facet name="header">
+                                                            <div align="left">
+                                                                <p:commandButton value="Añadir Edificio" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
+
+                                                            </div>
+                                                            </f:facet>
+                                                        <p:column headerText="Edificio" sortBy="#{edif.id}" filterBy="#{edif.id}" priority="1" width="130" style="text-align: center">
+                                                            <h:outputText value="#{edif.id}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Nombre" sortBy="#{edif.nombre}" filterBy="#{edif.nombre}" priority="1" width="130" style="text-align: center">
+                                                            <h:outputText value="#{edif.nombre}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Especialista" sortBy="#{edificioBeans.nombreApell(edif.especialista)}" filterBy="#{edificioBeans.nombreApell(edif.especialista)}" priority="1" style="text-align: center">
+                                                            <h:outputText value="#{edificioBeans.nombreApell(edif.especialista)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Instructor" sortBy="#{edificioBeans.nombreApell(edif.instructor)}" filterBy="#{edificioBeans.nombreApell(edif.instructor)}" priority="2" style="text-align: center">
+                                                            <h:outputText value="#{edificioBeans.nombreApell(edif.instructor)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Jefe de Edicio" sortBy="#{edif.jefeedif.nombre}" filterBy="#{edif.jefeedif.nombre}" priority="2" style="text-align: center">
+                                                            <h:outputText value="#{edif.jefeedif}"/>
+                                                        </p:column>
+                                                        
+
+
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{edif}" target="#{edificioBeans.edificio}"/>
+                                                            </p:commandButton>
+                                                        </p:column>
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="true" closable="false" resizable="false" position="">
+                                                        <p:panelGrid columns="2" style="background: lightgrey">
+                                                            <h:outputLabel value="Edificio:"/>
+                                                            <p:inputText value="#{edificioBeans.idEdificio}" type="text"  placeholder="Edificio"/>
+                                                            <h:outputLabel value="Nombre:"/>
+                                                            <p:inputText value="#{edificioBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            
+                                                            <h:outputLabel value="Especialista:" for="esp"/>
+                                                            <p:selectOneMenu id="esp" value="#{edificioBeans.especialista}" title="Especialista">
+                                                                <f:selectItem itemLabel="- Seleccione Uno -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{edificioBeans.map_trab}"/>
+                                                            </p:selectOneMenu> 
+                                                            
+                                                            <h:outputLabel value="Instructor:" for="ins"/>
+                                                            <p:selectOneMenu id="ins" value="#{edificioBeans.instructor}" title="Instructor">
+                                                                <f:selectItem itemLabel="- Seleccione Uno -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{edificioBeans.map_trab}"/>
+                                                            </p:selectOneMenu> 
+                                                            
+                                                            <h:outputLabel value="Jefe de Edificio:" for="jef"/>
+                                                            <p:selectOneMenu id="jef" value="#{edificioBeans.jefeEdificio}" title="JefeEdif">
+                                                                <f:selectItem itemLabel="- Seleccione Uno -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{edificioBeans.map_becad}"/>
+                                                            </p:selectOneMenu> 
+                                                            
+                                                            
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{edificioBeans.insert()}" style="color: black" oncomplete="PF('dlg1').hide()" />
+                                                        </p:panelGrid>
+                                                    </p:dialog>
+                                                </h:form>
+
+                                                <h:form id="editar">
+                                                    #{edificioBeans.setIdEdificio(edificioBeans.edificio.id)}
+                                                    #{edificioBeans.setNombre(edificioBeans.edificio.nombre)}
+                                                    #{edificioBeans.setEspecialista(edificioBeans.edificio.especialista.ci)}
+                                                    #{edificioBeans.setInstructor(edificioBeans.edificio.instructor.ci)}
+                                                    #{edificioBeans.setJefeEdificio(edificioBeans.edificio.jefeedif.ci)}
+
+                                                    <p:dialog header="Modificar Edificio" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+                                                        <p:panelGrid columns="2">
+                                                            <h:outputLabel value="Edificio Id:"/>
+                                                            <p:inputText value="#{edificioBeans.idEdificio}" type="text"  placeholder="Edificio Id" disabled="true" style="background: lightgrey; color: black"/>
+                                                            <h:outputLabel value="Nombre:"/>
+                                                            <p:inputText value="#{edificioBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            
+                                                            <h:outputLabel value="Especialista:" for="esp"/>
+                                                            <p:selectOneMenu id="esp" value="#{edificioBeans.especialista}" title="Especialista">
+                                                                <f:selectItem itemLabel="- Sin especialista -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{edificioBeans.map_trab}"/>
+                                                            </p:selectOneMenu> 
+                                                            
+                                                            <h:outputLabel value="Instructor:" for="ins"/>
+                                                            <p:selectOneMenu id="ins" value="#{edificioBeans.instructor}" title="Instructor">
+                                                                <f:selectItem itemLabel="- Sin instructor -"  noSelectionOption="true"/>
+                                                                <f:selectItems value="#{edificioBeans.map_trab}"/>
+                                                            </p:selectOneMenu> 
+                                                            
+                                                            <h:outputLabel value="Jefe de Edificio:" for="jef"/>
+                                                            <p:selectOneMenu id="jef" value="#{edificioBeans.jefeEdificio}" title="JefeEdif">
+                                                                <f:selectItem itemLabel="- Sin jefe de edificio -"  noSelectionOption="true"/>
+                                                                <f:selectItems value="#{edificioBeans.map_becad}"/>
+                                                            </p:selectOneMenu> 
+                                                            
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{edificioBeans.edit()}" style="color: black" oncomplete="PF('dlg2').hide()"/>
+                                                        </p:panelGrid>
+                                                    </p:dialog>
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

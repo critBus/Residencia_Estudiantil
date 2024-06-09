@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+        
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Evaluación de la Guardia</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{evalGuardiaBeans.cargarList()}
+
+                                                    <p:dataTable var="eg" value="#{evalGuardiaBeans.listEvalGuardia}" sortBy="#{eg.evalguardiaPK.fecha}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Evaluación Guardia" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+
+                                                            </div>
+                                                            <div align="left">
+
+                                                            </div>
+                                                        </f:facet>
+
+                                                        <p:column headerText="Fecha" style="text-align: center" priority="2" width="14%" sortBy="#{evalGuardiaBeans.dateFormat(eg.evalguardiaPK.fecha)}" filterBy="#{evalGuardiaBeans.dateFormat(eg.evalguardiaPK.fecha)}">
+                                                            <h:outputText value="#{evalGuardiaBeans.dateFormat(eg.evalguardiaPK.fecha)}" />
+                                                        </p:column>
+                                                        <p:column headerText="Becado" priority="2" sortBy="#{evalGuardiaBeans.nombreApellbeca(eg.becado)}" filterBy="#{evalGuardiaBeans.nombreApellbeca(eg.becado)}" style="text-align: center">
+                                                            <h:outputText value="#{evalGuardiaBeans.nombreApellbeca(eg.becado)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Inspeccionado por" priority="2" filterBy="#{evalGuardiaBeans.nombreApell(eg.trabajadorci)}" sortBy="#{evalGuardiaBeans.nombreApell(eg.trabajadorci)}" style="text-align: center">
+                                                            <h:outputText value="#{evalGuardiaBeans.nombreApell(eg.trabajadorci)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Evaluación" priority="2" width="24%" sortBy="#{eg.evaluacion}" filterBy="#{eg.evaluacion}" style="text-align: center">
+                                                            <h:outputText value="#{eg.evaluacion}"/>
+                                                        </p:column>
+
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{eg}" target="#{evalGuardiaBeans.evalguardia}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form>
+
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white">    
+
+                                                            <h:outputLabel value="Fecha:"/>
+                                                            <p:calendar value="#{evalGuardiaBeans.fecha}"  placeholder="fecha"/>
+
+                                                            <h:outputLabel value="Becado:" for="b"/>
+                                                            <p:selectOneMenu id="b" value="#{evalGuardiaBeans.becadoCi}" title="Becado">
+                                                                <f:selectItem itemLabel="- Seleccione un becado -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{evalGuardiaBeans.map_becado}"/>
+                                                            </p:selectOneMenu>
+
+                                                            <h:outputLabel value="Trabajador:" for="is"/>
+                                                            <p:selectOneMenu id="is" value="#{evalGuardiaBeans.trabajadorci}" title="Trabajador">
+                                                                <f:selectItem itemLabel="- Seleccione un trabajador -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{evalGuardiaBeans.map_trab}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Evaluacion:"/>
+                                                            <p:spinner value="#{evalGuardiaBeans.evaluacion}" placeholder="Evaluacion" min="0" max="5"/>
+
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{evalGuardiaBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+
+                                                <h:form id="editar">
+
+                                                    #{evalGuardiaBeans.setFecha(evalGuardiaBeans.evalguardia.evalguardiaPK.fecha)}
+                                                    #{evalGuardiaBeans.setBecadoCi(evalGuardiaBeans.evalguardia.evalguardiaPK.becadoci)}
+                                                    #{evalGuardiaBeans.setTrabajadorci(evalGuardiaBeans.evalguardia.trabajadorci)}
+                                                    #{evalGuardiaBeans.setEvaluacion(evalGuardiaBeans.evalguardia.evaluacion)}
+                                                    
+                                                    <p:dialog header="Modificar Evaluación" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >                            
+
+                                                            <h:outputLabel value="Fecha:"/>
+                                                            <p:calendar value="#{evalGuardiaBeans.fecha}"  placeholder="fecha" disabled="true"/>
+
+                                                            <h:outputLabel value="Becado:" for="be"/>
+                                                            <p:selectOneMenu id="be" value="#{evalGuardiaBeans.becadoCi}" title="Becado" disabled="true">
+                                                                <f:selectItem itemLabel="- Seleccione un becado -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{evalGuardiaBeans.map_becado}"/>
+                                                            </p:selectOneMenu>
+
+                                                            <h:outputLabel value="Trabajador:" for="i"/>
+                                                            <p:selectOneMenu id="i" value="#{evalGuardiaBeans.trabajadorci}" title="Trabajador">
+                                                                <f:selectItem itemLabel="- Seleccione un Trabajador -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{evalGuardiaBeans.map_trab}"/>
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Evaluacion:"/>
+                                                            <p:spinner value="#{evalGuardiaBeans.evaluacion}" placeholder="Evaluacion" min="0" max="5"/>
+
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{evalGuardiaBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

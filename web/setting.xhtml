@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <h3 class="page-title m-0">Ajustes</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-lg-5" >
+                                <div class="card">
+                                    <div class="card-body user-card" style="margin: 15px">
+                                        <h:form class="form-horizontal" >
+                                            
+                                            <h:panelGrid columns="2" styleClass="ui-panelgrid-blank" style="width: 100%" >   
+                                                <p:growl id="msg"/>
+                                                <div class="col-lg-5">
+                                                    <div class="list-group">
+                                                        <a href="aspect_evalcuart.faces" class="list-group-item list-group-item-action">Aspectos Evaluativos del Cuarto</a>
+                                                        <a href="aspect_evalcuartel.faces" class="list-group-item list-group-item-action">Aspectos Evaluativos de la Cuartelería</a>
+                                                        <a href="#" class="list-group-item list-group-item-action">Medicamentos</a>
+                                                        <a href="enfermedades.faces" class="list-group-item list-group-item-action">Enfermedades</a>
+                                                        <a href="#" class="list-group-item list-group-item-action">Estados de los Planteamientos</a>
+                                                        <a href="estado_sancion.faces" class="list-group-item list-group-item-action">Estados de las Sanciones</a>
+                                                        <a href="estad_repair.faces" class="list-group-item list-group-item-action">Estados de las Reparaciones</a>
+                                                        <a href="#" class="list-group-item list-group-item-action">Tipos de Evaluación del Becado</a>
+                                                        <a href="tipoConsulta.faces" class="list-group-item list-group-item-action">Tipos de Consulta Médica</a>
+                                                        <a href="reglament.faces" class="list-group-item list-group-item-action">Reglamento Interno de la Residencia Estudiantil</a>
+                                                        
+                                                    </div> <!-- list-group -->
+                                                </div> <!-- col -->
+                                            </h:panelGrid>
+                                        </h:form>
+                                    </div> <!-- card-body -->
+                                </div>
+                            </div>
+
+                            
+
+
+                        </div> <!-- end row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+                
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

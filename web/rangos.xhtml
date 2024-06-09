@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-lg-10">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Rangos</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{rangosBeans.cargarList()}
+                                                    <p:dataTable var="rang" value="#{rangosBeans.listRangos}" sortBy="#{rang.nombre}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Rango" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+
+                                                            </div>
+                                                            
+                                                        </f:facet>
+
+                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{rang.nombre}" filterBy="#{rang.nombre}">
+                                                            <h:outputText value="#{rang.nombre}" />
+                                                        </p:column>
+                                                        <p:column headerText="Valor Máximo" style="text-align: center" priority="2" sortBy="#{rang.valormax}" filterBy="#{rang.valormax}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{rang.valormax}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Valor Minimo" style="text-align: center" priority="2" sortBy="#{rang.valormin}" filterBy="#{rang.valormin}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{rang.valormin}"/>
+                                                        </p:column>
+                                                        
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{rangosBeans.delete(rang)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este rango?. Esta accion puede eliminar posibles evaluacion registradas con este rango." icon="ui-icon-alert" />
+                                                            </p:commandButton>  
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{rang}" target="#{rangosBeans.rangos}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true" width="500">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white"> 
+                                                            
+                                                            <h:outputLabel value="Nombre:"/>
+                                                            <p:inputText value="#{rangosBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            <h:outputLabel value="Valor Máximo:"/>
+                                                            <p:inputText value="#{rangosBeans.valorMax}" type="text"  placeholder="Valor Máximo" />
+                                                            <h:outputLabel value="Valor Minimo:"/>
+                                                            <p:inputText value="#{rangosBeans.valorMin}" type="text"  placeholder="Valor Minimo" />
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{rangosBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+                                                <h:form id="editar">
+
+                                                    #{rangosBeans.setNombre(rangosBeans.rangos.nombre)}
+                                                    #{rangosBeans.setValorMax(rangosBeans.rangos.valormax)}
+                                                    #{rangosBeans.setValorMin(rangosBeans.rangos.valormin)}
+                                                   
+                                                    <p:dialog header="Modificar Rango" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >                            
+
+                                                            <h:outputLabel value="Nombre:"/>
+                                                            <p:inputText value="#{rangosBeans.nombre}" type="text"  placeholder="Nombre" disabled="true"/>
+                                                            <h:outputLabel value="Valor Máximo:"/>
+                                                            <p:inputText value="#{rangosBeans.valorMax}" type="text"  placeholder="Valor Máximo"/>
+                                                            <h:outputLabel value="Valor Minimo:"/>
+                                                            <p:inputText value="#{rangosBeans.valorMin}" type="text"  placeholder="Valor Minimo"/>
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{rangosBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

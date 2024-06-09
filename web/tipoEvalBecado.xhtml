@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+ 
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            
+                            <div class="col-lg-10">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Tipo Evaluación Becado</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{tipoEvalBecadoBeans.cargarList()}
+                                                    <p:dataTable var="tipevalbec" value="#{tipoEvalBecadoBeans.listTipoEvalBecad}" sortBy="#{tipevalbec.id}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Tipo Evaluación Becado" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+
+                                                            </div>
+                                                            
+                                                        </f:facet>
+
+                                                        <p:column headerText="ID" style="text-align: center" priority="2" width="16%" sortBy="#{tipevalbec.id}" filterBy="#{tipevalbec.id}">
+                                                            <h:outputText value="#{tipevalbec.id}" />
+                                                        </p:column>
+                                                        <p:column headerText="Tipo" style="text-align: center" priority="2" sortBy="#{tipevalbec.tipo}" filterBy="#{tipevalbec.tipo}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{tipevalbec.tipo}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Descripción" priority="2" sortBy="#{tipevalbec.descripcion}" filterBy="#{tipevalbec.descripcion}">
+                                                            <div style="text-align: justify">
+                                                            <h:outputText value="#{tipevalbec.descripcion}"/>
+                                                            </div>
+                                                        </p:column>
+                                                        
+                                                        <p:column width="100" headerText="Opciones" priority="5">
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{tipoEvalBecadoBeans.delete(tipevalbec)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este tipo de evaluación becado?. Esta accion puede eliminar posibles evaluacion registradas con este tipo de evaluacion becado." icon="ui-icon-alert" />
+                                                            </p:commandButton>  
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{tipevalbec}" target="#{tipoEvalBecadoBeans.tipoevalbecado}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true" width="500">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white"> 
+                                                            
+                                                            <h:outputLabel value="ID:"/>
+                                                            <p:inputText value="#{tipoEvalBecadoBeans.id}" type="text"  placeholder="ID" />
+                                                            <h:outputLabel value="Tipo:"/>
+                                                            <p:inputText value="#{tipoEvalBecadoBeans.tipo}" type="text"  placeholder="Nombre" />
+                                                            <h:outputLabel value="Descripción:"/>
+                                                            <p:inputTextarea value="#{tipoEvalBecadoBeans.descripcion}" placeholder="Descripción" style="text-align: justify"/>
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{tipoEvalBecadoBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+                                                <h:form id="editar">
+
+                                                    #{tipoEvalBecadoBeans.setId(tipoEvalBecadoBeans.tipoevalbecado.id)}
+                                                    #{tipoEvalBecadoBeans.setTipo(tipoEvalBecadoBeans.tipoevalbecado.tipo)}
+                                                    #{tipoEvalBecadoBeans.setDescripcion(tipoEvalBecadoBeans.tipoevalbecado.descripcion)}
+                                                   
+                                                    <p:dialog header="Modificar Tipo evaluación becado" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >                            
+
+                                                            <h:outputLabel value="Tipo:"/>
+                                                            <p:inputText value="#{tipoEvalBecadoBeans.tipo}" type="text"  placeholder="Nombre"/>
+                                                            <h:outputLabel value="Descripción:"/>
+                                                            <p:inputTextarea value="#{tipoEvalBecadoBeans.descripcion}" placeholder="Descripción" style="text-align: justify"/>
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{tipoEvalBecadoBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

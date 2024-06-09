@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Aspecto de Evaluación de los Cuartos</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{aspectEvalCuartoEvalCuartoBeans.cargarList()}
+                                                   
+                                                    <p:dataTable var="aspevalcu" value="#{aspectEvalCuartoEvalCuartoBeans.listAspEv_EvCuarto}" sortBy="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.aspevalcuartoid}" >
+                                                        
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Aspecto de Evaluación de los Cuartos" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+                                                                
+                                                            </div>
+                                                            <div align="left">
+                                                                
+                                                            </div>
+                                                        </f:facet>
+
+                                                        <p:column headerText="Fecha" style="text-align: center" priority="2" width="14%" sortBy="#{aspectEvalCuartoEvalCuartoBeans.dateFormat(aspevalcu.aspectEvalcuartoEvalcuartoPK.fecha)}" filterBy="#{aspectEvalCuartoEvalCuartoBeans.dateFormat(aspevalcu.aspectEvalcuartoEvalcuartoPK.fecha)}">
+                                                            <h:outputText value="#{aspectEvalCuartoEvalCuartoBeans.dateFormat(aspevalcu.aspectEvalcuartoEvalcuartoPK.fecha)}" />
+                                                        </p:column>
+                                                        <p:column headerText="Aspecto Evaluativo Cuarto" style="text-align: center" priority="2" width="16%" sortBy="#{aspevalcu.aspectEvalcuarto.name}" filterBy="#{aspevalcu.aspectEvalcuarto.name}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{aspevalcu.aspectEvalcuarto.name}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Cuarto" style="text-align: center" priority="2" width="16%" sortBy="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.cuartoid}" filterBy="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.cuartoid}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.cuartoid}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Piso" style="text-align: center" priority="2" width="16%" sortBy="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.pisoid}" filterBy="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.pisoid}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.pisoid}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" width="16%" sortBy="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.edificioid}" filterBy="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.edificioid}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{aspevalcu.aspectEvalcuartoEvalcuartoPK.edificioid}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Valor" priority="2" sortBy="#{aspevalcu.value}" filterBy="#{aspevalcu.value}" style="text-align: center">
+                                                            <h:outputText value="#{aspevalcu.value}"/>
+                                                        </p:column>
+                                                        
+                                                        <p:column width="140" headerText="Opciones" priority="5" style="text-align: center">
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{aspevalcu}" target="#{aspectEvalCuartoEvalCuartoBeans.aspectEvalcuartoEvalcuarto}"/>
+                                                            </p:commandButton>
+                                                        </p:column>
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form>
+
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white">    
+
+                                                           <h:outputLabel value="Fecha:"/>
+                                                            <p:calendar value="#{aspectEvalCuartoEvalCuartoBeans.fecha}"  placeholder="fecha"/>
+                                                            
+                                                            <h:outputLabel value="Aspecto Evaluativo Cuarto:" for="AspectoEvaluativoCuarto"/>
+                                                            <p:selectOneMenu id="AspectoEvaluativoCuarto" value="#{aspectEvalCuartoEvalCuartoBeans.aspEvalCuartoId}" title="Aspecto Evaluativo Cuarto">
+                                                                <f:selectItem itemLabel="- Seleccione Un Aspecto Evaluativo Cuarto -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_aspEvalCuarto}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Cuarto:" for="cuarto"/>
+                                                            <p:selectOneMenu id="cuarto" value="#{aspectEvalCuartoEvalCuartoBeans.cuartoId}" title="Cuarto">
+                                                                <f:selectItem itemLabel="- Seleccione Un Cuarto -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_Cuarto}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Piso:" for="piso"/>
+                                                            <p:selectOneMenu id="piso" value="#{aspectEvalCuartoEvalCuartoBeans.pisoId}" title="Piso">
+                                                                <f:selectItem itemLabel="- Seleccione Un Piso -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_Piso}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Edificio:" for="edificio"/>
+                                                            <p:selectOneMenu id="edificio" value="#{aspectEvalCuartoEvalCuartoBeans.edificioId}" title="Edificios">
+                                                                <f:selectItem itemLabel="- Seleccione Un Edificio -" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_Edificio}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Valor:"/>
+                                                            <p:spinner value="#{aspectEvalCuartoEvalCuartoBeans.value}" placeholder="Valor" min="0" max="5"/>
+                                                            
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{aspectEvalCuartoEvalCuartoBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+                                                
+                                                
+                                                <h:form id="editar">
+
+                                                    #{aspectEvalCuartoEvalCuartoBeans.setFecha(aspectEvalCuartoEvalCuartoBeans.aspectEvalcuartoEvalcuarto.aspectEvalcuartoEvalcuartoPK.fecha)}
+                                                    #{aspectEvalCuartoEvalCuartoBeans.setAspEvalCuartoId(aspectEvalCuartoEvalCuartoBeans.aspectEvalcuartoEvalcuarto.aspectEvalcuartoEvalcuartoPK.aspevalcuartoid)}
+                                                    #{aspectEvalCuartoEvalCuartoBeans.setCuartoId(aspectEvalCuartoEvalCuartoBeans.aspectEvalcuartoEvalcuarto.aspectEvalcuartoEvalcuartoPK.cuartoid)}
+                                                    #{aspectEvalCuartoEvalCuartoBeans.setPisoId(aspectEvalCuartoEvalCuartoBeans.aspectEvalcuartoEvalcuarto.aspectEvalcuartoEvalcuartoPK.pisoid)}
+                                                    #{aspectEvalCuartoEvalCuartoBeans.setEdificioId(aspectEvalCuartoEvalCuartoBeans.aspectEvalcuartoEvalcuarto.aspectEvalcuartoEvalcuartoPK.edificioid)}
+                                                    #{aspectEvalCuartoEvalCuartoBeans.setValue(aspectEvalCuartoEvalCuartoBeans.aspectEvalcuartoEvalcuarto.value)}
+
+                                                    <p:dialog header="Modificar Aspecto de Evaluación de los Cuartos" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >                            
+
+                                                           <h:outputLabel value="Fecha:"/>
+                                                            <p:calendar value="#{aspectEvalCuartoEvalCuartoBeans.fecha}"  placeholder="fecha" disabled="true"/>
+                                                            
+                                                            <h:outputLabel value="Aspecto Evaluativo Cuarto:" for="AspectoEvaluativoCuarto"/>
+                                                            <p:selectOneMenu id="AspectoEvaluativoCuarto" value="#{aspectEvalCuartoEvalCuartoBeans.aspEvalCuartoId}" title="Aspecto Evaluativo Cuarto" disabled="true">
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_aspEvalCuarto}"/>
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Cuarto:" for="cuarto"/>
+                                                            <p:selectOneMenu id="cuarto" value="#{aspectEvalCuartoEvalCuartoBeans.cuartoId}" title="Cuarto" disabled="true">
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_Cuarto}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Piso:" for="piso"/>
+                                                            <p:selectOneMenu id="piso" value="#{aspectEvalCuartoEvalCuartoBeans.pisoId}" title="Piso" disabled="true">
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_Piso}"/>
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Edificio:" for="edificio"/>
+                                                            <p:selectOneMenu id="edificio" value="#{aspectEvalCuartoEvalCuartoBeans.edificioId}" title="Edificios" disabled="true">
+                                                                <f:selectItems value="#{aspectEvalCuartoEvalCuartoBeans.map_Edificio}"/>
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Valor:"/>
+                                                            <p:spinner value="#{aspectEvalCuartoEvalCuartoBeans.value}" placeholder="Valor" min="0" max="5"/>
+                                                        </p:panelGrid>
+                                                        
+                                                        <br/>
+                                                            <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{aspectEvalCuartoEvalCuartoBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                            </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

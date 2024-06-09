@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <body>
+        
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Pacientes con Medicamento</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{pacienteAtendidoMedicamentoBeans.cargarList()}
+
+                                                    <p:dataTable var="patenmedicam" value="#{pacienteAtendidoMedicamentoBeans.listPacAtendidoMedicamento}" sortBy="#{patenmedicam.pacatendMedicamentosPK.pacatendid}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Pacientes con Medicamento" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+
+                                                            </div>
+                                                            <div align="left">
+
+                                                            </div>
+                                                        </f:facet>
+
+                                                        <p:column headerText="Código de pacientes" priority="2" sortBy="#{patenmedicam.pacientesatendidos.id}" filterBy="#{patenmedicam.pacientesatendidos.id}" style="text-align: center">
+                                                            <h:outputText value="#{patenmedicam.pacientesatendidos.id}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Medicamentos" priority="2" filterBy="#{patenmedicam.medicamentos.nombre}" sortBy="#{patenmedicam.medicamentos.nombre}" style="text-align: center">
+                                                            <h:outputText value="#{patenmedicam.medicamentos.nombre}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Cantidad" priority="2" width="24%" sortBy="#{patenmedicam.cantadim}" filterBy="#{patenmedicam.cantadim}" style="text-align: center">
+                                                            <h:outputText value="#{patenmedicam.cantadim}"/>
+                                                        </p:column>
+
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{pacienteAtendidoMedicamentoBeans.delete(patenmedicam)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este paciente con medicamento?" icon="ui-icon-alert" />
+                                                            </p:commandButton>
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{patenmedicam}" target="#{pacienteAtendidoMedicamentoBeans.pacatendMedicamentos}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form>
+
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white">    
+
+                                                            <h:outputLabel value="Pacientes:" for="paten"/>
+                                                            <p:selectOneMenu id="paten" value="#{pacienteAtendidoMedicamentoBeans.pacAtendId}" title="Pacientes">
+                                                                <f:selectItem itemLabel="- Seleccione un pacientes -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_pacAtendidos}"/>
+                                                            </p:selectOneMenu>
+
+                                                            <h:outputLabel value="Medicamento:" for="medic"/>
+                                                            <p:selectOneMenu id="medic" value="#{pacienteAtendidoMedicamentoBeans.medicamId}" title="Medicamento">
+                                                                <f:selectItem itemLabel="- Seleccione un medicamento -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_Medicamento}" />
+                                                            </p:selectOneMenu>
+                                                            <h:outputLabel value="Cantidad:"/>
+                                                            <p:spinner value="#{pacienteAtendidoMedicamentoBeans.cantAdmi}" placeholder="Cantidad" min="0" max="10"/>
+
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{pacienteAtendidoMedicamentoBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+
+                                                <h:form id="editar">
+
+                                                    #{pacienteAtendidoMedicamentoBeans.setPacAtendId(pacienteAtendidoMedicamentoBeans.pacatendMedicamentos.pacatendMedicamentosPK.pacatendid)}
+                                                    #{pacienteAtendidoMedicamentoBeans.setMedicamId(pacienteAtendidoMedicamentoBeans.pacatendMedicamentos.pacatendMedicamentosPK.medicamid)}
+                                                    #{pacienteAtendidoMedicamentoBeans.setCantAdmi(pacienteAtendidoMedicamentoBeans.pacatendMedicamentos.cantadim)}
+                                                    
+                                                    <p:dialog header="Modificar Pacientes con Medicamento" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >                            
+
+                                                            <h:outputLabel value="Pacientes:" for="pat"/>
+                                                            <p:selectOneMenu id="pat" value="#{pacienteAtendidoMedicamentoBeans.pacAtendId}" title="Pacientes" disabled="true">
+                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_pacAtendidos}"/>
+                                                            </p:selectOneMenu>
+
+                                                            <h:outputLabel value="Medicamento:" for="med"/>
+                                                            <p:selectOneMenu id="med" value="#{pacienteAtendidoMedicamentoBeans.medicamId}" title="Medicamento" disabled="true">
+                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_Medicamento}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Cantidad:"/>
+                                                            <p:spinner value="#{pacienteAtendidoMedicamentoBeans.cantAdmi}" placeholder="Cantidad" min="0" max="10"/>
+
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{pacienteAtendidoMedicamentoBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
