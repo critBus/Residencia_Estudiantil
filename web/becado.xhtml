@@ -108,7 +108,9 @@
                                                             <h:outputLabel for="@next" value="CI"/>
                                                             <p:inputMask value="#{becadoBeans.ci}" mask="99999999999" 
                                                                          label="CI"
-                                                                         />
+                                                                         validatorMessage="El CI debe estar conformado por 11 números">
+                                                                <f:validateRegex pattern="^[0-9]{11}$" />
+                                                            </p:inputMask>
                                                             <h:outputLabel for="@next" value="Codigo"/>
                                                             <p:inputText value="#{becadoBeans.codigo}" type="text" 
                                                                          label="Codigo"
