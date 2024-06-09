@@ -168,7 +168,7 @@ public class becadoBeans implements Serializable {
         beber = false;
         nucleoFamiliar = null;
         carrera = null;
-        anno = 2024;
+        anno = 1;
         sexo = false;
         telefono = null;
         facultad = null;
