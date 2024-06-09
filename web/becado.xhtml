@@ -57,11 +57,11 @@
                                                         <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadoBeans.nombre_y_apellidos(pa)}" filterBy="#{becadoBeans.nombre_y_apellidos(pa)}">
                                                             <h:outputText value="#{becadoBeans.nombre_y_apellidos(pa)}"/>
                                                         </p:column>
-                                                        
+
                                                         <p:column headerText="Año" style="text-align: center" priority="2" sortBy="#{pa.anno}" filterBy="#{pa.anno}">
                                                             <h:outputText value="#{pa.anno}"/>
                                                         </p:column>
-                                                        
+
                                                         <p:column headerText="Facultad" style="text-align: center" priority="2" sortBy="#{pa.facultad}" filterBy="#{pa.facultad}">
                                                             <h:outputText value="#{pa.facultad}"/>
                                                         </p:column>
@@ -69,7 +69,7 @@
                                                         <p:column headerText="Cuarto" style="text-align: center" priority="2" sortBy="#{becadoBeans.cuarto_str_de_becado(pa)}" filterBy="#{becadoBeans.cuarto_str_de_becado(pa)}">
                                                             <h:outputText value="#{becadoBeans.cuarto_str_de_becado(pa)}"/>
                                                         </p:column>
-                                                        
+
                                                         <p:column headerText="Sexo" style="text-align: center" priority="2" sortBy="#{becadoBeans.sexo_str(pa)}" filterBy="#{becadoBeans.sexo_str(pa)}">
                                                             <h:outputText value="#{becadoBeans.sexo_str(pa)}"/>
                                                         </p:column>
@@ -145,7 +145,7 @@
                                                             <p:spinner value="#{becadoBeans.anno}" min="2020" max="2030" rotate="true" />
                                                             <p:outputLabel for="@next" value="Sexo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.sexo}"  
-                                                                                   onLabel="Femenino" offLabel="Masculino" 
+                                                                                   onLabel="Masculino" offLabel="Femenino" 
 
                                                                                    style="width:200px"/>
 
@@ -239,7 +239,7 @@
                                                             <p:spinner value="#{becadoBeans.anno}" min="2020" max="2030" rotate="true" />
                                                             <p:outputLabel for="@next" value="Sexo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.sexo}"  
-                                                                                   onLabel="Femenino" offLabel="Masculino" 
+                                                                                   onLabel="Masculino" offLabel="Femenino" 
 
                                                                                    style="width:200px"/>
 
