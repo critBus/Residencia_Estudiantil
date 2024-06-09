@@ -110,11 +110,20 @@
                                                             <h:outputLabel for="@next" value="Codigo"/>
                                                             <p:inputText value="#{becadoBeans.codigo}" type="text"  placeholder="codigo" />
                                                             <h:outputLabel for="@next" value="Nombre"/>
-                                                            <p:inputText value="#{becadoBeans.nombre}" type="text"  placeholder="nombre" />
+                                                            <p:inputText value="#{becadoBeans.nombre}" type="text" 
+                                                                         placeholder="nombre" validatorMessage="Debe ser un nombre valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$" />
+                                                            </p:inputText>
                                                             <h:outputLabel for="@next" value="Segundo Nombre"/>
-                                                            <p:inputText value="#{becadoBeans.segundoNombre}" type="text"  placeholder="Segundo Nombre" />
+                                                            <p:inputText value="#{becadoBeans.segundoNombre}"
+                                                                         type="text"  placeholder="Segundo Nombre" validatorMessage="Debe ser un segundo nombre valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$" />
+                                                            </p:inputText>
                                                             <h:outputLabel for="@next" value="Apellidos"/>
-                                                            <p:inputText value="#{becadoBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <p:inputText value="#{becadoBeans.apellidos}" 
+                                                                         type="text"  placeholder="Apellidos" validatorMessage="Debe ser un apellido valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)?$" />
+                                                            </p:inputText>
                                                             <h:outputLabel for="@next" value="Activo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.activo}" 
                                                                                    onLabel="Si" offLabel="No" 
@@ -204,11 +213,21 @@
                                                             <h:outputLabel for="@next" value="Codigo"/>
                                                             <p:inputText value="#{becadoBeans.codigo}" type="text"  placeholder="codigo" />
                                                             <h:outputLabel for="@next" value="Nombre"/>
-                                                            <p:inputText value="#{becadoBeans.nombre}" type="text"  placeholder="nombre" />
+                                                            <p:inputText value="#{becadoBeans.nombre}" type="text"  placeholder="nombre" 
+                                                                         validatorMessage="Debe ser un nombre valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$" />
+                                                            </p:inputText>
                                                             <h:outputLabel for="@next" value="Segundo Nombre"/>
-                                                            <p:inputText value="#{becadoBeans.segundoNombre}" type="text"  placeholder="Segundo Nombre" />
+                                                            <p:inputText value="#{becadoBeans.segundoNombre}" type="text" 
+                                                                         placeholder="Segundo Nombre" validatorMessage="Debe ser un segundo nombre valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$" />
+                                                            </p:inputText>
                                                             <h:outputLabel for="@next" value="Apellidos"/>
-                                                            <p:inputText value="#{becadoBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <p:inputText value="#{becadoBeans.apellidos}" type="text"  
+                                                                         placeholder="Apellidos" 
+                                                                         validatorMessage="Debe ser un apellido valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)?$" />
+                                                            </p:inputText>
                                                             <h:outputLabel for="@next" value="Activo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.activo}" 
                                                                                    onLabel="Si" offLabel="No" 
