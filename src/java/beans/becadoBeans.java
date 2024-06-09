@@ -157,6 +157,33 @@ public class becadoBeans implements Serializable {
             }
         }
     }
+    public void actualizar_entidad(){
+        actualizar_entidad(becado);
+    }
+    public void actualizar_entidad(Becado becado){
+        Cuarto cuartoSeleccionado = null;
+        for (Cuarto c : listCuart) {
+            if (c.getCuartoPK().getId().toString().equals(cuartoId)) {
+                cuartoSeleccionado = c;
+                break;
+            }
+        }
+        becado.setActivo(activo);
+        becado.setAnno(anno);
+        becado.setApellidos(apellidos);
+        becado.setAptoesfuerzofisico(aptoEsfuerzoFisico);
+        becado.setBeber(beber);
+        becado.setCarrera(carrera);
+        becado.setCodigo(codigo);
+        becado.setCuarto(cuartoSeleccionado);
+        becado.setFacultad(facultad);
+        becado.setFumar(fumar);
+        becado.setNombre(nombre);
+        becado.setNucleofamiliar(nucleoFamiliar);
+        becado.setSegundonombre(segundoNombre);
+        becado.setSexo(sexo);
+        becado.setTelefono(telefono);
+    }
 
     public void edit() {
         
@@ -170,33 +197,22 @@ public class becadoBeans implements Serializable {
             try {
 
 
+                actualizar_entidad();
                 
-                Cuarto cuartoSeleccionado = null;
-                for (Cuarto c : listCuart) {
-                    if (c.getCuartoPK().getId().toString().equals(cuartoId)) {
-                        cuartoSeleccionado = c;
-                        break;
-                    }
-                }
-                becado.setActivo(activo);
-                becado.setAnno(anno);
-                becado.setApellidos(apellidos);
-                becado.setAptoesfuerzofisico(aptoEsfuerzoFisico);
-                becado.setBeber(beber);
-                becado.setCarrera(carrera);
-                becado.setCodigo(codigo);
-                becado.setCuarto(cuartoSeleccionado);
-                becado.setFacultad(facultad);
-                becado.setFumar(fumar);
-                becado.setNombre(nombre);
-                becado.setNucleofamiliar(nucleoFamiliar);
-                becado.setSegundonombre(segundoNombre);
-                becado.setSexo(sexo);
-                becado.setTelefono(telefono);
                 
                 control.becadoJPA.edit(becado);
                 
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El becario ha sido modificada", "Atención"));
+                for (Becado be : listbecad) {
+
+                    if (ci.equals(be.getCi())) {
+                        actualizar_entidad(be);
+                        break;
+                    }
+
+                }
+                
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El becado ha sido modificado", "Atención"));
             } catch (Exception e) {
                 Logger.getLogger(edificioBeans.class.getName()).log(Level.WARNING, null, e);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al editar", "Atención"));
@@ -215,6 +231,10 @@ public class becadoBeans implements Serializable {
         }
     }
 
+    public String nombre_y_apellidos(Becado becado){
+        return becado.getNombre()+" "+becado.getSegundonombre()+" "+becado.getApellidos();
+    }
+    
     public String getCi() {
         return ci;
     }

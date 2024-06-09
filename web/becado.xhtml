@@ -54,8 +54,8 @@
                                                             <h:outputText value="#{pa.ci}"/>
                                                         </p:column>
                                                         
-                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{pa.nombre}" filterBy="#{pa.nombre}">
-                                                            <h:outputText value="#{pa.nombre}"/>
+                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadoBeans.nombre_y_apellidos(pa)}" filterBy="#{becadoBeans.nombre_y_apellidos(pa)}">
+                                                            <h:outputText value="#{becadoBeans.nombre_y_apellidos(pa)}"/>
                                                         </p:column>
                                                         
                                                         <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
