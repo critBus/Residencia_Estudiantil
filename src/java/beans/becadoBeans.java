@@ -115,11 +115,11 @@ public class becadoBeans implements Serializable {
 
     public void insert() {
 
-        if (ci.isEmpty() || codigo.isEmpty() || nombre.isEmpty() || apellidos.isEmpty()
-                || carrera.isEmpty() || anno == 0
-                || facultad.isEmpty() //|| edificioId.isEmpty() || pisoId.isEmpty() 
+        if (ci.trim().isEmpty() || codigo.trim().isEmpty() || nombre.trim().isEmpty() || apellidos.trim().isEmpty()
+                || carrera.trim().isEmpty() || anno == 0
+                || facultad.trim().isEmpty() //|| edificioId.isEmpty() || pisoId.isEmpty() 
 
-                || cuartoId.isEmpty()) {
+                || cuartoId.trim().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
         } else {
             try {
@@ -141,7 +141,7 @@ public class becadoBeans implements Serializable {
                     }
                 }
                 Becado becado_a_agregar = new Becado(ci, codigo, nombre, apellidos, activo, aptoEsfuerzoFisico, fumar, beber, nucleoFamiliar, carrera, anno, sexo, telefono, facultad, cuartoSeleccionado);
-                if (segundoNombre != null) {
+                if (segundoNombre != null && segundoNombre.trim().isEmpty()) {
                     becado_a_agregar.setSegundonombre(segundoNombre);
                 }
                 control.becadoJPA.create(becado_a_agregar);
@@ -208,10 +208,10 @@ public class becadoBeans implements Serializable {
 
     public void edit() {
 
-        if (codigo.isEmpty() || nombre.isEmpty() || apellidos.isEmpty()
-                || carrera.isEmpty() || anno == 0
-                || facultad.isEmpty()
-                || cuartoId.isEmpty()) {
+        if (codigo.trim().isEmpty() || nombre.trim().isEmpty() || apellidos.trim().isEmpty()
+                || carrera.trim().isEmpty() || anno == 0
+                || facultad.trim().isEmpty()
+                || cuartoId.trim().isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
         } else {
             try {
