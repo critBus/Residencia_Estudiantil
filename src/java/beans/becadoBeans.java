@@ -76,17 +76,8 @@ public class becadoBeans implements Serializable {
         String aux;
         for (Cuarto c : listCuart) {
             if (c.getCuartoPK().getId() != null) {
-                Piso piso = null;
-                Edificio edificio = null;
-                piso = c.getPiso();
-                if (piso != null) {
-                    edificio = piso.getEdificio();
-                }
-                String nombre_piso = piso != null ? piso.getPisoPK().getId() : "sin piso";
-                String edificio_nombre = edificio != null ? edificio.getNombre() : "sin edificio";
 
-                aux = edificio_nombre + " - " + nombre_piso + " - " + c.getCuartoPK().getId();
-                map_cuartos.put(aux, c.getCuartoPK().getId());
+                map_cuartos.put(cuarto_str(c), c.getCuartoPK().getId());
             }
         }
 
@@ -123,8 +114,6 @@ public class becadoBeans implements Serializable {
 
     public void insert() {
 
-        
-
         if (ci.isEmpty() || codigo.isEmpty() || nombre.isEmpty() || apellidos.isEmpty()
                 || carrera.isEmpty() || anno == 0
                 || facultad.isEmpty() //|| edificioId.isEmpty() || pisoId.isEmpty() 
@@ -150,8 +139,8 @@ public class becadoBeans implements Serializable {
                         break;
                     }
                 }
-                Becado becado_a_agregar=new Becado(ci, codigo, nombre, apellidos, activo, aptoEsfuerzoFisico, fumar, beber, nucleoFamiliar, carrera, anno, sexo, telefono, facultad, cuartoSeleccionado);
-                if(segundoNombre!=null){
+                Becado becado_a_agregar = new Becado(ci, codigo, nombre, apellidos, activo, aptoEsfuerzoFisico, fumar, beber, nucleoFamiliar, carrera, anno, sexo, telefono, facultad, cuartoSeleccionado);
+                if (segundoNombre != null) {
                     becado_a_agregar.setSegundonombre(segundoNombre);
                 }
                 control.becadoJPA.create(becado_a_agregar);
@@ -164,7 +153,8 @@ public class becadoBeans implements Serializable {
             }
         }
     }
-    public void resetear_campos(){
+
+    public void resetear_campos() {
         ci = null;
         codigo = null;
         nombre = null;
@@ -184,10 +174,12 @@ public class becadoBeans implements Serializable {
         pisoId = null;
         edificioId = null;
     }
-    public void actualizar_entidad(){
+
+    public void actualizar_entidad() {
         actualizar_entidad(becado);
     }
-    public void actualizar_entidad(Becado becado){
+
+    public void actualizar_entidad(Becado becado) {
         Cuarto cuartoSeleccionado = null;
         for (Cuarto c : listCuart) {
             if (c.getCuartoPK().getId().toString().equals(cuartoId)) {
@@ -213,9 +205,8 @@ public class becadoBeans implements Serializable {
     }
 
     public void edit() {
-        
 
-        if ( codigo.isEmpty() || nombre.isEmpty() || apellidos.isEmpty()
+        if (codigo.isEmpty() || nombre.isEmpty() || apellidos.isEmpty()
                 || carrera.isEmpty() || anno == 0
                 || facultad.isEmpty()
                 || cuartoId.isEmpty()) {
@@ -223,12 +214,10 @@ public class becadoBeans implements Serializable {
         } else {
             try {
 
-
                 actualizar_entidad();
-                
-                
+
                 control.becadoJPA.edit(becado);
-                
+
                 for (Becado be : listbecad) {
 
                     if (ci.equals(be.getCi())) {
@@ -237,8 +226,7 @@ public class becadoBeans implements Serializable {
                     }
 
                 }
-                
-                
+
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El becado ha sido modificado", "Atención"));
             } catch (Exception e) {
                 Logger.getLogger(edificioBeans.class.getName()).log(Level.WARNING, null, e);
@@ -258,10 +246,29 @@ public class becadoBeans implements Serializable {
         }
     }
 
-    public String nombre_y_apellidos(Becado becado){
-        return becado.getNombre()+" "+becado.getSegundonombre()+" "+becado.getApellidos();
+    public String nombre_y_apellidos(Becado becado) {
+        return becado.getNombre() + " " + becado.getSegundonombre() + " " + becado.getApellidos();
     }
-    
+
+    public String cuarto_str_de_becado(Becado becado) {
+        Cuarto cuarto = becado.getCuarto();
+
+        return cuarto != null ? cuarto_str(cuarto) : "- sin cuarto -";
+    }
+
+    public String cuarto_str(Cuarto c) {
+        Piso piso = null;
+        Edificio edificio = null;
+        piso = c.getPiso();
+        if (piso != null) {
+            edificio = piso.getEdificio();
+        }
+        String nombre_piso = piso != null ? piso.getPisoPK().getId() : "sin piso";
+        String edificio_nombre = edificio != null ? edificio.getNombre() : "sin edificio";
+
+        return edificio_nombre + " - piso:" + nombre_piso + " - cuarto:" + c.getCuartoPK().getId();
+    }
+
     public String getCi() {
         return ci;
     }

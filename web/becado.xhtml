@@ -58,6 +58,10 @@
                                                             <h:outputText value="#{becadoBeans.nombre_y_apellidos(pa)}"/>
                                                         </p:column>
 
+                                                        <p:column headerText="Cuarto" style="text-align: center" priority="2" sortBy="#{becadoBeans.cuarto_str_de_becado(pa)}" filterBy="#{becadoBeans.cuarto_str_de_becado(pa)}">
+                                                            <h:outputText value="#{becadoBeans.cuarto_str_de_becado(pa)}"/>
+                                                        </p:column>
+
                                                         <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
                                                             <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{becadoBeans.delete(pa)}">                                
                                                                 <p:confirm message="¿Seguro de eliminar este becado?" icon="ui-icon-alert" />
