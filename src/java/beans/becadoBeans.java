@@ -239,7 +239,16 @@ public class becadoBeans implements Serializable {
 
     public void delete(Becado pac) {
         try {
-            control.becadoJPA.destroy(pac.getCi());
+            String ci=pac.getCi();
+            control.becadoJPA.destroy(ci);
+            for (Becado be : listbecad) {
+
+                    if (ci.equals(be.getCi())) {
+                        listbecad.remove(be);
+                        break;
+                    }
+
+                }
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El Becado se ha eliminado", "Atención"));
 
         } catch (IllegalOrphanException | NonexistentEntityException ex) {
