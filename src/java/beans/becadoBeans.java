@@ -268,6 +268,9 @@ public class becadoBeans implements Serializable {
 
         return edificio_nombre + " - piso:" + nombre_piso + " - cuarto:" + c.getCuartoPK().getId();
     }
+    public String sexo_str(Becado becado){
+        return becado.getSexo()?"Masculino":"Femenino";
+    }
 
     public String getCi() {
         return ci;
