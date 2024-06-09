@@ -176,7 +176,8 @@
                                                         <br/>
                                                         <div align="center">
                                                             <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
-                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{becadoBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{becadoBeans.insert()}" style="color: black; margin-left: 5px" 
+                                                                             />
 
                                                         </div>
 
@@ -280,7 +281,11 @@
                                                         <br/>
                                                         <div align="center">
                                                             <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
-                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{becadoBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" 
+                                                                             icon="ui-icon-check" 
+                                                                             actionListener="#{becadoBeans.edit()}" 
+                                                                             style="color: black; margin-left: 5px" 
+                                                                             />
                                                         </div>
 
 

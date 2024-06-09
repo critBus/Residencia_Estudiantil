@@ -25,6 +25,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.PrimeFaces;
+import org.primefaces.context.PrimeRequestContext;
 
 @Named(value = "becadoBeans")
 @ManagedBean
@@ -146,6 +147,7 @@ public class becadoBeans implements Serializable {
                 control.becadoJPA.create(becado_a_agregar);
                 resetear_campos();
                 PrimeFaces.current().ajax().update("agregarform");
+                hideDialog("dlg1");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El becario ha sido insertado", "Atención"));
             } catch (Exception e) {
                 Logger.getLogger(edificioBeans.class.getName()).log(Level.WARNING, null, e);
@@ -226,7 +228,7 @@ public class becadoBeans implements Serializable {
                     }
 
                 }
-
+                hideDialog("dlg2");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El becado ha sido modificado", "Atención"));
             } catch (Exception e) {
                 Logger.getLogger(edificioBeans.class.getName()).log(Level.WARNING, null, e);
@@ -268,8 +270,21 @@ public class becadoBeans implements Serializable {
 
         return edificio_nombre + " - piso:" + nombre_piso + " - cuarto:" + c.getCuartoPK().getId();
     }
-    public String sexo_str(Becado becado){
-        return becado.getSexo()?"Masculino":"Femenino";
+
+    public static void showDialog(String id) {
+        execute("PF('" + id + "').show();");
+    }
+
+    public static void hideDialog(String id) {
+        execute("PF('" + id + "').hide();");
+    }
+
+    public static void execute(String execute) {
+        PrimeRequestContext.getCurrentInstance().getScriptsToExecute().add(execute);
+    }
+
+    public String sexo_str(Becado becado) {
+        return becado.getSexo() ? "Masculino" : "Femenino";
     }
 
     public String getCi() {
