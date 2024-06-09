@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <body>
         <ui:composition template="./template.xhtml">
 
@@ -33,7 +33,7 @@
                                         <h3 class="m-b-30 m-t-0">Becados</h3>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 col-12">
-                                                
+
                                                 <h:form id="formulario">
                                                     <p:growl id="msg"/>
                                                     #{becadoBeans.cargarList()}
@@ -42,22 +42,22 @@
 
                                                         <f:facet name="header">
                                                             <div align="left" >
-                                                                <p:commandButton value="Añadir Becado" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+                                                                <p:commandButton  value="Añadir Becado" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
 
                                                             </div>
                                                             <div align="left">
 
                                                             </div>
                                                         </f:facet>
-                                                        
+
                                                         <p:column headerText="CI" style="text-align: center" priority="2" sortBy="#{pa.ci}" filterBy="#{pa.ci}"> <!-- style="text-align: center" -->
                                                             <h:outputText value="#{pa.ci}"/>
                                                         </p:column>
-                                                        
+
                                                         <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadoBeans.nombre_y_apellidos(pa)}" filterBy="#{becadoBeans.nombre_y_apellidos(pa)}">
                                                             <h:outputText value="#{becadoBeans.nombre_y_apellidos(pa)}"/>
                                                         </p:column>
-                                                        
+
                                                         <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
                                                             <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{becadoBeans.delete(pa)}">                                
                                                                 <p:confirm message="¿Seguro de eliminar este becado?" icon="ui-icon-alert" />
@@ -82,12 +82,13 @@
 
 
 
-                                                <h:form>
+                                                <h:form id="agregarform">
+                                                    #{becadoBeans.resetear_campos()}
                                                     <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
                                                               modal="true" draggable="false" closable="false" resizable="false">
 
                                                         <p:panelGrid columns="4" style="background: white">    
-                                                            
+
                                                             <h:outputLabel for="@next" value="CI"/>
                                                             <p:inputMask value="#{becadoBeans.ci}" mask="99999999999" />
                                                             <h:outputLabel for="@next" value="Codigo"/>
@@ -101,22 +102,22 @@
                                                             <h:outputLabel for="@next" value="Activo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.activo}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                    
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Apto Para Esfuerzo Fisico" />
                                                             <p:selectBooleanButton value="#{becadoBeans.aptoEsfuerzoFisico}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                   
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Fuma" />
                                                             <p:selectBooleanButton value="#{becadoBeans.fumar}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                   
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Bebe" />
                                                             <p:selectBooleanButton value="#{becadoBeans.beber}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                   
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Nucleo Familiar" />
                                                             <p:inputText value="#{becadoBeans.nucleoFamiliar}" type="text"  
@@ -129,9 +130,9 @@
                                                             <p:outputLabel for="@next" value="Sexo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.sexo}"  
                                                                                    onLabel="Femenino" offLabel="Masculino" 
-                                                                                   
+
                                                                                    style="width:200px"/>
-                                                            
+
                                                             <p:outputLabel for="@next" value="Telefono" />
                                                             <p:inputMask value="#{becadoBeans.telefono}" mask="99999999"/>
                                                             <h:outputLabel for="@next" value="Facultad"/>
@@ -141,10 +142,10 @@
                                                                 <f:selectItem itemLabel="- Seleccione un cuarto -" noSelectionOption="false"/>
                                                                 <f:selectItems value="#{becadoBeans.map_cuartos}"/>
                                                             </p:selectOneMenu>
-                                                            
-                                                            
-                                                            
-                                                            
+
+
+
+
                                                         </p:panelGrid>
 
                                                         <br/>
@@ -175,13 +176,13 @@
                                                     #{becadoBeans.setTelefono(becadoBeans.becado.telefono)}
                                                     #{becadoBeans.setFacultad(becadoBeans.becado.facultad)}
                                                     #{becadoBeans.setCuartoId(becadoBeans.becado.cuarto)}
-                                                    
-                                                    
+
+
                                                     <p:dialog header="Modificar Becado" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
                                                               modal="true" draggable="false" closable="false" resizable="false">
 
                                                         <p:panelGrid columns="4" style="background: white">    
-                                                            
+
                                                             <h:outputLabel for="@next" value="CI"/>
                                                             <p:inputMask value="#{becadoBeans.ci}" mask="99999999999" disabled="true" />
                                                             <h:outputLabel for="@next" value="Codigo"/>
@@ -195,22 +196,22 @@
                                                             <h:outputLabel for="@next" value="Activo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.activo}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                    
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Apto Para Esfuerzo Fisico" />
                                                             <p:selectBooleanButton value="#{becadoBeans.aptoEsfuerzoFisico}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                   
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Fuma" />
                                                             <p:selectBooleanButton value="#{becadoBeans.fumar}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                   
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Bebe" />
                                                             <p:selectBooleanButton value="#{becadoBeans.beber}" 
                                                                                    onLabel="Si" offLabel="No" 
-                                                                                   
+
                                                                                    style="width:100px"/>
                                                             <h:outputLabel for="@next" value="Nucleo Familiar" />
                                                             <p:inputText value="#{becadoBeans.nucleoFamiliar}" type="text"  
@@ -223,9 +224,9 @@
                                                             <p:outputLabel for="@next" value="Sexo" />
                                                             <p:selectBooleanButton value="#{becadoBeans.sexo}"  
                                                                                    onLabel="Femenino" offLabel="Masculino" 
-                                                                                   
+
                                                                                    style="width:200px"/>
-                                                            
+
                                                             <p:outputLabel for="@next" value="Telefono" />
                                                             <p:inputMask value="#{becadoBeans.telefono}" mask="99999999"/>
                                                             <h:outputLabel for="@next" value="Facultad"/>
@@ -233,12 +234,12 @@
                                                             <h:outputLabel for="@next" value="Cuarto" />
                                                             <p:selectOneMenu  value="#{becadoBeans.cuartoId}" title="Becado" >
                                                                 <f:selectItems value="#{becadoBeans.map_cuartos}"/>
-                                                                
+
                                                             </p:selectOneMenu>
-                                                            
-                                                            
-                                                            
-                                                            
+
+
+
+
                                                         </p:panelGrid>
 
                                                         <br/>

@@ -24,6 +24,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.primefaces.PrimeFaces;
 
 @Named(value = "becadoBeans")
 @ManagedBean
@@ -149,13 +150,39 @@ public class becadoBeans implements Serializable {
                         break;
                     }
                 }
-                control.becadoJPA.create(new Becado(ci, codigo, nombre, apellidos, activo, aptoEsfuerzoFisico, fumar, beber, nucleoFamiliar, carrera, anno, sexo, telefono, facultad, cuartoSeleccionado));
+                Becado becado_a_agregar=new Becado(ci, codigo, nombre, apellidos, activo, aptoEsfuerzoFisico, fumar, beber, nucleoFamiliar, carrera, anno, sexo, telefono, facultad, cuartoSeleccionado);
+                if(segundoNombre!=null){
+                    becado_a_agregar.setSegundonombre(segundoNombre);
+                }
+                control.becadoJPA.create(becado_a_agregar);
+                resetear_campos();
+                PrimeFaces.current().ajax().update("agregarform");
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El becario ha sido insertado", "Atención"));
             } catch (Exception e) {
                 Logger.getLogger(edificioBeans.class.getName()).log(Level.WARNING, null, e);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al insertar", "Atención"));
             }
         }
+    }
+    public void resetear_campos(){
+        ci = null;
+        codigo = null;
+        nombre = null;
+        segundoNombre = null;
+        apellidos = null;
+        activo = false;
+        aptoEsfuerzoFisico = false;
+        fumar = false;
+        beber = false;
+        nucleoFamiliar = null;
+        carrera = null;
+        anno = 2024;
+        sexo = false;
+        telefono = null;
+        facultad = null;
+        cuartoId = null;
+        pisoId = null;
+        edificioId = null;
     }
     public void actualizar_entidad(){
         actualizar_entidad(becado);
