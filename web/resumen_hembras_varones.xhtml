@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Porcentaje de Hembras y Varones por Edificio </h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{varonesHembrasEdificiosBeans.cargarList()}
+
+                                                    <p:dataTable var="pa" value="#{varonesHembrasEdificiosBeans.listEdificio}" sortBy="#{pa.nombre}" >
+
+
+
+                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" sortBy="#{pa.nombre}" filterBy="#{pa.nombre}">
+                                                            <h:outputText value="#{pa.nombre}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Becados" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}">
+                                                            <h:outputText value="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Varones" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}">
+                                                            <h:outputText value="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Varones %" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.porcentaje_varones(pa)}" filterBy="#{varonesHembrasEdificiosBeans.porcentaje_varones(pa)}">
+                                                            <h:outputText value="#{varonesHembrasEdificiosBeans.porcentaje_varones_str(pa)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Hembras" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}">
+                                                            <h:outputText value="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Hembras %" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}" filterBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}">
+                                                            <h:outputText value="#{varonesHembrasEdificiosBeans.porcentaje_hembras_str(pa)}"/>
+                                                        </p:column>
+
+
+
+                                                    </p:dataTable>
+
+
+
+                                                </h:form>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
