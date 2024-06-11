@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Planteamientos Realizados</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{planteamientosRealizadosBeans.cargarList()}
+
+                                                    <p:dataTable var="pa" value="#{planteamientosRealizadosBeans.listPlantea}" sortBy="#{pa.fecha}" >
+
+                                                        <p:column headerText="Planteamiento" style="text-align: center" priority="2" sortBy="#{pa.fecha}" filterBy="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}">
+                                                            <h:outputText value="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Asunto" style="text-align: center" priority="2" sortBy="#{pa.asunto}" filterBy="#{pa.asunto}">
+                                                            <h:outputText value="#{pa.asunto}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Estado" style="text-align: center" priority="2" sortBy="#{pa.estado}" filterBy="#{pa.estado}">
+                                                            <h:outputText value="#{pa.estado}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Planteamiento" sortBy="#{pa.planteamiento}" filterBy="#{pa.planteamiento}" priority="2" style="text-align: center">
+                                                            <h:outputText value="#{pa.planteamiento}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Respuesta" sortBy="#{pa.respuesta}" filterBy="#{pa.respuesta}" priority="2" style="text-align: center">
+                                                            <h:outputText value="#{pa.respuesta}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Descripción" priority="2" sortBy="#{pa.descripcion}" filterBy="#{pa.descripcion}">
+                                                            <div style="text-align: justify">
+                                                                <h:outputText value="#{pa.descripcion}"/>
+                                                            </div>
+                                                        </p:column>
+
+                                                        <p:column headerText="CI Becado" style="text-align: center" priority="2" sortBy="#{pa.becadoci.ci}" filterBy="#{pa.becadoci.ci}">
+                                                            <h:outputText value="#{pa.becadoci.ci}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}" filterBy="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}">
+                                                            <h:outputText value="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}"/>
+                                                        </p:column>
+
+
+
+
+
+
+
+
+                                                    </p:dataTable>
+
+
+
+                                                </h:form>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

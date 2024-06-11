@@ -40,7 +40,7 @@
 
                                                     <p:dataTable var="pa" value="#{becadosPorGuardiaBean.listEvalGuardia}" sortBy="#{pa.evalguardiaPK.fecha}" >
 
-                                                        <p:column headerText="Evaluación" style="text-align: center" priority="2" sortBy="#{pa.evalguardiaPK.fecha}" filterBy="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}">
+                                                        <p:column headerText="Guardia" style="text-align: center" priority="2" sortBy="#{pa.evalguardiaPK.fecha}" filterBy="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}">
                                                             <h:outputText value="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}"/>
                                                         </p:column>
 
