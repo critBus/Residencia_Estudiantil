@@ -1,4 +1,3 @@
-
 package beans;
 
 import controller.exceptions.IllegalOrphanException;
@@ -25,29 +24,29 @@ import javax.inject.Named;
 @ManagedBean
 @SessionScoped
 public class evalGuardiaBeans implements Serializable {
-    
+
     Date fecha;
     String becadoCi;
     String trabajadorci;
     int evaluacion;
-    
+
     List<Evalguardia> listEvalGuardia = new ArrayList<>();
-    
+
     List<Becado> listBecados = new ArrayList<>();
     Map<String, String> map_becado = new HashMap<>();
-    
+
     List<Trabajador> listTrab = new ArrayList<>();
     Map<String, String> map_trab = new HashMap<>();
-    
+
     Evalguardia evalguardia;
-    
-    public void cargarList(){
-        
+
+    public void cargarList() {
+
         listEvalGuardia = control.evalguardiaJpa.findEvalguardiaEntities();
-        
+
         listTrab = control.trabajadorJPA.findTrabajadorEntities();
         listBecados = control.becadoJPA.findBecadoEntities();
-        
+
         map_becado.clear();
         for (Becado t : listBecados) {
             if (t.getSegundonombre() == null) {
@@ -57,7 +56,7 @@ public class evalGuardiaBeans implements Serializable {
                 map_becado.put(t.getNombre() + " " + t.getSegundonombre() + " " + t.getApellidos(), t.getCi());
             }
         }
-        
+
         map_trab.clear();
         String aux1;
         for (Trabajador t : listTrab) {
@@ -67,17 +66,17 @@ public class evalGuardiaBeans implements Serializable {
             }
         }
     }
-    
-    public void insert(){
-        
+
+    public void insert() {
+
         Becado bec = control.becadoJPA.findBecado(becadoCi);
         Trabajador califica = control.trabajadorJPA.findTrabajador(trabajadorci);
-        
-        if (fecha == null || becadoCi.isEmpty() || evaluacion == 0 || trabajadorci.isEmpty()) {
+
+        if (fecha == null || becadoCi.isEmpty() || evaluacion < 0 || trabajadorci.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
-        }else{
+        } else {
             try {
-                
+
                 for (Evalguardia evg : listEvalGuardia) {
                     if (fecha.equals(evg.getEvalguardiaPK().getFecha()) && becadoCi.equals(evg.getEvalguardiaPK().getBecadoci())) {
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe la evaluación", "Atención"));
@@ -85,10 +84,10 @@ public class evalGuardiaBeans implements Serializable {
                     }
 
                 }
-                
+
                 EvalguardiaPK e = new EvalguardiaPK(fecha, becadoCi);
                 Evalguardia eg = new Evalguardia(e);
-                
+
                 control.evalguardiaJpa.create(new Evalguardia(e, bec, califica, evaluacion));
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La evaluación ha sido insertada", "Atención"));
             } catch (Exception e) {
@@ -96,7 +95,7 @@ public class evalGuardiaBeans implements Serializable {
             }
         }
     }
-    
+
     public void edit() {
         boolean flag = false;
         int count = 0;
@@ -108,30 +107,31 @@ public class evalGuardiaBeans implements Serializable {
         if (!trabajadorci.isEmpty() && !trabajadorci.equals(evalguardia.getTrabajadorci().getCi())) {
             e.setTrabajadorci(califica);
             flag = true;
-        
-        if (evaluacion != 0 && evaluacion != evalguardia.getEvaluacion()) {
-            e.setEvaluacion(evaluacion);
-            flag = true;
-        }
-        }else if (trabajadorci.isEmpty() || evaluacion == 0) {
+
+            if (evaluacion > -1 && evaluacion != evalguardia.getEvaluacion()) {
+                e.setEvaluacion(evaluacion);
+                flag = true;
+            }
+        } else if (trabajadorci.isEmpty() || evaluacion < 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Existen campos vacíos", "Atención"));
             count++;
         }
 
         if (flag) {
             try {
-                control.evalguardiaJpa.edit(e);             
+                control.evalguardiaJpa.edit(e);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La evaluación ha sido modificada", "Atención"));
-            
+
             } catch (Exception ex) {
                 Logger.getLogger(evalGuardiaBeans.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }else if (count == 0){
+        } else if (count == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha realizado ningún cambio", "Atención"));
         }
 
     }
+
     /*public void delete(Evalguardia eval) {
         try {
             control.evalguardiaJpa.destroy(eval.getEvalguardiaPK());
@@ -141,8 +141,8 @@ public class evalGuardiaBeans implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede eliminar la evaluación de la guardia", "Atención"));
         }
     }
-    */
-    
+     */
+
     public String nombreApell(Trabajador trabajador) {
 
         String nombApell;
@@ -150,7 +150,7 @@ public class evalGuardiaBeans implements Serializable {
         return nombApell = trabajador.getNombre() + " " + trabajador.getApellidos();
 
     }
-    
+
     public String nombreApellbeca(Becado becado) {
 
         String nombApellbecado;
@@ -158,12 +158,12 @@ public class evalGuardiaBeans implements Serializable {
         return nombApellbecado = becado.getNombre() + " " + becado.getSegundonombre() + " " + becado.getApellidos();
 
     }
-    
+
     public String dateFormat(Date fecha) {
         return fecha.getDate() + " / " + (fecha.getMonth() + 1) + " / " + (fecha.getYear() + 1900);
 
     }
-    
+
     public Date getFecha() {
         return fecha;
     }

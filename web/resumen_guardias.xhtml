@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Promedio de Becados por Evaluación</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{becadosPorGuardiaBean.cargarList()}
+
+                                                    <p:dataTable var="pa" value="#{becadosPorGuardiaBean.listEvalGuardia}" sortBy="#{pa.evalguardiaPK.fecha}" >
+
+                                                        <p:column headerText="Evaluación" style="text-align: center" priority="2" sortBy="#{pa.evalguardiaPK.fecha}" filterBy="#{pa.evalguardiaPK.fecha}">
+                                                            <h:outputText value="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Puntuación" style="text-align: center" priority="2" sortBy="#{pa.evaluacion}" filterBy="#{pa.evaluacion}">
+                                                            <h:outputText value="#{pa.evaluacion}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Realizo Guardia" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}" filterBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}">
+                                                            <h:outputText value="#{becadosPorGuardiaBean.realizo_guardia(pa)}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="CI Becado" style="text-align: center" priority="2" sortBy="#{pa.becado.ci}" filterBy="#{pa.becado.ci}">
+                                                            <h:outputText value="#{pa.becado.ci}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}" filterBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}">
+                                                            <h:outputText value="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}"/>
+                                                        </p:column>
+
+
+
+
+
+
+
+
+                                                    </p:dataTable>
+
+
+
+                                                </h:form>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
