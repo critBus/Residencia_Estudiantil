@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Pacientes Atendidos</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{resumenPacientesAtendidosBeans.cargarList()}
+
+                                                    <p:dataTable var="pa" value="#{resumenPacientesAtendidosBeans.listpacientesAtendidos}" sortBy="#{pa.id}" >
+
+
+
+
+                                                        <p:column headerText="Fecha" filterMatchMode="contains"  style="text-align: center" priority="2" width="14%" sortBy="#{resumenPacientesAtendidosBeans.dateFormat(pa.fecha)}" filterBy="#{resumenPacientesAtendidosBeans.dateFormat(pa.fecha)}">
+                                                            <h:outputText value="#{resumenPacientesAtendidosBeans.dateFormat(pa.fecha)}" />
+                                                        </p:column>
+                                                        <p:column headerText="CI" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.becadoci.ci}" filterBy="#{pa.becadoci.ci}">
+                                                            <h:outputText value="#{pa.becadoci.ci}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Becado" filterMatchMode="contains"  priority="2" sortBy="#{resumenPacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}" filterBy="#{resumenPacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}" style="text-align: center">
+                                                            <h:outputText value="#{resumenPacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Médico" filterMatchMode="contains"  priority="2" filterBy="#{resumenPacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}" sortBy="#{resumenPacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}" style="text-align: center">
+                                                            <h:outputText value="#{resumenPacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Tipo Consulta" filterMatchMode="contains"  priority="2" width="24%" sortBy="#{pa.tipoconsulta}" filterBy="#{pa.tipoconsulta}" style="text-align: center">
+                                                            <h:outputText value="#{pa.tipoconsulta}"/>
+                                                        </p:column>
+
+
+
+
+                                                    </p:dataTable>
+
+
+
+                                                </h:form>
+
+
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
