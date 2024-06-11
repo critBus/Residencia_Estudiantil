@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Promedio de Becados por Evaluación</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{becadosPorUbicacionBean.cargarList()}
+
+                                                    <p:dataTable var="pa" value="#{becadosPorUbicacionBean.listbecad}" sortBy="#{pa.ci}" >
+
+                                                        <p:column headerText="CI" style="text-align: center" priority="2" sortBy="#{pa.ci}" filterBy="#{pa.ci}">
+                                                            <h:outputText value="#{pa.ci}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}" filterBy="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}">
+                                                            <h:outputText value="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}"/>
+                                                        </p:column>
+
+
+
+                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" sortBy="#{pa.cuarto.piso.edificio.nombre}" filterBy="#{pa.cuarto.piso.edificio.nombre}">
+                                                            <h:outputText value="#{pa.cuarto.piso.edificio.nombre}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Piso" style="text-align: center" priority="2" sortBy="#{pa.cuarto.piso.pisoPK.id}" filterBy="#{pa.cuarto.piso.pisoPK.id}">
+                                                            <h:outputText value="#{pa.cuarto.piso.pisoPK.id}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Cuarto" style="text-align: center" priority="2" sortBy="#{pa.cuarto.cuartoPK.id}" filterBy="#{pa.cuarto.cuartoPK.id}">
+                                                            <h:outputText value="#{pa.cuarto.cuartoPK.id}"/>
+                                                        </p:column>
+
+
+
+
+                                                    </p:dataTable>
+
+
+
+                                                </h:form>
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>
