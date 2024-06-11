@@ -50,31 +50,31 @@
                                                             </div>
                                                         </f:facet>
 
-                                                        <p:column headerText="CI" style="text-align: center" priority="2" sortBy="#{pa.ci}" filterBy="#{pa.ci}"> <!-- style="text-align: center" -->
+                                                        <p:column headerText="CI" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.ci}" filterBy="#{pa.ci}"> <!-- style="text-align: center" -->
                                                             <h:outputText value="#{pa.ci}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadoBeans.nombre_y_apellidos(pa)}" filterBy="#{becadoBeans.nombre_y_apellidos(pa)}">
+                                                        <p:column headerText="Nombre" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadoBeans.nombre_y_apellidos(pa)}" filterBy="#{becadoBeans.nombre_y_apellidos(pa)}">
                                                             <h:outputText value="#{becadoBeans.nombre_y_apellidos(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Año" style="text-align: center" priority="2" sortBy="#{pa.anno}" filterBy="#{pa.anno}">
+                                                        <p:column headerText="Año" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.anno}" filterBy="#{pa.anno}">
                                                             <h:outputText value="#{pa.anno}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Facultad" style="text-align: center" priority="2" sortBy="#{pa.facultad}" filterBy="#{pa.facultad}">
+                                                        <p:column headerText="Facultad" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.facultad}" filterBy="#{pa.facultad}">
                                                             <h:outputText value="#{pa.facultad}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Cuarto" style="text-align: center" priority="2" sortBy="#{becadoBeans.cuarto_str_de_becado(pa)}" filterBy="#{becadoBeans.cuarto_str_de_becado(pa)}">
+                                                        <p:column headerText="Cuarto" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadoBeans.cuarto_str_de_becado(pa)}" filterBy="#{becadoBeans.cuarto_str_de_becado(pa)}">
                                                             <h:outputText value="#{becadoBeans.cuarto_str_de_becado(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Sexo" style="text-align: center" priority="2" sortBy="#{becadoBeans.sexo_str(pa)}" filterBy="#{becadoBeans.sexo_str(pa)}">
+                                                        <p:column headerText="Sexo" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadoBeans.sexo_str(pa)}" filterBy="#{becadoBeans.sexo_str(pa)}">
                                                             <h:outputText value="#{becadoBeans.sexo_str(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                        <p:column width="100" filterMatchMode="contains" headerText="Opciones" priority="5" style="position: static; text-align: center">
                                                             <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{becadoBeans.delete(pa)}">                                
                                                                 <p:confirm message="¿Seguro de eliminar este becado?" icon="ui-icon-alert" />
                                                             </p:commandButton>  

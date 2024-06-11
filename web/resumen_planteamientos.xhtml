@@ -40,7 +40,7 @@
 
                                                     <p:dataTable var="pa" value="#{planteamientosRealizadosBeans.listPlantea}" sortBy="#{pa.fecha}" >
 
-                                                        <p:column headerText="Planteamiento" style="text-align: center" priority="2" sortBy="#{pa.fecha}" filterBy="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}">
+                                                        <p:column headerText="Planteamiento"  filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.fecha}" filterBy="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}">
                                                             <h:outputText value="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}"/>
                                                         </p:column>
 
@@ -48,27 +48,27 @@
                                                             <h:outputText value="#{pa.asunto}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Estado" style="text-align: center" priority="2" sortBy="#{pa.estado}" filterBy="#{pa.estado}">
+                                                        <p:column headerText="Estado" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.estado}" filterBy="#{pa.estado}">
                                                             <h:outputText value="#{pa.estado}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Planteamiento" sortBy="#{pa.planteamiento}" filterBy="#{pa.planteamiento}" priority="2" style="text-align: center">
+                                                        <p:column headerText="Planteamiento" filterMatchMode="contains" sortBy="#{pa.planteamiento}" filterBy="#{pa.planteamiento}" priority="2" style="text-align: center">
                                                             <h:outputText value="#{pa.planteamiento}"/>
                                                         </p:column>
-                                                        <p:column headerText="Respuesta" sortBy="#{pa.respuesta}" filterBy="#{pa.respuesta}" priority="2" style="text-align: center">
+                                                        <p:column headerText="Respuesta" filterMatchMode="contains" sortBy="#{pa.respuesta}" filterBy="#{pa.respuesta}" priority="2" style="text-align: center">
                                                             <h:outputText value="#{pa.respuesta}"/>
                                                         </p:column>
-                                                        <p:column headerText="Descripción" priority="2" sortBy="#{pa.descripcion}" filterBy="#{pa.descripcion}">
+                                                        <p:column headerText="Descripción" filterMatchMode="contains" priority="2" sortBy="#{pa.descripcion}" filterBy="#{pa.descripcion}">
                                                             <div style="text-align: justify">
                                                                 <h:outputText value="#{pa.descripcion}"/>
                                                             </div>
                                                         </p:column>
 
-                                                        <p:column headerText="CI Becado" style="text-align: center" priority="2" sortBy="#{pa.becadoci.ci}" filterBy="#{pa.becadoci.ci}">
+                                                        <p:column headerText="CI Becado" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.becadoci.ci}" filterBy="#{pa.becadoci.ci}">
                                                             <h:outputText value="#{pa.becadoci.ci}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}" filterBy="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}">
+                                                        <p:column headerText="Nombre" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}" filterBy="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}">
                                                             <h:outputText value="#{planteamientosRealizadosBeans.nombre_y_apellidos(pa.becadoci)}"/>
                                                         </p:column>
 

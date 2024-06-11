@@ -42,27 +42,27 @@
 
 
 
-                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" sortBy="#{pa.nombre}" filterBy="#{pa.nombre}">
+                                                        <p:column headerText="Edificio" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.nombre}" filterBy="#{pa.nombre}">
                                                             <h:outputText value="#{pa.nombre}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Becados" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}">
+                                                        <p:column headerText="Becados" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}">
                                                             <h:outputText value="#{varonesHembrasEdificiosBeans.obtener_cantidad_becados(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Varones" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}">
+                                                        <p:column headerText="Varones" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}">
                                                             <h:outputText value="#{varonesHembrasEdificiosBeans.obtener_cantidad_varones(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Varones %" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.porcentaje_varones(pa)}" filterBy="#{varonesHembrasEdificiosBeans.porcentaje_varones(pa)}">
+                                                        <p:column headerText="Varones %" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.porcentaje_varones(pa)}" filterBy="#{varonesHembrasEdificiosBeans.porcentaje_varones(pa)}">
                                                             <h:outputText value="#{varonesHembrasEdificiosBeans.porcentaje_varones_str(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Hembras" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}">
+                                                        <p:column headerText="Hembras" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}" filterBy="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}">
                                                             <h:outputText value="#{varonesHembrasEdificiosBeans.obtener_cantidad_hembras(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Hembras %" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}" filterBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}">
+                                                        <p:column headerText="Hembras %" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}" filterBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}">
                                                             <h:outputText value="#{varonesHembrasEdificiosBeans.porcentaje_hembras_str(pa)}"/>
                                                         </p:column>
 

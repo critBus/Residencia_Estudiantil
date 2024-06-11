@@ -42,15 +42,15 @@
 
 
 
-                                                        <p:column headerText="Tipo" style="text-align: center" priority="2" sortBy="#{pa.nombre_completo}" filterBy="#{pa.nombre_completo}">
+                                                        <p:column headerText="Tipo" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.nombre_completo}" filterBy="#{pa.nombre_completo}">
                                                             <h:outputText value="#{pa.nombre_completo}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Cantidad" style="text-align: center" priority="2" sortBy="#{pa.cantidad}" filterBy="#{pa.cantidad}">
+                                                        <p:column headerText="Cantidad" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.cantidad}" filterBy="#{pa.cantidad}">
                                                             <h:outputText value="#{pa.cantidad}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Porcentaje" style="text-align: center" priority="2" sortBy="#{pa.porcentaje_str}" filterBy="#{pa.porcentaje_str}">
+                                                        <p:column headerText="Porcentaje" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.porcentaje_str}" filterBy="#{pa.porcentaje_str}">
                                                             <h:outputText value="#{pa.porcentaje_str}"/>
                                                         </p:column>
 

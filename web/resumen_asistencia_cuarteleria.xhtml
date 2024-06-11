@@ -40,20 +40,20 @@
 
                                                     <p:dataTable var="pa" value="#{becadosPorCuarteleriaBean.listEvalCuartel}" sortBy="#{pa.evalcuarteleriaPK.fecha}" >
 
-                                                        <p:column headerText="Evaluación" style="text-align: center" priority="2" sortBy="#{pa.evalcuarteleriaPK.fecha}" filterBy="#{becadosPorCuarteleriaBean.dateFormat(pa.evalcuarteleriaPK.fecha)}">
+                                                        <p:column headerText="Evaluación" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.evalcuarteleriaPK.fecha}" filterBy="#{becadosPorCuarteleriaBean.dateFormat(pa.evalcuarteleriaPK.fecha)}">
                                                             <h:outputText value="#{becadosPorCuarteleriaBean.dateFormat(pa.evalcuarteleriaPK.fecha)}"/>
                                                         </p:column>
 
 
-                                                        <p:column headerText="Asistio" style="text-align: center" priority="2" sortBy="#{becadosPorCuarteleriaBean.realizo_cuarteleria(pa)}" filterBy="#{becadosPorCuarteleriaBean.realizo_cuarteleria(pa)}">
+                                                        <p:column headerText="Asistio" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadosPorCuarteleriaBean.realizo_cuarteleria(pa)}" filterBy="#{becadosPorCuarteleriaBean.realizo_cuarteleria(pa)}">
                                                             <h:outputText value="#{becadosPorCuarteleriaBean.realizo_cuarteleria(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="CI Becado" style="text-align: center" priority="2" sortBy="#{pa.becado.ci}" filterBy="#{pa.becado.ci}">
+                                                        <p:column headerText="CI Becado" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.becado.ci}" filterBy="#{pa.becado.ci}">
                                                             <h:outputText value="#{pa.becado.ci}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadosPorCuarteleriaBean.nombre_y_apellidos(pa.becado)}" filterBy="#{becadosPorCuarteleriaBean.nombre_y_apellidos(pa.becado)}">
+                                                        <p:column headerText="Nombre" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadosPorCuarteleriaBean.nombre_y_apellidos(pa.becado)}" filterBy="#{becadosPorCuarteleriaBean.nombre_y_apellidos(pa.becado)}">
                                                             <h:outputText value="#{becadosPorCuarteleriaBean.nombre_y_apellidos(pa.becado)}"/>
                                                         </p:column>
 

@@ -40,25 +40,25 @@
 
                                                     <p:dataTable var="pa" value="#{becadosPorUbicacionBean.listbecad}" sortBy="#{pa.ci}" >
 
-                                                        <p:column headerText="CI" style="text-align: center" priority="2" sortBy="#{pa.ci}" filterBy="#{pa.ci}">
+                                                        <p:column headerText="CI" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.ci}" filterBy="#{pa.ci}">
                                                             <h:outputText value="#{pa.ci}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}" filterBy="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}">
+                                                        <p:column headerText="Nombre" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}" filterBy="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}">
                                                             <h:outputText value="#{becadosPorUbicacionBean.nombre_y_apellidos(pa)}"/>
                                                         </p:column>
 
 
 
-                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" sortBy="#{pa.cuarto.piso.edificio.nombre}" filterBy="#{pa.cuarto.piso.edificio.nombre}">
+                                                        <p:column headerText="Edificio" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.cuarto.piso.edificio.nombre}" filterBy="#{pa.cuarto.piso.edificio.nombre}">
                                                             <h:outputText value="#{pa.cuarto.piso.edificio.nombre}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Piso" style="text-align: center" priority="2" sortBy="#{pa.cuarto.piso.pisoPK.id}" filterBy="#{pa.cuarto.piso.pisoPK.id}">
+                                                        <p:column headerText="Piso" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.cuarto.piso.pisoPK.id}" filterBy="#{pa.cuarto.piso.pisoPK.id}">
                                                             <h:outputText value="#{pa.cuarto.piso.pisoPK.id}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Cuarto" style="text-align: center" priority="2" sortBy="#{pa.cuarto.cuartoPK.id}" filterBy="#{pa.cuarto.cuartoPK.id}">
+                                                        <p:column headerText="Cuarto" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.cuarto.cuartoPK.id}" filterBy="#{pa.cuarto.cuartoPK.id}">
                                                             <h:outputText value="#{pa.cuarto.cuartoPK.id}"/>
                                                         </p:column>
 

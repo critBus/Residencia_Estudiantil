@@ -40,23 +40,23 @@
 
                                                     <p:dataTable var="pa" value="#{becadosPorGuardiaBean.listEvalGuardia}" sortBy="#{pa.evalguardiaPK.fecha}" >
 
-                                                        <p:column headerText="Guardia" style="text-align: center" priority="2" sortBy="#{pa.evalguardiaPK.fecha}" filterBy="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}">
+                                                        <p:column headerText="Guardia" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.evalguardiaPK.fecha}" filterBy="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}">
                                                             <h:outputText value="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Puntuación" style="text-align: center" priority="2" sortBy="#{pa.evaluacion}" filterBy="#{pa.evaluacion}">
+                                                        <p:column headerText="Puntuación" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.evaluacion}" filterBy="#{pa.evaluacion}">
                                                             <h:outputText value="#{pa.evaluacion}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Realizo Guardia" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}" filterBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}">
+                                                        <p:column headerText="Realizo Guardia" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}" filterBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}">
                                                             <h:outputText value="#{becadosPorGuardiaBean.realizo_guardia(pa)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="CI Becado" style="text-align: center" priority="2" sortBy="#{pa.becado.ci}" filterBy="#{pa.becado.ci}">
+                                                        <p:column headerText="CI Becado" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.becado.ci}" filterBy="#{pa.becado.ci}">
                                                             <h:outputText value="#{pa.becado.ci}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Nombre" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}" filterBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}">
+                                                        <p:column headerText="Nombre" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}" filterBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}">
                                                             <h:outputText value="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}"/>
                                                         </p:column>
 

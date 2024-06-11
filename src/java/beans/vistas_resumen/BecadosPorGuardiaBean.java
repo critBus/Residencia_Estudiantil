@@ -50,7 +50,7 @@ public class BecadosPorGuardiaBean {
         return evaluacion.getEvaluacion()>0?"Si":"No";
     }
     public String dateFormat(Date fecha) {
-        return fecha.getDate() + " / " + (fecha.getMonth() + 1) + " / " + (fecha.getYear() + 1900);
+        return fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + (fecha.getYear() + 1900);
 
     }
     public String nombre_y_apellidos(Becado becado) {
