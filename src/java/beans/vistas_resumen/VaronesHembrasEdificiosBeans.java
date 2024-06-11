@@ -3,6 +3,7 @@ package beans.vistas_resumen;
 
 
 import beans.control;
+import beans.vistas_resumen.util.UtilsResumenes;
 import controller.exceptions.IllegalOrphanException;
 import controller.exceptions.NonexistentEntityException;
 import entities.Cuarto;
@@ -108,16 +109,13 @@ public class VaronesHembrasEdificiosBeans {
      
      public String porcentaje_varones_str(Edificio edificio){
          double porcentaje=porcentaje_varones(edificio);
-         return porcentaje>0?formatDecimal(porcentaje)+"%":"";
+         return porcentaje>0?UtilsResumenes.formatDecimal(porcentaje)+"%":"";
      }
      public String porcentaje_hembras_str(Edificio edificio){
          double porcentaje=porcentaje_hembras(edificio);
-         return porcentaje>0?formatDecimal(porcentaje)+"%":"";
+         return porcentaje>0?UtilsResumenes.formatDecimal(porcentaje)+"%":"";
      }
-     public String formatDecimal(double number) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        return df.format(number);
-    }
+
      
     public List<Edificio> getListEdificio() {
         return listEdificio;
