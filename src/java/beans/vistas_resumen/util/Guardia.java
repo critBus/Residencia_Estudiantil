@@ -5,12 +5,10 @@
  */
 package beans.vistas_resumen.util;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-/**
- *
- * @author Rene
- */
 public class Guardia {
 
     public Date fecha;
@@ -21,6 +19,8 @@ public class Guardia {
     public double porcentaje_incumplieron;
     public String porcentaje_cumplieron_str;
     public String porcentaje_incumplieron_str;
+    public List<String> lista_cumplieron=new ArrayList<>();
+    public List<String> lista_incumplieron=new ArrayList<>();
 
     public Date getFecha() {
         return fecha;
@@ -86,4 +86,20 @@ public class Guardia {
         this.porcentaje_incumplieron_str = porcentaje_incumplieron_str;
     }
 
+    public List<String> getLista_cumplieron() {
+        return lista_cumplieron;
+    }
+
+    public void setLista_cumplieron(List<String> lista_cumplieron) {
+        this.lista_cumplieron = lista_cumplieron;
+    }
+
+    public List<String> getLista_incumplieron() {
+        return lista_incumplieron;
+    }
+
+    public void setLista_incumplieron(List<String> lista_incumplieron) {
+        this.lista_incumplieron = lista_incumplieron;
+    }
+    
 }
