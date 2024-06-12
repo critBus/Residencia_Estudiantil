@@ -29,6 +29,8 @@ import controller.SancionesJpaController;
 import controller.PacatendMedicamentosJpaController;
 import controller.PlanteamientosJpaController;
 import controller.AuthoritiesJpaController;
+import controller.BecadoEnfermedadJpaController;
+import controller.BecadoMedicamentoJpaController;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -46,7 +48,7 @@ public class control {
     public static EvalcuartoJpaController evalCuartoJPA = new EvalcuartoJpaController(emf);
     public static AspectEvalcuartoJpaController aspectevalCuartoJPA = new AspectEvalcuartoJpaController(emf);
     public static AspectEvalcuartoEvalcuartoJpaController aspEv_EvCuartoJPA = new AspectEvalcuartoEvalcuartoJpaController(emf);
-    
+    public static EvalcuarteleriaAspectevalcuartelJpaController aspEvCuartel_EvCuartelJPA = new EvalcuarteleriaAspectevalcuartelJpaController(emf);
     public static TrabajadorJpaController trabajadorJPA = new TrabajadorJpaController(emf);
     public static BecadoJpaController becadoJPA = new BecadoJpaController(emf);
     
@@ -55,7 +57,6 @@ public class control {
     public static IncisoreglamJpaController incisoReglamJPA = new IncisoreglamJpaController(emf);
     
     public static AspectEvalcuartelJpaController aspectevalCuartelJPA = new AspectEvalcuartelJpaController(emf);
-    public static EvalcuarteleriaAspectevalcuartelJpaController aspEvCuartel_EvCuartelJPA = new EvalcuarteleriaAspectevalcuartelJpaController(emf);
     public static EvalcuarteleriaJpaController evalCuarteleriaJPA = new EvalcuarteleriaJpaController(emf);
     public static MedicamentosJpaController medicamentosJpa = new MedicamentosJpaController(emf);
     
@@ -72,4 +73,6 @@ public class control {
     public static PacatendMedicamentosJpaController pacatendMedicamentosJpa = new PacatendMedicamentosJpaController(emf);
     public static PlanteamientosJpaController planteamientosJpa = new PlanteamientosJpaController(emf);
     public static AuthoritiesJpaController authoritiesJpa = new AuthoritiesJpaController(emf);
+    public static BecadoEnfermedadJpaController becadoEnfermedadJpa = new BecadoEnfermedadJpaController(emf);
+    public static BecadoMedicamentoJpaController becadoMedicamentoJpa = new BecadoMedicamentoJpaController(emf);
 }

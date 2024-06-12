@@ -50,8 +50,8 @@
                                                         <p:column headerText="Becado" priority="2" sortBy="#{evalBecadoBeans.nombreApellbeca(eb.becado)}" filterBy="#{evalBecadoBeans.nombreApellbeca(eb.becado)}" style="text-align: center">
                                                             <h:outputText value="#{evalBecadoBeans.nombreApellbeca(eb.becado)}"/>
                                                         </p:column>
-                                                        <p:column headerText="Tipo Evaluación Becado" priority="2" filterBy="#{eb.tipoevalbecadoid.tipo}" sortBy="#{eb.tipoevalbecadoid.tipo}" style="text-align: center">
-                                                            <h:outputText value="#{eb.tipoevalbecadoid.tipo}"/>
+                                                        <p:column headerText="Tipo Evaluación" priority="2" filterBy="#{eb.tipoevalbecadoid.descripcion}" sortBy="#{eb.tipoevalbecadoid.descripcion}" style="text-align: center">
+                                                            <h:outputText value="#{eb.tipoevalbecadoid.descripcion}"/>
                                                         </p:column>
                                                         <p:column headerText="Rangos" priority="2" filterBy="#{eb.cualitativa.nombre}" sortBy="#{eb.cualitativa.nombre}" style="text-align: center">
                                                             <h:outputText value="#{eb.cualitativa.nombre}"/>

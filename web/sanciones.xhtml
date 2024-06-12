@@ -43,24 +43,19 @@
                                                 <h:form id="formulario">
                                                     <p:growl id="msg"/>
                                                     #{sancionesBeans.cargarList()}
-
                                                     <p:dataTable var="sanc" value="#{sancionesBeans.listSanciones}" sortBy="#{sanc.sancionesPK.fecha}" >
-
                                                         <f:facet name="header">
                                                             <div align="left" >
                                                                 <p:commandButton value="Añadir Sanciones" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
-
                                                             </div>
                                                             <div align="left">
-
                                                             </div>
                                                         </f:facet>
-
                                                         <p:column headerText="Fecha" style="text-align: center" priority="2" width="14%" sortBy="#{sancionesBeans.dateFormat(sanc.sancionesPK.fecha)}" filterBy="#{sancionesBeans.dateFormat(sanc.sancionesPK.fecha)}">
                                                             <h:outputText value="#{sancionesBeans.dateFormat(sanc.sancionesPK.fecha)}" />
                                                         </p:column>
-                                                        <p:column headerText="Becado" priority="2" sortBy="#{sanc.becado.ci}" filterBy="#{sanc.becado.ci}" style="text-align: center">
-                                                            <h:outputText value="#{sanc.becado.ci}"/>
+                                                        <p:column headerText="Becado" priority="2" sortBy="#{sancionesBeans.nombreApellbeca(sanc.becado)}" filterBy="#{sancionesBeans.nombreApellbeca(sanc.becado)}" style="text-align: center">
+                                                            <h:outputText value="#{sancionesBeans.nombreApellbeca(sanc.becado)}"/>
                                                         </p:column>
                                                         <p:column headerText="Sancion" style="text-align: center" priority="2" sortBy="#{sanc.sancion}" filterBy="#{sanc.sancion}"> <!-- style="text-align: center" -->
                                                             <h:outputText value="#{sanc.sancion}"/>
@@ -170,7 +165,7 @@
                                                     #{sancionesBeans.setArticuloId(sancionesBeans.sanciones.incisoreglam.articuloreglam)}
                                                     #{sancionesBeans.setCapituloId(sancionesBeans.sanciones.incisoreglam.articuloreglam.capituloreglam)}
                                                     
-                                                    <p:dialog header="Modificar Evaluación Becado" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                    <p:dialog header="Modificar Sanciones" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
                                                               modal="true" draggable="false" closable="false" resizable="false">
 
                                                         <p:panelGrid columns="2" >                            

@@ -1,7 +1,8 @@
 
 package beans;
 
-import entities.User;
+import controller.exceptions.IllegalOrphanException;
+import controller.exceptions.NonexistentEntityException;
 import entities.Authorities;
 import entities.AuthoritiesPK;
 import java.io.Serializable;
@@ -11,69 +12,69 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-//import org.apache.commons.codec.digest.DigestUtils;
+import entities.Users;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.primefaces.event.RowEditEvent;
-import beans.DigestUtils;
 
 @Named(value = "usersBeans")
 @ManagedBean
 @SessionScoped
 public class usersBeans implements Serializable {
     
+    ArrayList<Users> Users_list = new ArrayList<>();
+    ArrayList<Users> Users_list_delete = new ArrayList<>();
+    ArrayList<Users> Filtered_Users = new ArrayList<>();
     
-   ArrayList<User> Users_list = new ArrayList<>();
-    ArrayList<User> Users_list_delete = new ArrayList<>();
-    ArrayList<User> Filtered_Users = new ArrayList<>();
-    
-    User user_selected = new User();
+    Users user_selected = new Users();
     
     String username = "";
     String password = "";
     String password1 = "";
-    String ci = "";
-    String nombre = "";
     boolean enable;
+    String nombre = "";
+    String email = "";
     
     public void clear_vars() {
         username = "";
         password = "";
         password1 = "";
-        ci = "";
         nombre = "";
-    }
-    
-     public usersBeans() {
+        email = "";
+        
     }
 
-    public ArrayList<User> getUsers_list() {
+    public ArrayList<Users> getUsers_list() {
         return Users_list;
     }
 
-    public void setUsers_list(ArrayList<User> Users_list) {
+    public void setUsers_list(ArrayList<Users> Users_list) {
         this.Users_list = Users_list;
     }
 
-    public ArrayList<User> getUsers_list_delete() {
+    public ArrayList<Users> getUsers_list_delete() {
         return Users_list_delete;
     }
 
-    public void setUsers_list_delete(ArrayList<User> Users_list_delete) {
+    public void setUsers_list_delete(ArrayList<Users> Users_list_delete) {
         this.Users_list_delete = Users_list_delete;
     }
 
-    public ArrayList<User> getFiltered_Users() {
+    public ArrayList<Users> getFiltered_Users() {
         return Filtered_Users;
     }
 
-    public void setFiltered_Users(ArrayList<User> Filtered_Users) {
+    public void setFiltered_Users(ArrayList<Users> Filtered_Users) {
         this.Filtered_Users = Filtered_Users;
     }
 
-    public User getUser_selected() {
+    public Users getUser_selected() {
         return user_selected;
     }
 
-    public void setUser_selected(User user_selected) {
+    public void setUser_selected(Users user_selected) {
         this.user_selected = user_selected;
     }
 
@@ -101,12 +102,12 @@ public class usersBeans implements Serializable {
         this.password1 = password1;
     }
 
-    public String getCi() {
-        return ci;
+    public boolean isEnable() {
+        return enable;
     }
 
-    public void setCi(String ci) {
-        this.ci = ci;
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 
     public String getNombre() {
@@ -117,20 +118,49 @@ public class usersBeans implements Serializable {
         this.nombre = nombre;
     }
 
-    public boolean isEnable() {
-        return enable;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void update_list() {
+        Users_list = (ArrayList<Users>) control.usersJpa.findUsersEntities();
     }
     
-   public void update_list() {
-        Users_list = (ArrayList<User>) control.usersJpa.findUsersEntities();
+    /*List<User> listUser = new ArrayList<>();
+    
+    User user;
+    
+    public void cargarList() {
+        listUser = control.usersJpa.findUsersEntities();
     }
-   
+    
+    public String active(User u) {
+        String active = "";
+
+        if (u.getEnable()) {
+            active = "Activo";
+        }
+        if (!u.getEnable()) {
+            active = "Inactivo";
+        }
+
+        return active;
+    }
+    
+    public String nombreApell(User u) {
+
+        String nombApell;
+
+        return nombApell = u.getNombre();
+
+    }
+    */
     public void add() {
-        if (username.equals("") || ci.equals("") || password.equals("") || password1.equals("") || nombre.equals("")) {
+        if (username.equals("") || email.equals("") || password.equals("") || password1.equals("") || nombre.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, datos inválidos", "ERROR"));
             return;
         }
@@ -138,7 +168,7 @@ public class usersBeans implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, las contraseñas no coinciden", "ERROR"));
             return;
         }
-        User newUser = new User(username, DigestUtils.md5Hex(password),true , nombre, ci);
+        Users newUser = new Users(username, DigestUtils.md5Hex(password), true, nombre, email);
         AuthoritiesPK authid = new AuthoritiesPK(username, "ROLE_USER");
         Authorities auth = new Authorities(authid, newUser);
         try {
@@ -152,19 +182,19 @@ public class usersBeans implements Serializable {
         update_list();
     }
     
-     public void modificar() {
+    public void modificar() {
     }
-     
-     public void eliminar() {
+    
+    public void eliminar() {
 
         boolean f = false;
-        for (User ust : Users_list) {
-            if (ust.isIsSelected()) {
+        for (Users ust : Users_list) {
+            if (ust.getEnable()) {
                 Users_list_delete.add(ust);
             }
         }
         if (!Users_list_delete.isEmpty()) {
-            for (User us1 : Users_list_delete) {
+            for (Users us1 : Users_list_delete) {
                 try {
                     control.usersJpa.destroy(us1.getUsername());
                 } catch (Exception e) {
@@ -180,12 +210,11 @@ public class usersBeans implements Serializable {
             update_list();
         }
     }
-     
-     public void actualizar(RowEditEvent event) {
-        User us = (User) event.getObject();
+    public void actualizar(RowEditEvent event) {
+        Users us = (Users) event.getObject();
 
-        if (!ci.equals("") && !nombre.equals("") && !password.equals("")) {
-            us.setCi(ci);
+        if (!email.equals("") && !nombre.equals("") && !password.equals("")) {
+            us.setEmail(email);
             us.setNombre(nombre);
             us.setEnable(enable);
             us.setPassword(DigestUtils.md5Hex(password));
@@ -199,7 +228,9 @@ public class usersBeans implements Serializable {
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, datos inválidos", "ERROR"));
         }
+
     }
+
     public void cancelar() {
     }
 }

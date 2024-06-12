@@ -5,8 +5,7 @@
  */
 package beans;
 
-import controller.exceptions.IllegalOrphanException;
-import controller.exceptions.NonexistentEntityException;
+
 import entities.Cuarto;
 import entities.CuartoPK;
 import entities.Edificio;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,22 +27,20 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class cuartoBeans implements Serializable{
 
-    String idCuarto;
+    String id;
     String idPiso;
     String idEdif;
 
     List<Cuarto> listCuart = new ArrayList<>();
+    
     List<Piso> listPiso = new ArrayList<>();
-    List<Edificio> listEdif = new ArrayList<>();
-
     Map<String, String> map_piso = new HashMap<>();
+
+    List<Edificio> listEdif = new ArrayList<>();
     Map<String, String> map_edif = new HashMap<>();
-    String ubicacion;
+    
     Cuarto cuarto;
 
-    /**
-     * Creates a new instance of cuartoBeans
-     */
     public cuartoBeans() {
     }
 
@@ -54,77 +49,65 @@ public class cuartoBeans implements Serializable{
         listPiso = control.pisoJPA.findPisoEntities();
         listEdif = control.edificioJPA.findEdificioEntities();
 
+        map_edif.clear();
+        for (Edificio e : listEdif) {
+            map_edif.put(e.getNombre(), e.getId());
+        }
+
         String aux;
         map_piso.clear();
-        for (Piso pi : listPiso) {
-            map_piso.put("Piso " + pi.getPisoPK().getId(), pi.getPisoPK().getId());
-        }
-        
-        map_edif.clear();
-        for (Edificio p : listEdif) {
-            map_edif.put("Edificio " + p.getNombre(), p.getId());
-        }
-        
-        map_edif.clear();
-        for (Edificio p : listEdif) {
-            map_edif.put("Edificio " + p.getNombre(), p.getId());
+        for (Piso p : listPiso) {
+            aux = "Piso: " + p.getPisoPK().getId();
+            map_piso.put(aux, p.getPisoPK().getId());
         }
     }
-
-    public String[] cortar_cadena(String cadena) {
-        String[] completo = cadena.split(" ");
-
-        String[] respuesta = new String[2];
-
-        respuesta[0] = completo[0];
-        respuesta[1] = completo[1];
-
-        return respuesta;
-    }
-    
 
     public void insert() {
-
-        if (ubicacion.isEmpty()) {
+        
+        Edificio ed = control.edificioJPA.findEdificio(idEdif);
+        
+        if (idPiso.isEmpty() || id == null || idEdif.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
-
         } else {
-
             try {
-                String[] codigos = cortar_cadena(ubicacion);
-                CuartoPK h = new CuartoPK(idCuarto, codigos[0], codigos[1]);
-                Cuarto c = new Cuarto(h);
 
-                c.setPiso(control.pisoJPA.findPiso(new PisoPK(codigos[0], codigos[1])));
-                control.cuartoJPA.create(c);
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El cuarto ha sido insertado", "Atención"));
-            } catch (Exception ex) {
+
+                for (Cuarto trab : listCuart) {
+                    if (trab.getCuartoPK().getId().equals(id) && trab.getCuartoPK().getPisoid().equals(idPiso) && trab.getCuartoPK().getEdificioid().equals(idEdif)) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe el cuarto", "Atención"));
+                        return;
+                    }
+                }
+                CuartoPK t = new CuartoPK(id, idPiso, idEdif);
+
+                PisoPK pPK = new PisoPK(idPiso,idEdif);
+                Piso p = control.pisoJPA.findPiso(pPK);
+                
+                control.cuartoJPA.create(new Cuarto(t, p));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El Cuarto ha sido insertado", "Atención"));
+            } catch (Exception e) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al insertar", "Atención"));
-
             }
-
         }
     }
 
-    public void delete(Cuarto cuart) {
+    /*public void delete(Cuarto cuart) {
         try {
-            
             control.cuartoJPA.destroy(cuart.getCuartoPK());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El cuarto ha sido eliminado", "Infoemación"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El trabajo productivo se ha eliminado", "Atención"));
+
         } catch (NonexistentEntityException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pude eliminar el cuarto", "Atención"));
-        } catch (IllegalOrphanException ex) {
-            Logger.getLogger(cuartoBeans.class.getName()).log(Level.SEVERE, null, ex);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se pude eliminar el cuarto", "Atención"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede eliminar el trabajo productivo", "Atención"));
         }
     }
+*/
 
-    public String getIdCuarto() {
-        return idCuarto;
+    public String getId() {
+        return id;
     }
 
-    public void setIdCuarto(String idCuarto) {
-        this.idCuarto = idCuarto;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getIdPiso() {
@@ -159,20 +142,20 @@ public class cuartoBeans implements Serializable{
         this.listPiso = listPiso;
     }
 
-    public List<Edificio> getListEdif() {
-        return listEdif;
-    }
-
-    public void setListEdif(List<Edificio> listEdif) {
-        this.listEdif = listEdif;
-    }
-
     public Map<String, String> getMap_piso() {
         return map_piso;
     }
 
     public void setMap_piso(Map<String, String> map_piso) {
         this.map_piso = map_piso;
+    }
+
+    public List<Edificio> getListEdif() {
+        return listEdif;
+    }
+
+    public void setListEdif(List<Edificio> listEdif) {
+        this.listEdif = listEdif;
     }
 
     public Map<String, String> getMap_edif() {
@@ -183,14 +166,6 @@ public class cuartoBeans implements Serializable{
         this.map_edif = map_edif;
     }
 
-    public String getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
     public Cuarto getCuarto() {
         return cuarto;
     }
@@ -198,5 +173,5 @@ public class cuartoBeans implements Serializable{
     public void setCuarto(Cuarto cuarto) {
         this.cuarto = cuarto;
     }
-
+   
 }

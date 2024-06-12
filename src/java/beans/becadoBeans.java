@@ -1,3 +1,4 @@
+
 package beans;
 
 import controller.exceptions.IllegalOrphanException;
@@ -6,12 +7,8 @@ import entities.Cuarto;
 import entities.CuartoPK;
 import entities.Piso;
 import entities.PisoPK;
-import entities.Enfermedades;
-import entities.Medicamentos;
-import entities.Trabajoprod;
 import entities.Edificio;
 import entities.Becado;
-import entities.Pacientesatendidos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,8 +27,8 @@ import org.primefaces.context.PrimeRequestContext;
 @Named(value = "becadoBeans")
 @ManagedBean
 @SessionScoped
-public class becadoBeans implements Serializable {
-
+public class becadoBeans implements Serializable{
+    
     String ci;
     String codigo;
     String nombre;
@@ -77,7 +74,6 @@ public class becadoBeans implements Serializable {
         String aux;
         for (Cuarto c : listCuart) {
             if (c.getCuartoPK().getId() != null) {
-
                 map_cuartos.put(cuarto_str(c), c.getCuartoPK().getId());
             }
         }
@@ -141,7 +137,7 @@ public class becadoBeans implements Serializable {
                     }
                 }
                 Becado becado_a_agregar = new Becado(ci, codigo, nombre, apellidos, activo, aptoEsfuerzoFisico, fumar, beber, nucleoFamiliar, carrera, anno, sexo, telefono, facultad, cuartoSeleccionado);
-                if (segundoNombre != null && segundoNombre.trim().isEmpty()) {
+                if (segundoNombre != null || segundoNombre.trim().isEmpty()) {
                     becado_a_agregar.setSegundonombre(segundoNombre);
                 }
                 control.becadoJPA.create(becado_a_agregar);
@@ -511,5 +507,4 @@ public class becadoBeans implements Serializable {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-
 }

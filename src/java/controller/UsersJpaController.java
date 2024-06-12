@@ -10,7 +10,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entities.Authorities;
-import entities.User;
+import entities.Users;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,7 +27,7 @@ public class UsersJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(User users) throws PreexistingEntityException, Exception {
+    public void create(Users users) throws PreexistingEntityException, Exception {
         if (users.getAuthoritiesList() == null) {
             users.setAuthoritiesList(new ArrayList<Authorities>());
         }
@@ -43,8 +43,8 @@ public class UsersJpaController implements Serializable {
             users.setAuthoritiesList(attachedAuthoritiesList);
             em.persist(users);
             for (Authorities authoritiesListAuthorities : users.getAuthoritiesList()) {
-                User oldUsersOfAuthoritiesListAuthorities = authoritiesListAuthorities.getUser1();
-                authoritiesListAuthorities.setUser1(users);
+                Users oldUsersOfAuthoritiesListAuthorities = authoritiesListAuthorities.getUsers();
+                authoritiesListAuthorities.setUsers(users);
                 authoritiesListAuthorities = em.merge(authoritiesListAuthorities);
                 if (oldUsersOfAuthoritiesListAuthorities != null) {
                     oldUsersOfAuthoritiesListAuthorities.getAuthoritiesList().remove(authoritiesListAuthorities);
@@ -64,12 +64,12 @@ public class UsersJpaController implements Serializable {
         }
     }
 
-    public void edit(User user) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Users user) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            User persistentUsers = em.find(User.class, user.getUsername());
+            Users persistentUsers = em.find(Users.class, user.getUsername());
             List<Authorities> authoritiesListOld = persistentUsers.getAuthoritiesList();
             List<Authorities> authoritiesListNew = user.getAuthoritiesList();
             List<String> illegalOrphanMessages = null;
@@ -94,8 +94,8 @@ public class UsersJpaController implements Serializable {
             user = em.merge(user);
             for (Authorities authoritiesListNewAuthorities : authoritiesListNew) {
                 if (!authoritiesListOld.contains(authoritiesListNewAuthorities)) {
-                    User oldUsersOfAuthoritiesListNewAuthorities = authoritiesListNewAuthorities.getUser1();
-                    authoritiesListNewAuthorities.setUser1(user);
+                    Users oldUsersOfAuthoritiesListNewAuthorities = authoritiesListNewAuthorities.getUsers();
+                    authoritiesListNewAuthorities.setUsers(user);
                     authoritiesListNewAuthorities = em.merge(authoritiesListNewAuthorities);
                     if (oldUsersOfAuthoritiesListNewAuthorities != null && !oldUsersOfAuthoritiesListNewAuthorities.equals(user)) {
                         oldUsersOfAuthoritiesListNewAuthorities.getAuthoritiesList().remove(authoritiesListNewAuthorities);
@@ -125,9 +125,9 @@ public class UsersJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            User user;
+            Users user;
             try {
-                user = em.getReference(User.class, id);
+                user = em.getReference(Users.class, id);
                 user.getUsername();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The user with id " + id + " no longer exists.", enfe);
@@ -152,19 +152,19 @@ public class UsersJpaController implements Serializable {
         }
     }
 
-    public List<User> findUsersEntities() {
+    public List<Users> findUsersEntities() {
         return findUsersEntities(true, -1, -1);
     }
 
-    public List<User> findUsersEntities(int maxResults, int firstResult) {
+    public List<Users> findUsersEntities(int maxResults, int firstResult) {
         return findUsersEntities(false, maxResults, firstResult);
     }
 
-    private List<User> findUsersEntities(boolean all, int maxResults, int firstResult) {
+    private List<Users> findUsersEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(User.class));
+            cq.select(cq.from(Users.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -176,10 +176,10 @@ public class UsersJpaController implements Serializable {
         }
     }
 
-    public User findUsers(String id) {
+    public Users findUsers(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(User.class, id);
+            return em.find(Users.class, id);
         } finally {
             em.close();
         }
@@ -189,7 +189,7 @@ public class UsersJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<User> rt = cq.from(User.class);
+            Root<Users> rt = cq.from(Users.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

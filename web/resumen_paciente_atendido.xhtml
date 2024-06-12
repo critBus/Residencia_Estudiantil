@@ -46,9 +46,6 @@
 
                                                     <p:dataTable var="pa" value="#{resumenPacientesAtendidosBeans.listpacientesAtendidos}" sortBy="#{pa.id}" >
 
-
-
-
                                                         <p:column headerText="Fecha" filterMatchMode="contains"  style="text-align: center" priority="2" width="14%" sortBy="#{resumenPacientesAtendidosBeans.dateFormat(pa.fecha)}" filterBy="#{resumenPacientesAtendidosBeans.dateFormat(pa.fecha)}">
                                                             <h:outputText value="#{resumenPacientesAtendidosBeans.dateFormat(pa.fecha)}" />
                                                         </p:column>
@@ -64,21 +61,8 @@
                                                         <p:column headerText="Tipo Consulta" filterMatchMode="contains"  priority="2" width="24%" sortBy="#{pa.tipoconsulta}" filterBy="#{pa.tipoconsulta}" style="text-align: center">
                                                             <h:outputText value="#{pa.tipoconsulta}"/>
                                                         </p:column>
-
-
-
-
                                                     </p:dataTable>
-
-
-
                                                 </h:form>
-
-
-
-
-
-
                                             </div>
                                         </div>
                                     </div>

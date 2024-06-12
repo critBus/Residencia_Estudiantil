@@ -14,7 +14,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import entities.User;
+import entities.Users;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -38,15 +38,15 @@ public class AuthoritiesJpaController implements Serializable {
         if (authorities.getAuthoritiesPK() == null) {
             authorities.setAuthoritiesPK(new AuthoritiesPK());
         }
-        authorities.getAuthoritiesPK().setUser(authorities.getUser1().getUsername());
+        authorities.getAuthoritiesPK().setUsername(authorities.getUsers().getUsername());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            User user = authorities.getUser1();
+            Users user = authorities.getUsers();
             if (user != null) {
                 user = em.getReference(user.getClass(), user.getUsername());
-                authorities.setUser1(user);
+                authorities.setUsers(user);
             }
             em.persist(authorities);
             if (user != null) {
@@ -67,17 +67,17 @@ public class AuthoritiesJpaController implements Serializable {
     }
 
     public void edit(Authorities authorities) throws NonexistentEntityException, Exception {
-        authorities.getAuthoritiesPK().setUser(authorities.getUser1().getUsername());
+        authorities.getAuthoritiesPK().setUsername(authorities.getUsers().getUsername());
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
             Authorities persistentAuthorities = em.find(Authorities.class, authorities.getAuthoritiesPK());
-            User usersOld = persistentAuthorities.getUser1();
-            User usersNew = authorities.getUser1();
+            Users usersOld = persistentAuthorities.getUsers();
+            Users usersNew = authorities.getUsers();
             if (usersNew != null) {
                 usersNew = em.getReference(usersNew.getClass(), usersNew.getUsername());
-                authorities.setUser1(usersNew);
+                authorities.setUsers(usersNew);
             }
             authorities = em.merge(authorities);
             if (usersOld != null && !usersOld.equals(usersNew)) {
@@ -117,7 +117,7 @@ public class AuthoritiesJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The authorities with id " + id + " no longer exists.", enfe);
             }
-            User users = authorities.getUser1();
+            Users users = authorities.getUsers();
             if (users != null) {
                 users.getAuthoritiesList().remove(authorities);
                 users = em.merge(users);

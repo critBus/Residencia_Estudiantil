@@ -8,5 +8,178 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <body>
+        
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+
+
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3 class="m-b-30 m-t-0">Aspecto Cuarteleria de Evaluación de la Cuarteleria</h3>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-sm-12 col-12">
+                                                <!--
+                                                <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; width: 100%;">
+                                                    
+                                                </table>
+                                                -->
+                                                <h:form id="formulario">
+                                                    <p:growl id="msg"/>
+                                                    #{evalCuartelAspectEvalCuartelBeans.cargarList()}
+                                                    <p:dataTable var="aspEvalCuar" value="#{evalCuartelAspectEvalCuartelBeans.listEvalCuarteAspEvalCuartel}" sortBy="#{aspEvalCuar.evalcuarteleriaAspectevalcuartelPK.fecha}" >
+
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Aspecto Evaluación Cuarteleria" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
+
+                                                            </div>
+                                                            
+                                                        </f:facet>
+
+                                                        <p:column headerText="Cuarteleria Fecha" style="text-align: center" priority="2" sortBy="#{aspEvalCuar.evalcuarteleria.evalcuarteleriaPK.fecha}" filterBy="#{aspEvalCuar.evalcuarteleria.evalcuarteleriaPK.fecha}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{aspEvalCuar.evalcuarteleria.evalcuarteleriaPK.fecha}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Aspecto Cuarteleria" style="text-align: center" priority="2" sortBy="#{aspEvalCuar.aspectEvalcuartel.name}" filterBy="#{aspEvalCuar.aspectEvalcuartel.name}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="#{aspEvalCuar.aspectEvalcuartel.name}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Becado" sortBy="#{evalCuartelAspectEvalCuartelBeans.nombreApellbeca(aspEvalCuar.evalcuarteleriaAspectevalcuartelPK.becadoci)}" filterBy="#{evalCuartelAspectEvalCuartelBeans.nombreApellbeca(aspEvalCuar.evalcuarteleriaAspectevalcuartelPK.becadoci)}" priority="2" style="text-align: center">
+                                                            <h:outputText value="#{evalCuartelAspectEvalCuartelBeans.nombreApellbeca(aspEvalCuar.evalcuarteleriaAspectevalcuartelPK.becadoci)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Valor" priority="2" sortBy="#{aspEvalCuar.value}" filterBy="#{aspEvalCuar.value}" style="text-align: center">
+                                                            <h:outputText value="#{aspEvalCuar.value}"/>
+                                                        </p:column>
+                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
+                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
+                                                                <f:setPropertyActionListener value="#{aspEvalCuar}" target="#{evalCuartelAspectEvalCuartelBeans.evalcuarteleriaAspectevalcuartel}"/>
+                                                            </p:commandButton>
+
+                                                        </p:column>
+
+
+                                                    </p:dataTable>
+
+                                                    <p:confirmDialog global="true" responsive="true" width="500">
+                                                        <div align="right">
+                                                            <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
+                                                            <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
+                                                        </div> 
+                                                    </p:confirmDialog>
+
+                                                </h:form> 
+
+
+                                                <h:form>
+                                                    <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white"> 
+                                                            
+                                                            <h:outputLabel value="Cuarteleria Fecha:" for="cf"/>
+                                                            <p:selectOneMenu id="cf" value="#{evalCuartelAspectEvalCuartelBeans.evalCuartelfecha}" title="Cuarteleria Fecha">
+                                                                <f:selectItem itemLabel="- Seleccione una fecha -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{evalCuartelAspectEvalCuartelBeans.map_EvalCuartel}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Aspecto Cuarteleria:" for="asp"/>
+                                                            <p:selectOneMenu id="asp" value="#{evalCuartelAspectEvalCuartelBeans.aspEvalCuartelId}" title="Aspecto Cuarteleria">
+                                                                <f:selectItem itemLabel="- Seleccione un Aspecto -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{evalCuartelAspectEvalCuartelBeans.map_aspEvalCuartel}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Becado:" for="bec"/>
+                                                            <p:selectOneMenu id="bec" value="#{evalCuartelAspectEvalCuartelBeans.becadoCi}" title="Becado">
+                                                                <f:selectItem itemLabel="- Seleccione un Becado -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{evalCuartelAspectEvalCuartelBeans.map_becado}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Valor:"/>
+                                                            <p:spinner value="#{evalCuartelAspectEvalCuartelBeans.value}" placeholder="Valor" min="0" max="5"/>               
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{evalCuartelAspectEvalCuartelBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+
+                                                        </div>
+
+                                                    </p:dialog>
+                                                </h:form>
+
+                                                <h:form id="editar">
+
+                                                    #{evalCuartelAspectEvalCuartelBeans.setEvalCuartelfecha(evalCuartelAspectEvalCuartelBeans.evalcuarteleriaAspectevalcuartel.evalcuarteleriaAspectevalcuartelPK.fecha)}
+                                                    #{evalCuartelAspectEvalCuartelBeans.setAspEvalCuartelId(evalCuartelAspectEvalCuartelBeans.evalcuarteleriaAspectevalcuartel.evalcuarteleriaAspectevalcuartelPK.aspectEvalcuartelid)}
+                                                    #{evalCuartelAspectEvalCuartelBeans.setBecadoCi(evalCuartelAspectEvalCuartelBeans.evalcuarteleriaAspectevalcuartel.evalcuarteleriaAspectevalcuartelPK.becadoci)}
+                                                    #{evalCuartelAspectEvalCuartelBeans.setValue(evalCuartelAspectEvalCuartelBeans.evalcuarteleriaAspectevalcuartel.value)}
+                                                    
+                                                    <p:dialog header="Modificar Aspecto Evaluación Cuarteleria" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" >   
+                                                            
+                                                            <h:outputLabel value="Cuarteleria Fecha:" for="cf"/>
+                                                            <p:selectOneMenu id="cf" value="#{evalCuartelAspectEvalCuartelBeans.evalCuartelfecha}" title="Cuarteleria Fecha" disabled="true">
+                                                                <f:selectItems value="#{evalCuartelAspectEvalCuartelBeans.map_EvalCuartel}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Aspecto Cuarteleria:" for="asp"/>
+                                                            <p:selectOneMenu id="asp" value="#{evalCuartelAspectEvalCuartelBeans.aspEvalCuartelId}" title="Aspecto Cuarteleria" disabled="true">
+                                                                <f:selectItems value="#{evalCuartelAspectEvalCuartelBeans.map_aspEvalCuartel}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Becado:" for="bec"/>
+                                                            <p:selectOneMenu id="bec" value="#{evalCuartelAspectEvalCuartelBeans.becadoCi}" title="Becado" disabled="true">
+                                                                <f:selectItems value="#{evalCuartelAspectEvalCuartelBeans.map_becado}" />
+                                                            </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Valor:"/>
+                                                            <p:spinner value="#{evalCuartelAspectEvalCuartelBeans.value}" placeholder="Valor" min="0" max="5"/>
+                                                            
+                                                        </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{evalCuartelAspectEvalCuartelBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                        </div>
+
+                                                    </p:dialog>
+
+                                                </h:form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- End Row -->
+
+
+                    </div>
+                
+                <!-- end wrapper -->
+            </ui:define>
+
+        </ui:composition>
     </body>
 </html>

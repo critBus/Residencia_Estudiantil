@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Medicamentos.findByTipodosisid", query = "SELECT m FROM Medicamentos m WHERE m.tipodosisid = :tipodosisid")})
 public class Medicamentos implements Serializable {
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicamentos", fetch = FetchType.LAZY)
+    private List<BecadoMedicamentos> becadoMedicamentosList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,7 +67,7 @@ public class Medicamentos implements Serializable {
     private List<Becado> becadoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "medicamentos", fetch = FetchType.LAZY)
     private List<PacatendMedicamentos> pacatendMedicamentosList;
-
+    
     public Medicamentos() {
     }
 
@@ -119,7 +122,7 @@ public class Medicamentos implements Serializable {
     public void setPacatendMedicamentosList(List<PacatendMedicamentos> pacatendMedicamentosList) {
         this.pacatendMedicamentosList = pacatendMedicamentosList;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -143,6 +146,15 @@ public class Medicamentos implements Serializable {
     @Override
     public String toString() {
         return "entities.Medicamentos[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<BecadoMedicamentos> getBecadoMedicamentosList() {
+        return becadoMedicamentosList;
+    }
+
+    public void setBecadoMedicamentosList(List<BecadoMedicamentos> becadoMedicamentosList) {
+        this.becadoMedicamentosList = becadoMedicamentosList;
     }
     
 }

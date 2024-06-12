@@ -61,7 +61,7 @@ public class Becado implements Serializable {
     @Size(min = 1, max = 11)
     @Column(name = "ci")
     private String ci;
-@Basic(optional = false)
+    @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "codigo")
@@ -111,10 +111,6 @@ public class Becado implements Serializable {
     private int anno;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "sexo")
-    private boolean sexo;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "telefono")
     private String telefono;
@@ -123,6 +119,10 @@ public class Becado implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "facultad")
     private String facultad;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "sexo")
+    private boolean sexo;
     @ManyToMany(mappedBy = "becadoList", fetch = FetchType.LAZY)
     private List<Medicamentos> medicamentosList;
     @JoinTable(name = "becado_trabajoprod", joinColumns = {
@@ -158,7 +158,11 @@ public class Becado implements Serializable {
     private List<Edificio> edificioList;
     @OneToMany(mappedBy = "becadoci", fetch = FetchType.LAZY)
     private List<Planteamientos> planteamientosList;
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "becado", fetch = FetchType.LAZY)
+    private List<BecadoMedicamentos> becadoMedicamentosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "becado", fetch = FetchType.LAZY)
+    private List<BecadoEnfermedades> becadoEnfermedadesList;
+    
     public Becado() {
         
     }
@@ -184,7 +188,7 @@ public class Becado implements Serializable {
         this.facultad = facultad;
         this.cuarto = cuarto;
     }
-    
+
     public String getCi() {
         return ci;
     }
@@ -281,13 +285,6 @@ public class Becado implements Serializable {
         this.anno = anno;
     }
 
-    public boolean getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(boolean sexo) {
-        this.sexo = sexo;
-    }
 
     public String getTelefono() {
         return telefono;
@@ -421,7 +418,6 @@ public class Becado implements Serializable {
         this.planteamientosList = planteamientosList;
     }
     
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -445,6 +441,33 @@ public class Becado implements Serializable {
     @Override
     public String toString() {
         return "entities.Becado[ ci=" + ci + " ]";
+    }
+
+
+    @XmlTransient
+    public List<BecadoMedicamentos> getBecadoMedicamentosList() {
+        return becadoMedicamentosList;
+    }
+
+    public void setBecadoMedicamentosList(List<BecadoMedicamentos> becadoMedicamentosList) {
+        this.becadoMedicamentosList = becadoMedicamentosList;
+    }
+
+    @XmlTransient
+    public List<BecadoEnfermedades> getBecadoEnfermedadesList() {
+        return becadoEnfermedadesList;
+    }
+
+    public void setBecadoEnfermedadesList(List<BecadoEnfermedades> becadoEnfermedadesList) {
+        this.becadoEnfermedadesList = becadoEnfermedadesList;
+    }
+
+    public boolean getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(boolean sexo) {
+        this.sexo = sexo;
     }
     
 }

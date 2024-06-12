@@ -34,23 +34,15 @@ public class tipoEvalBecadoBeans implements Serializable {
 
     public void insert() {
 
-        if (tipo.isEmpty() || descripcion.isEmpty() || id.isEmpty()) {
+        if (id.isEmpty() || tipo.isEmpty() || descripcion.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
         } else {
             try {
 
                 for (Tipoevalbecado te : listTipoEvalBecad) {
-                    if (id.equals(te.getId())) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un tipo de evaluación becado registrado con el mismo ID", "Atención"));
-                        return;
-                    }
-                    if (te.getTipo().equals(tipo)) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un tipo de evaluación registrado con el mismo nombre", "Atención"));
-                        return;
-                    }
                     
-                    if (te.getDescripcion().equals(descripcion)) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un tipo de evaluación registrado con la misma descripción", "Atención"));
+                    if (te.getId().equals(id)) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un tipo de evaluación registrado con el mismo Id", "Atención"));
                         return;
                     }
                 }
@@ -68,7 +60,7 @@ public class tipoEvalBecadoBeans implements Serializable {
         int count = 0;
 
         Tipoevalbecado a = control.tipoevalbecadoJpa.findTipoevalbecado(id);
-
+        
         if (!tipo.isEmpty() && !tipo.equals(tipoevalbecado.getTipo())) {
             a.setTipo(tipo);
             flag = true;
@@ -76,6 +68,7 @@ public class tipoEvalBecadoBeans implements Serializable {
         if (!descripcion.isEmpty() && !descripcion.equals(tipoevalbecado.getDescripcion())) {
             a.setDescripcion(descripcion);
             flag = true;
+            
         } else if (tipo.isEmpty() || descripcion.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Existen campos vacíos", "Atención"));
             count++;
@@ -102,7 +95,6 @@ public class tipoEvalBecadoBeans implements Serializable {
         } else if (count == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha realizado ningún cambio", "Atención"));
         }
-
     }
 
     public void delete(Tipoevalbecado tipoevbec) {
@@ -112,9 +104,7 @@ public class tipoEvalBecadoBeans implements Serializable {
 
         } catch (IllegalOrphanException | NonexistentEntityException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede eliminar el tipo de evaluación", "Atención"));
-
         }
-
     }
 
     public String getId() {

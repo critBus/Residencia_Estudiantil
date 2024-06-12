@@ -49,9 +49,6 @@ public class Evalbecado implements Serializable {
     @JoinColumn(name = "tipoevalbecadoid", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Tipoevalbecado tipoevalbecadoid;
-    
-    @Column(name = "aft")
-    private Integer aft;
 
     public Evalbecado() {
     }
@@ -66,7 +63,6 @@ public class Evalbecado implements Serializable {
         this.tipoevalbecadoid = tipoevalbecado;
         this.cualitativa = rangos;
         this.reglamento = reglamento;
-        this.aft=0;
     }
 
     public Evalbecado(Date fecha, String becadoci) {
@@ -113,16 +109,6 @@ public class Evalbecado implements Serializable {
         this.tipoevalbecadoid = tipoevalbecadoid;
     }
 
-    public Integer getAft() {
-        return aft;
-    }
-
-    public void setAft(Integer aft) {
-        this.aft = aft;
-    }
-    
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -11,6 +11,7 @@
 
             <ui:define name="content">
 
+
                 <div class="wrapper">
                     <div class="container-fluid">
                         <!-- Page-Title -->
@@ -19,19 +20,17 @@
                                 <div class="page-title-box">
                                     <div class="row align-items-center">
                                         <div class="col-md-8">
-                                            
+                                           
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
-                            
-                            <div class="col-lg-9">
+                            <div class="col-lg-8">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="m-b-30 m-t-0">Tipo de Evaluaciones de los Becado</h3>
+                                        <h3 class="m-b-30 m-t-0">Piso / Edificio donde es asignado trabajo productivo</h3>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 col-12">
                                                 <!--
@@ -40,24 +39,21 @@
                                                 </table>
                                                 -->
                                                 <h:form id="formulario">
-                                                   
-                                                    <p:dataTable var="tipevalbec" value="#{tipoEvalBecadoBeans.listTipoEvalBecad}" sortBy="#{tipevalbec.id}" >
+                                                    
+                                                    <p:dataTable var="trabProd" value="#{trabajoProductivoBeans.listTrabProd}" sortBy="#{trabProd.trabajoprodPK.fecha}" >
 
-                                                        <p:column headerText="ID" style="text-align: center" priority="2" width="16%" sortBy="#{tipevalbec.id}" filterBy="#{tipevalbec.id}">
-                                                            <h:outputText value="#{tipevalbec.id}" />
+                                                        <p:column headerText="Fecha" style="text-align: center" priority="2" sortBy="#{trabajoProductivoBeans.dateFormat(trabProd.trabajoprodPK.fecha)}" filterBy="#{trabajoProductivoBeans.dateFormat(trabProd.trabajoprodPK.fecha)}">
+                                                            <h:outputText value="#{trabajoProductivoBeans.dateFormat(trabProd.trabajoprodPK.fecha)}" />
                                                         </p:column>
-                                                        <p:column headerText="Tipo" style="text-align: center" priority="2" sortBy="#{tipevalbec.tipo}" filterBy="#{tipevalbec.tipo}"> <!-- style="text-align: center" -->
-                                                            <h:outputText value="#{tipevalbec.tipo}"/>
+                                                        <p:column headerText="Piso" style="text-align: center" priority="2" sortBy="#{trabProd.trabajoprodPK.pisoid}" filterBy="#{trabProd.trabajoprodPK.pisoid}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="Piso: #{trabProd.trabajoprodPK.pisoid}"/>
                                                         </p:column>
-                                                        <p:column headerText="Descripción" priority="2" sortBy="#{tipevalbec.descripcion}" filterBy="#{tipevalbec.descripcion}">
-                                                            <div style="text-align: justify">
-                                                            <h:outputText value="#{tipevalbec.descripcion}"/>
-                                                            </div>
+                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" sortBy="#{trabProd.piso.edificio.nombre}" filterBy="#{trabProd.piso.edificio.nombre}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="Edificio: #{trabProd.piso.edificio.nombre}"/>
                                                         </p:column>
+
                                                     </p:dataTable>
-
                                                 </h:form> 
-
                                             </div>
                                         </div>
                                     </div>
@@ -68,10 +64,8 @@
 
 
                     </div>
-                </div>
+                
                 <!-- end wrapper -->
-
-
             </ui:define>
 
         </ui:composition>

@@ -62,8 +62,8 @@
                                                         <p:column headerText="Becado" priority="2" sortBy="#{evalBecadoBeans.nombreApellbeca(eb.becado)}" filterBy="#{evalBecadoBeans.nombreApellbeca(eb.becado)}" style="text-align: center">
                                                             <h:outputText value="#{evalBecadoBeans.nombreApellbeca(eb.becado)}"/>
                                                         </p:column>
-                                                        <p:column headerText="Tipo Evaluación Becado" priority="2" filterBy="#{eb.tipoevalbecadoid.tipo}" sortBy="#{eb.tipoevalbecadoid.tipo}" style="text-align: center">
-                                                            <h:outputText value="#{eb.tipoevalbecadoid.tipo}"/>
+                                                        <p:column headerText="Tipo Evaluación" priority="2" filterBy="#{eb.tipoevalbecadoid.tipo}" sortBy="#{eb.tipoevalbecadoid.tipo}" style="text-align: center">
+                                                            <h:outputText value="#{eb.tipoevalbecadoid.descripcion}"/>
                                                         </p:column>
                                                         <p:column headerText="Rangos" priority="2" filterBy="#{eb.cualitativa.nombre}" sortBy="#{eb.cualitativa.nombre}" style="text-align: center">
                                                             <h:outputText value="#{eb.cualitativa.nombre}"/>
@@ -109,7 +109,7 @@
                                                                 <f:selectItem itemLabel="- Seleccione un becado -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{evalBecadoBeans.map_becado}"/>
                                                             </p:selectOneMenu>
-                                                            <h:outputLabel value="Tipo Evaluación Becado:" for="tra"/>
+                                                            <h:outputLabel value="Tipo Evaluación:" for="tra"/>
                                                             <p:selectOneMenu id="ind" value="#{evalBecadoBeans.tipoEvalBecadoid}" title="Tipo Evaluación Becado">
                                                                 <f:selectItem itemLabel="- Seleccione un Tipo Evaluación Becado -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{evalBecadoBeans.map_tipoEvalbec}" />
@@ -155,9 +155,9 @@
                                                                 <f:selectItem itemLabel="- Seleccione un becado -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{evalBecadoBeans.map_becado}"/>
                                                             </p:selectOneMenu>
-                                                            <h:outputLabel value="Tipo Evaluación becado:" for="tr"/>
+                                                            <h:outputLabel value="Tipo Evaluación:" for="tr"/>
                                                             <p:selectOneMenu id="in" value="#{evalBecadoBeans.tipoEvalBecadoid}" title="Trabajador">
-                                                                <f:selectItem itemLabel="- Seleccione un Trabajador -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItem itemLabel="- Seleccione un Tipo -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{evalBecadoBeans.map_tipoEvalbec}"/>
                                                             </p:selectOneMenu>
                                                             <h:outputLabel value="Rangos:" for="tr"/>

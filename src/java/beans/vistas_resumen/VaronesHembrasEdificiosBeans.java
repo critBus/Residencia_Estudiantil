@@ -40,8 +40,7 @@ public class VaronesHembrasEdificiosBeans {
     List<Becado> listbecad = new ArrayList<>();
      public void cargarList() {
 
-        
-        listEdificio = control.edificioJPA.findEdificioEntities();
+         listEdificio = control.edificioJPA.findEdificioEntities();
         listbecad = control.becadoJPA.findBecadoEntities();
         
     }
@@ -115,7 +114,6 @@ public class VaronesHembrasEdificiosBeans {
          double porcentaje=porcentaje_hembras(edificio);
          return porcentaje>0?UtilsResumenes.formatDecimal(porcentaje)+"%":"";
      }
-
      
     public List<Edificio> getListEdificio() {
         return listEdificio;

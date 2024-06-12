@@ -141,7 +141,6 @@ public class pisoBeans implements Serializable{
                 control.pisoJPA.create(new Piso(p, becjefePiso, becjefeLimp, e));
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El piso ha sido insertado", "Atención"));
             } catch (Exception ex) {
-                Logger.getLogger(Piso.class.getName()).log(Level.SEVERE, null, ex);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al insertar", "Atención"));
 
             }
@@ -249,7 +248,14 @@ public class pisoBeans implements Serializable{
         }
 
     }*/
+    
+    public String nombreApellbeca(Becado becado) {
 
+        String nombApellbecado;
+
+        return nombApellbecado = becado.getNombre() + " " + becado.getSegundonombre() + " " + becado.getApellidos();
+    }
+    
     public String getIdPiso() {
         return idPiso;
     }

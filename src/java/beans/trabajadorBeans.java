@@ -216,5 +216,4 @@ public class trabajadorBeans implements Serializable{
     public void setEnable(boolean enable) {
         this.enable = enable;
     }
-
 }

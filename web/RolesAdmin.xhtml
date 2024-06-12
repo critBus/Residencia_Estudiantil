@@ -44,7 +44,7 @@
                                                     <p:growl id="msg"/>
                                                     #{authoritiesBeans.update_List()}
                                                     #{authoritiesBeans.update_users_autorities()}
-                                                    <p:dataTable var="authority" value="#{authoritiesBeans.authorities_list}" rowKey="#{authority.authoritiesPK.user}" editable="true" sortBy="#{authority.authoritiesPK.user}">
+                                                    <p:dataTable var="authority" value="#{authoritiesBeans.authorities_list}" rowKey="#{authority.authoritiesPK.username}" editable="true" sortBy="#{authority.authoritiesPK.username}">
                                                         <f:facet name="header">
                                                             <div align="left">
                                                                 <p:commandButton value="Añadir Roles" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
@@ -54,8 +54,8 @@
                                                         <p:column width="30">
                                                            <h:selectBooleanCheckbox value="#{authority.isSelected}"/>
                                                         </p:column>
-                                                        <p:column headerText="Usuario" filterBy="#{authority.authoritiesPK.user}" filterMatchMode="contains" filterStyle="width:auto">
-                                                            <h:outputText value="#{authority.authoritiesPK.user}" />
+                                                        <p:column headerText="Usuario" filterBy="#{authority.authoritiesPK.username}" filterMatchMode="contains" filterStyle="width:auto">
+                                                            <h:outputText value="#{authority.authoritiesPK.username}" />
                                                         </p:column>
                                                         <p:column headerText="Rol" filterBy="#{authority.authoritiesPK.authority}" filterMatchMode="contains" filterStyle="width:auto">
                                                             <h:outputText value="#{authority.authoritiesPK.authority}" />

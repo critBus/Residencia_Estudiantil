@@ -79,7 +79,7 @@ public class Trabajador implements Serializable {
 
     public Trabajador() {
     }
-
+    
     public Trabajador(String ci) {
         this.ci = ci;
     }

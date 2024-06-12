@@ -55,10 +55,15 @@ public class Cuarto implements Serializable {
         this.cuartoPK = cuartoPK;
     }
 
+    public Cuarto(CuartoPK cuartoPK, Piso piso) {
+        this.cuartoPK = cuartoPK;
+        this.piso = piso;
+    }
+    
     public Cuarto(String id, String pisoid, String edificioid) {
         this.cuartoPK = new CuartoPK(id, pisoid, edificioid);
     }
-
+    
     public CuartoPK getCuartoPK() {
         return cuartoPK;
     }

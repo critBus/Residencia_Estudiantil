@@ -51,16 +51,16 @@
                                                             
                                                         </f:facet>
 
-                                                        <p:column headerText="Fecha" style="text-align: center" priority="2" width="14%" sortBy="#{trabajoProductivoBeans.dateFormat(trabProd.trabajoprodPK.fecha)}" filterBy="#{trabajoProductivoBeans.delete(trabProd.trabajoprodPK.fecha)}">
+                                                        <p:column headerText="Fecha" style="text-align: center" priority="2" sortBy="#{trabajoProductivoBeans.dateFormat(trabProd.trabajoprodPK.fecha)}" filterBy="#{trabajoProductivoBeans.dateFormat(trabProd.trabajoprodPK.fecha)}">
                                                             <h:outputText value="#{trabajoProductivoBeans.dateFormat(trabProd.trabajoprodPK.fecha)}" />
                                                         </p:column>
-                                                        <p:column headerText="Piso" style="text-align: center" priority="2" width="16%" sortBy="#{trabProd.trabajoprodPK.pisoid}" filterBy="#{trabProd.trabajoprodPK.pisoid}"> <!-- style="text-align: center" -->
-                                                            <h:outputText value="Piso #{trabProd.trabajoprodPK.pisoid}"/>
+                                                        <p:column headerText="Piso" style="text-align: center" priority="2" sortBy="#{trabProd.trabajoprodPK.pisoid}" filterBy="#{trabProd.trabajoprodPK.pisoid}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="Piso: #{trabProd.trabajoprodPK.pisoid}"/>
                                                         </p:column>
-                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" width="16%" sortBy="#{trabProd.piso.edificio.nombre}" filterBy="#{trabProd.piso.edificio.nombre}"> <!-- style="text-align: center" -->
-                                                            <h:outputText value="Edificio #{trabProd.piso.edificio.nombre}"/>
+                                                        <p:column headerText="Edificio" style="text-align: center" priority="2" sortBy="#{trabProd.piso.edificio.nombre}" filterBy="#{trabProd.piso.edificio.nombre}"> <!-- style="text-align: center" -->
+                                                            <h:outputText value="Edificio: #{trabProd.piso.edificio.nombre}"/>
                                                         </p:column>
-                                                        <p:column headerText="Evaluacion" priority="2" width="24%" sortBy="#{trabProd.evaluacion}" filterBy="#{trabProd.evaluacion}" style="text-align: center">
+                                                        <p:column headerText="Evaluacion" priority="2" sortBy="#{trabProd.evaluacion}" filterBy="#{trabProd.evaluacion}" style="text-align: center">
                                                             <h:outputText value="#{trabProd.evaluacion}"/>
                                                         </p:column>
                                                         <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
@@ -96,13 +96,13 @@
                                                             <p:calendar value="#{trabajoProductivoBeans.fecha}"  placeholder="fecha"/>
                                                             
                                                             <h:outputLabel value="Piso" for="pi"/>
-                                                            <p:selectOneMenu id="pi" value="#{trabajoProductivoBeans.trabaProd}" title="Piso">
+                                                            <p:selectOneMenu id="pi" value="#{trabajoProductivoBeans.pisoId}" title="Piso">
                                                                 <f:selectItem itemLabel="- Seleccione un Piso -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{trabajoProductivoBeans.map_piso}" />
                                                             </p:selectOneMenu>
                                                             
                                                             <h:outputLabel value="Edificio" for="ed"/>
-                                                            <p:selectOneMenu id="ed" value="#{trabajoProductivoBeans.trabaProd}" title="Edificio">
+                                                            <p:selectOneMenu id="ed" value="#{trabajoProductivoBeans.edificioId}" title="Edificio">
                                                                 <f:selectItem itemLabel="- Seleccione un Edificio -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{trabajoProductivoBeans.map_edif}" />
                                                             </p:selectOneMenu>
@@ -138,9 +138,15 @@
                                                             <p:calendar value="#{trabajoProductivoBeans.fecha}"  placeholder="fecha" disabled="true"/>
                                                             
                                                             <h:outputLabel value="Piso" for="pi" />
-                                                            <p:selectOneMenu id="pi" value="#{trabajoProductivoBeans.trabaProd}" title="Piso" disabled="true">
+                                                            <p:selectOneMenu id="pi" value="#{trabajoProductivoBeans.pisoId}" title="Piso" disabled="true">
                                                                 <f:selectItems value="#{trabajoProductivoBeans.map_piso}" />
                                                             </p:selectOneMenu>
+                                                            
+                                                            <h:outputLabel value="Edificio" for="ed"/>
+                                                            <p:selectOneMenu id="ed" value="#{trabajoProductivoBeans.edificioId}" title="Edificio" disabled="true">
+                                                                <f:selectItems value="#{trabajoProductivoBeans.map_edif}" />
+                                                            </p:selectOneMenu>
+                                                            
                                                             <h:outputLabel value="Evaluacion:"/>
                                                             <p:spinner value="#{trabajoProductivoBeans.evaluacion}" placeholder="Evaluacion" min="0" max="5"/>
                                                             

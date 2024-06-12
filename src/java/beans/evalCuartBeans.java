@@ -146,7 +146,6 @@ public class evalCuartBeans implements Serializable{
                 }
 
                 EvalcuartoPK e = new EvalcuartoPK(fecha, codigos[0], codigos[1], codigos[2]);
-
                 Evalcuarto ec = new Evalcuarto(e);
 
                 Edificio ed = control.edificioJPA.findEdificio(codigos[2]);
@@ -161,7 +160,6 @@ public class evalCuartBeans implements Serializable{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La evaluación ha sido insertada", "Atención"));
             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al insertar", "Atención"));
-
             }
         }
     }

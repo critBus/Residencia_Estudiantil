@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package beans.vistas_resumen.util;
 
 import java.util.ArrayList;
@@ -101,5 +97,4 @@ public class Guardia {
     public void setLista_incumplieron(List<String> lista_incumplieron) {
         this.lista_incumplieron = lista_incumplieron;
     }
-    
 }

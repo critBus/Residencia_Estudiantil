@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
     
     <body>
+        
         <ui:composition template="./template.xhtml">
 
             <ui:define name="content">
@@ -19,7 +20,7 @@
                                 <div class="page-title-box">
                                     <div class="row align-items-center">
                                         <div class="col-md-8">
-                                            
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
                                         </div>
                                     </div>
                                 </div>
@@ -27,11 +28,10 @@
                         </div>
 
                         <div class="row">
-                            
-                            <div class="col-lg-9">
+                            <div class="col-lg-7">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="m-b-30 m-t-0">Tipo de Evaluaciones de los Becado</h3>
+                                        <h3 class="m-b-30 m-t-0">Becados que tienen Enfermedades</h3>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 col-12">
                                                 <!--
@@ -40,24 +40,19 @@
                                                 </table>
                                                 -->
                                                 <h:form id="formulario">
-                                                   
-                                                    <p:dataTable var="tipevalbec" value="#{tipoEvalBecadoBeans.listTipoEvalBecad}" sortBy="#{tipevalbec.id}" >
 
-                                                        <p:column headerText="ID" style="text-align: center" priority="2" width="16%" sortBy="#{tipevalbec.id}" filterBy="#{tipevalbec.id}">
-                                                            <h:outputText value="#{tipevalbec.id}" />
+                                                    <p:dataTable var="patenmedicam" value="#{becadoEnfermedadesBeans.listBecadoEnfermedades}" sortBy="#{patenmedicam.becadoEnfermedadesPK.becadoci}" >
+
+                                                        <p:column headerText="Becado" priority="2" sortBy="#{becadoEnfermedadesBeans.nombreApellbeca(patenmedicam.becado)}" filterBy="#{becadoEnfermedadesBeans.nombreApellbeca(patenmedicam.becado)}" style="text-align: center">
+                                                            <h:outputText value="#{becadoEnfermedadesBeans.nombreApellbeca(patenmedicam.becado)}"/>
                                                         </p:column>
-                                                        <p:column headerText="Tipo" style="text-align: center" priority="2" sortBy="#{tipevalbec.tipo}" filterBy="#{tipevalbec.tipo}"> <!-- style="text-align: center" -->
-                                                            <h:outputText value="#{tipevalbec.tipo}"/>
-                                                        </p:column>
-                                                        <p:column headerText="Descripción" priority="2" sortBy="#{tipevalbec.descripcion}" filterBy="#{tipevalbec.descripcion}">
-                                                            <div style="text-align: justify">
-                                                            <h:outputText value="#{tipevalbec.descripcion}"/>
-                                                            </div>
+                                                        <p:column headerText="Enfermedades" priority="2" filterBy="#{patenmedicam.enfermedades.nombre}" sortBy="#{patenmedicam.enfermedades.nombre}" style="text-align: center">
+                                                            <h:outputText value="#{patenmedicam.enfermedades.nombre}"/>
                                                         </p:column>
                                                     </p:dataTable>
 
-                                                </h:form> 
-
+                                                </h:form>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -71,9 +66,7 @@
                 </div>
                 <!-- end wrapper -->
 
-
             </ui:define>
-
-        </ui:composition>
+            </ui:composition>
     </body>
 </html>

@@ -29,10 +29,10 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="m-b-30 m-t-0">Pacientes con Medicamento</h3>
+                                        <h3 class="m-b-30 m-t-0">Becados con Enfermedades</h3>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 col-12">
                                                 <!--
@@ -42,13 +42,13 @@
                                                 -->
                                                 <h:form id="formulario">
                                                     <p:growl id="msg"/>
-                                                    #{pacienteAtendidoMedicamentoBeans.cargarList()}
+                                                    #{becadoEnfermedadesBeans.cargarList()}
 
-                                                    <p:dataTable var="patenmedicam" value="#{pacienteAtendidoMedicamentoBeans.listPacAtendidoMedicamento}" sortBy="#{patenmedicam.pacatendMedicamentosPK.pacatendid}" >
+                                                    <p:dataTable var="patenmedicam" value="#{becadoEnfermedadesBeans.listBecadoEnfermedades}" sortBy="#{patenmedicam.becadoEnfermedadesPK.becadoci}" >
 
                                                         <f:facet name="header">
                                                             <div align="left" >
-                                                                <p:commandButton value="Añadir Pacientes con Medicamento" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
+                                                                <p:commandButton value="Añadir Becado" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus"/>
 
                                                             </div>
                                                             <div align="left">
@@ -56,22 +56,24 @@
                                                             </div>
                                                         </f:facet>
 
-                                                        <p:column headerText="Pacientes" priority="2" sortBy="#{patenmedicam.pacientesatendidos.id}" filterBy="#{patenmedicam.pacientesatendidos.id}" style="text-align: center">
-                                                            <h:outputText value="#{patenmedicam.pacientesatendidos.id}"/>
+                                                        <p:column headerText="Becado" priority="2" sortBy="#{becadoEnfermedadesBeans.nombreApellbeca(patenmedicam.becado)}" filterBy="#{becadoEnfermedadesBeans.nombreApellbeca(patenmedicam.becado)}" style="text-align: center">
+                                                            <h:outputText value="#{becadoEnfermedadesBeans.nombreApellbeca(patenmedicam.becado)}"/>
                                                         </p:column>
-                                                        <p:column headerText="Medicamentos" priority="2" filterBy="#{patenmedicam.medicamentos.nombre}" sortBy="#{patenmedicam.medicamentos.nombre}" style="text-align: center">
-                                                            <h:outputText value="#{patenmedicam.medicamentos.nombre}"/>
+                                                        <p:column headerText="Enfermedades" priority="2" filterBy="#{patenmedicam.enfermedades.nombre}" sortBy="#{patenmedicam.enfermedades.nombre}" style="text-align: center">
+                                                            <h:outputText value="#{patenmedicam.enfermedades.nombre}"/>
                                                         </p:column>
-                                                        <p:column headerText="Cantidad" priority="2" width="24%" sortBy="#{patenmedicam.cantadim}" filterBy="#{patenmedicam.cantadim}" style="text-align: center">
-                                                            <h:outputText value="#{patenmedicam.cantadim}"/>
+                                                        <p:column headerText="Descripción" priority="2" sortBy="#{patenmedicam.descripcion}" filterBy="#{patenmedicam.descripcion}">
+                                                            <div style="text-align: justify">
+                                                                <h:outputText value="#{patenmedicam.descripcion}"/>
+                                                            </div>
                                                         </p:column>
 
                                                         <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
-                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{pacienteAtendidoMedicamentoBeans.delete(patenmedicam)}">                                
-                                                                <p:confirm message="¿Seguro de eliminar este paciente con medicamento?" icon="ui-icon-alert" />
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{becadoEnfermedadesBeans.delete(patenmedicam)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este becado con enfermedades?" icon="ui-icon-alert" />
                                                             </p:commandButton>
                                                             <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
-                                                                <f:setPropertyActionListener value="#{patenmedicam}" target="#{pacienteAtendidoMedicamentoBeans.pacatendMedicamentos}"/>
+                                                                <f:setPropertyActionListener value="#{patenmedicam}" target="#{becadoEnfermedadesBeans.becadoEnfermedades}"/>
                                                             </p:commandButton>
 
                                                         </p:column>
@@ -96,26 +98,26 @@
 
                                                         <p:panelGrid columns="2" style="background: white">    
 
-                                                            <h:outputLabel value="Pacientes:" for="paten"/>
-                                                            <p:selectOneMenu id="paten" value="#{pacienteAtendidoMedicamentoBeans.pacAtendId}" title="Pacientes">
-                                                                <f:selectItem itemLabel="- Seleccione un pacientes -" itemValue="" noSelectionOption="true"/>
-                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_pacAtendidos}"/>
+                                                            <h:outputLabel value="Becado:" for="paten"/>
+                                                            <p:selectOneMenu id="paten" value="#{becadoEnfermedadesBeans.becadoCi}" title="Becado">
+                                                                <f:selectItem itemLabel="- Seleccione un becado -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{becadoEnfermedadesBeans.map_becado}"/>
                                                             </p:selectOneMenu>
 
-                                                            <h:outputLabel value="Medicamento:" for="medic"/>
-                                                            <p:selectOneMenu id="medic" value="#{pacienteAtendidoMedicamentoBeans.medicamId}" title="Medicamento">
-                                                                <f:selectItem itemLabel="- Seleccione un medicamento -" itemValue="" noSelectionOption="true"/>
-                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_Medicamento}" />
+                                                            <h:outputLabel value="Enfermedades:" for="medic"/>
+                                                            <p:selectOneMenu id="medic" value="#{becadoEnfermedadesBeans.enfermId}" title="Enfermedades">
+                                                                <f:selectItem itemLabel="- Seleccione un enfermedades -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{becadoEnfermedadesBeans.map_Enfermedades}" />
                                                             </p:selectOneMenu>
-                                                            <h:outputLabel value="Cantidad:"/>
-                                                            <p:spinner value="#{pacienteAtendidoMedicamentoBeans.cantAdmi}" placeholder="Cantidad" min="0" max="10"/>
+                                                            <h:outputLabel value="Descripción:"/>
+                                                            <p:inputTextarea value="#{becadoEnfermedadesBeans.descripcion}" placeholder="Descripción" style="text-align: justify"/>
 
                                                         </p:panelGrid>
 
                                                         <br/>
                                                         <div align="center">
                                                             <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
-                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{pacienteAtendidoMedicamentoBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{becadoEnfermedadesBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
 
                                                         </div>
 
@@ -125,34 +127,32 @@
 
                                                 <h:form id="editar">
 
-                                                    #{pacienteAtendidoMedicamentoBeans.setPacAtendId(pacienteAtendidoMedicamentoBeans.pacatendMedicamentos.pacatendMedicamentosPK.pacatendid)}
-                                                    #{pacienteAtendidoMedicamentoBeans.setMedicamId(pacienteAtendidoMedicamentoBeans.pacatendMedicamentos.pacatendMedicamentosPK.medicamid)}
-                                                    #{pacienteAtendidoMedicamentoBeans.setCantAdmi(pacienteAtendidoMedicamentoBeans.pacatendMedicamentos.cantadim)}
+                                                    #{becadoEnfermedadesBeans.setBecadoCi(becadoEnfermedadesBeans.becadoEnfermedades.becadoEnfermedadesPK.becadoci)}
+                                                    #{becadoEnfermedadesBeans.setEnfermId(becadoEnfermedadesBeans.becadoEnfermedades.becadoEnfermedadesPK.enfermid)}
+                                                    #{becadoEnfermedadesBeans.setDescripcion(becadoEnfermedadesBeans.becadoEnfermedades.descripcion)}
                                                     
-                                                    <p:dialog header="Modificar Pacientes con Medicamento" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
+                                                    <p:dialog header="Modificar Becado con Enfermedaes" widgetVar="dlg2" showEffect="clip" hideEffect="clip" responsive="true"
                                                               modal="true" draggable="false" closable="false" resizable="false">
 
                                                         <p:panelGrid columns="2" >                            
 
-                                                            <h:outputLabel value="Pacientes:" for="pat"/>
-                                                            <p:selectOneMenu id="pat" value="#{pacienteAtendidoMedicamentoBeans.pacAtendId}" title="Pacientes" disabled="true">
-                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_pacAtendidos}"/>
+                                                            <h:outputLabel value="Becado:" for="pat"/>
+                                                            <p:selectOneMenu id="pat" value="#{becadoEnfermedadesBeans.becadoCi}" title="Pacientes" disabled="true">
+                                                                <f:selectItems value="#{becadoEnfermedadesBeans.map_becado}"/>
                                                             </p:selectOneMenu>
-
-                                                            <h:outputLabel value="Medicamento:" for="med"/>
-                                                            <p:selectOneMenu id="med" value="#{pacienteAtendidoMedicamentoBeans.medicamId}" title="Medicamento" disabled="true">
-                                                                <f:selectItems value="#{pacienteAtendidoMedicamentoBeans.map_Medicamento}" />
+                                                            <h:outputLabel value="Enfermedades:" for="med"/>
+                                                            <p:selectOneMenu id="med" value="#{becadoEnfermedadesBeans.enfermId}" title="Enfermedades" disabled="true">
+                                                                <f:selectItems value="#{becadoEnfermedadesBeans.map_Enfermedades}" />
                                                             </p:selectOneMenu>
-                                                            
-                                                            <h:outputLabel value="Cantidad:"/>
-                                                            <p:spinner value="#{pacienteAtendidoMedicamentoBeans.cantAdmi}" placeholder="Cantidad" min="0" max="10"/>
+                                                            <h:outputLabel value="Descripción:"/>
+                                                            <p:inputTextarea value="#{becadoEnfermedadesBeans.descripcion}" placeholder="Descripción" style="text-align: justify"/>
 
                                                         </p:panelGrid>
 
                                                         <br/>
                                                         <div align="center">
                                                             <p:commandButton value="Cancelar" onclick="PF('dlg2').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-left: 5px"/>
-                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{pacienteAtendidoMedicamentoBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{becadoEnfermedadesBeans.edit()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg2').hide()"/>
                                                         </div>
 
                                                     </p:dialog>

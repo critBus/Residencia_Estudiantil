@@ -113,7 +113,7 @@ public class aspectEvalCuartelBeans implements Serializable{
             System.out.println("//////////////////////////////////////");
             System.out.println(aecuartel);
             
-            eliminando_lista_evaluacion(aecuartel.getId());
+            //eliminando_lista_evaluacion(aecuartel.getId());
             control.aspectevalCuartelJPA.destroy(aecuartel.getId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El aspecto evaluativo se ha eliminado", "Atención"));
 
@@ -123,7 +123,7 @@ public class aspectEvalCuartelBeans implements Serializable{
         }
     }
 
-    public void eliminando_lista_evaluacion(int aspectoeval) {
+    /*public void eliminando_lista_evaluacion(int aspectoeval) {
 
         //List<AspectEvalcuartoEvalcuarto> listado=new ArrayList();
         listAspCuartel_EvCuartel = control.aspEvCuartel_EvCuartelJPA.findEvalcuarteleriaAspectevalcuartelEntities();
@@ -144,7 +144,7 @@ public class aspectEvalCuartelBeans implements Serializable{
         }
 
     }
-
+*/
     public int getId() {
         return id;
     }

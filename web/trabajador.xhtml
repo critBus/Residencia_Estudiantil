@@ -87,13 +87,23 @@
                                                               modal="true" draggable="false" closable="false" resizable="false" position="">
                                                         <p:panelGrid columns="2" style="background: lightgrey">
                                                             <h:outputLabel value="CI:"/>
-                                                            <p:inputText value="#{trabajadorBeans.ci}" type="text"  placeholder="CI" />
+                                                            <p:inputMask value="#{trabajadorBeans.ci}" mask="99999999999"  label="CI" 
+                                                                         validatorMessage="El CI debe estar conformado por 11 números">
+                                                                <f:validateRegex pattern="^[0-9]{11}$" />
+                                                            </p:inputMask>
                                                             <h:outputLabel value="Código:"/>
                                                             <p:inputText value="#{trabajadorBeans.codigo}" type="text"  placeholder="Código"/>
+                                                            
                                                             <h:outputLabel value="Nombre:"/>
-                                                            <p:inputText value="#{trabajadorBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            <p:inputText value="#{trabajadorBeans.nombre}" label="Nombre" type="text" 
+                                                                         placeholder="nombre" validatorMessage="Debe ser un nombre valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$" />
+                                                            </p:inputText>
                                                             <h:outputLabel value="Apellidos:"/>
-                                                            <p:inputText value="#{trabajadorBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <p:inputText value="#{trabajadorBeans.apellidos}" type="text" label="Apellidos"  placeholder="Apellidos" 
+                                                                         validatorMessage="Debe ser un apellido valido." >
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)?$" />
+                                                            </p:inputText>
                                                             <h:outputLabel value="Estado:" for="est"/>
                                                             <p:selectOneMenu id="est" value="#{trabajadorBeans.enable}" title="Estado">
                                                                 <f:selectItem itemLabel="Activo" itemValue="true" />

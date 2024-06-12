@@ -59,16 +59,14 @@
                                                             <h:outputText value="#{edif.nombre}"/>
                                                         </p:column>
                                                         <p:column headerText="Especialista" sortBy="#{edificioBeans.nombreApell(edif.especialista)}" filterBy="#{edificioBeans.nombreApell(edif.especialista)}" priority="1" style="text-align: center">
-                                                            <h:outputText value="#{edificioBeans.nombreApell(edif.especialista)}"/>
+                                                            <h:outputText value="#{edif.especialista.nombre}"/>
                                                         </p:column>
                                                         <p:column headerText="Instructor" sortBy="#{edificioBeans.nombreApell(edif.instructor)}" filterBy="#{edificioBeans.nombreApell(edif.instructor)}" priority="2" style="text-align: center">
-                                                            <h:outputText value="#{edificioBeans.nombreApell(edif.instructor)}"/>
+                                                            <h:outputText value="#{edif.instructor.nombre}"/>
                                                         </p:column>
-                                                        <p:column headerText="Jefe de Edicio" sortBy="#{edif.jefeedif.nombre}" filterBy="#{edif.jefeedif.nombre}" priority="2" style="text-align: center">
-                                                            <h:outputText value="#{edif.jefeedif}"/>
+                                                        <p:column headerText="Jefe de Edicio" sortBy="#{edificioBeans.nombreApellbeca(edif.jefeedif)}" filterBy="#{edificioBeans.nombreApellbeca(edif.jefeedif)}" priority="2" style="text-align: center">
+                                                            <h:outputText value="#{edif.jefeedif.nombre}"/>
                                                         </p:column>
-                                                        
-
 
                                                         <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
                                                             <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">

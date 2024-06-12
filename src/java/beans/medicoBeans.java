@@ -74,35 +74,22 @@ public class medicoBeans implements Serializable {
 
         Medico a = control.medicoJpa.findMedico(ciMedico);
         
-        if (!ciMedico.isEmpty() && !ciMedico.equals(medico.getCiMedico())) {
-            a.setCiMedico(ciMedico);
+        if (!especialidad.isEmpty() && !especialidad.equals(medico.getEspecialidad())) {
+            a.setEspecialidad(especialidad);
             flag = true;
         }
-        if (!nombre.isEmpty() && !nombre.equals(medico.getNombre())) {
-            a.setNombre(nombre);
-            flag = true;
         
-        if (!apellidos.isEmpty() && !apellidos.equals(medico.getApellidos())) {
-            a.setApellidos(apellidos);
+        if (!direccion.isEmpty() && !direccion.equals(medico.getDireccion())) {
+            a.setDireccion(direccion);
             flag = true;
 
-        }
-        
-        } else if (nombre.isEmpty() || apellidos.isEmpty() || especialidad.isEmpty() || direccion.isEmpty()) {
+        } else if (especialidad.isEmpty() || direccion.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Existen campos vacíos", "Atención"));
             count++;
         }
 
         if (flag) {
             try {
-                for (Medico md : listmedico) {
-
-                    if (md.getNombre() == nombre && md.getApellidos() == apellidos && medico.getNombre() != nombre && medico.getApellidos() != apellidos) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un medico con ese nombre", "Atención"));
-                        return;
-                    }
-
-                }
                 control.medicoJpa.edit(a);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El medico ha sido modificado", "Atención"));
             } catch (Exception ex) {

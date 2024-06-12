@@ -86,11 +86,20 @@
                                                               modal="true" draggable="false" closable="false" resizable="false" position="">
                                                         <p:panelGrid columns="2" style="background: lightgrey">
                                                             <h:outputLabel value="CI:"/>
-                                                            <p:inputText value="#{medicoBeans.ciMedico}" type="text"  placeholder="CI" />
+                                                            <p:inputMask value="#{medicoBeans.ciMedico}" mask="99999999999"  label="CI" 
+                                                                         validatorMessage="El CI debe estar conformado por 11 números">
+                                                                <f:validateRegex pattern="^[0-9]{11}$" />
+                                                            </p:inputMask>
                                                             <h:outputLabel value="Nombre:"/>
-                                                            <p:inputText value="#{medicoBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            <p:inputText value="#{medicoBeans.nombre}" label="Nombre" type="text" 
+                                                                         placeholder="nombre" validatorMessage="Debe ser un nombre valido.">
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$" />
+                                                            </p:inputText>
                                                             <h:outputLabel value="Apellidos:"/>
-                                                            <p:inputText value="#{medicoBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <p:inputText value="#{medicoBeans.apellidos}" type="text" label="Apellidos"  placeholder="Apellidos" 
+                                                                         validatorMessage="Debe ser un apellido valido." >
+                                                                <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)?$" />
+                                                            </p:inputText>
                                                             <h:outputLabel value="Especialidad:"/>
                                                             <p:inputText value="#{medicoBeans.especialidad}" type="text"  placeholder="Especialidad"/>
                                                             <h:outputLabel value="Direccion:"/>
@@ -116,9 +125,9 @@
                                                             <h:outputLabel value="CI:"/>
                                                             <p:inputText value="#{medicoBeans.ciMedico}" type="text"  placeholder="CI" disabled="true" style="background: lightgrey; color: black"/>
                                                             <h:outputLabel value="Nombre:"/>
-                                                            <p:inputText value="#{medicoBeans.nombre}" type="text"  placeholder="Nombre" />
+                                                            <p:inputText value="#{medicoBeans.nombre}" type="text"  placeholder="Nombre" disabled="true" style="background: lightgrey; color: black"/>
                                                             <h:outputLabel value="Apellidos:"/>
-                                                            <p:inputText value="#{medicoBeans.apellidos}" type="text"  placeholder="Apellidos" />
+                                                            <p:inputText value="#{medicoBeans.apellidos}" type="text"  placeholder="Apellidos" disabled="true" style="background: lightgrey; color: black"/>
                                                             <h:outputLabel value="Especialidad:"/>
                                                             <p:inputText value="#{medicoBeans.especialidad}" type="text"  placeholder="Especialidad"/>
                                                             <h:outputLabel value="Direccion:"/>

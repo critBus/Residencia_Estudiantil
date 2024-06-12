@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -37,6 +39,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Enfermedades.findById", query = "SELECT e FROM Enfermedades e WHERE e.id = :id")
     , @NamedQuery(name = "Enfermedades.findByNombre", query = "SELECT e FROM Enfermedades e WHERE e.nombre = :nombre")})
 public class Enfermedades implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "enfermedades", fetch = FetchType.LAZY)
+    private List<BecadoEnfermedades> becadoEnfermedadesList;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -115,6 +120,15 @@ public class Enfermedades implements Serializable {
     @Override
     public String toString() {
         return "entities.Enfermedades[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public List<BecadoEnfermedades> getBecadoEnfermedadesList() {
+        return becadoEnfermedadesList;
+    }
+
+    public void setBecadoEnfermedadesList(List<BecadoEnfermedades> becadoEnfermedadesList) {
+        this.becadoEnfermedadesList = becadoEnfermedadesList;
     }
     
 }

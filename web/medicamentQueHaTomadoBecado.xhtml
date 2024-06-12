@@ -4,9 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <body>
+        
         <ui:composition template="./template.xhtml">
 
             <ui:define name="content">
@@ -19,7 +21,7 @@
                                 <div class="page-title-box">
                                     <div class="row align-items-center">
                                         <div class="col-md-8">
-                                            
+                                            <!--<h4 class="page-title m-0">Datatables</h4>-->
                                         </div>
                                     </div>
                                 </div>
@@ -27,11 +29,10 @@
                         </div>
 
                         <div class="row">
-                            
                             <div class="col-lg-9">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="m-b-30 m-t-0">Tipo de Evaluaciones de los Becado</h3>
+                                        <h3 class="m-b-30 m-t-0">Medicamento y Dosis que ha tomado becado</h3>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 col-12">
                                                 <!--
@@ -40,24 +41,22 @@
                                                 </table>
                                                 -->
                                                 <h:form id="formulario">
-                                                   
-                                                    <p:dataTable var="tipevalbec" value="#{tipoEvalBecadoBeans.listTipoEvalBecad}" sortBy="#{tipevalbec.id}" >
 
-                                                        <p:column headerText="ID" style="text-align: center" priority="2" width="16%" sortBy="#{tipevalbec.id}" filterBy="#{tipevalbec.id}">
-                                                            <h:outputText value="#{tipevalbec.id}" />
+                                                    <p:dataTable var="patenmedicam" value="#{becadoMedicamentosBeans.listBecadoMedicamentos}" sortBy="#{patenmedicam.becadoMedicamentosPK.becadoci}" >
+
+                                                        <p:column headerText="Becado" priority="2" sortBy="#{becadoMedicamentosBeans.nombreApellbeca(patenmedicam.becado)}" filterBy="#{becadoMedicamentosBeans.nombreApellbeca(patenmedicam.becado)}" style="text-align: center">
+                                                            <h:outputText value="#{becadoMedicamentosBeans.nombreApellbeca(patenmedicam.becado)}"/>
                                                         </p:column>
-                                                        <p:column headerText="Tipo" style="text-align: center" priority="2" sortBy="#{tipevalbec.tipo}" filterBy="#{tipevalbec.tipo}"> <!-- style="text-align: center" -->
-                                                            <h:outputText value="#{tipevalbec.tipo}"/>
+                                                        <p:column headerText="Medicamento / Dosis" priority="2" filterBy="#{becadoMedicamentosBeans.medicaDosis(patenmedicam.medicamentos)}" sortBy="#{becadoMedicamentosBeans.medicaDosis(patenmedicam.medicamentos)}" style="text-align: center">
+                                                            <h:outputText value="#{becadoMedicamentosBeans.medicaDosis(patenmedicam.medicamentos)}"/>
                                                         </p:column>
-                                                        <p:column headerText="Descripción" priority="2" sortBy="#{tipevalbec.descripcion}" filterBy="#{tipevalbec.descripcion}">
+                                                        <p:column headerText="Descripción" priority="2" sortBy="#{patenmedicam.descripcion}" filterBy="#{patenmedicam.descripcion}">
                                                             <div style="text-align: justify">
-                                                            <h:outputText value="#{tipevalbec.descripcion}"/>
+                                                                <h:outputText value="#{patenmedicam.descripcion}"/>
                                                             </div>
                                                         </p:column>
                                                     </p:dataTable>
-
-                                                </h:form> 
-
+                                                </h:form>
                                             </div>
                                         </div>
                                     </div>
@@ -70,7 +69,6 @@
                     </div>
                 </div>
                 <!-- end wrapper -->
-
 
             </ui:define>
 

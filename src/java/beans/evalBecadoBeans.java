@@ -76,7 +76,7 @@ public class evalBecadoBeans implements Serializable{
         String aux2;
         for (Rangos r : listrango) {
             if (r.getNombre() != null) {
-                aux1 = r.getNombre()+ " : " +r.getValormax()+ " - " + r.getValormin();
+                aux1 = r.getNombre();
                 map_rango.put(aux1, r.getNombre());
             }
         }

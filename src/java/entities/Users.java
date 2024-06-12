@@ -8,7 +8,6 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -20,30 +19,29 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Euclides
  */
 @Entity
-@Table(name = "User")
+@Table(name = "users")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-    , @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username")
-    , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
-    , @NamedQuery(name = "User.findByEnable", query = "SELECT u FROM User u WHERE u.enable = :enable")
-    , @NamedQuery(name = "User.findByNombre", query = "SELECT u FROM User u WHERE u.nombre = :nombre")
-    , @NamedQuery(name = "User.findByCi", query = "SELECT u FROM User u WHERE u.ci = :ci")})
-public class User implements Serializable {
+    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
+    , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
+    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+    , @NamedQuery(name = "Users.findByEnable", query = "SELECT u FROM Users u WHERE u.enable = :enable")
+    , @NamedQuery(name = "Users.findByNombre", query = "SELECT u FROM Users u WHERE u.nombre = :nombre")
+    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")})
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "user")
+    @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @NotNull
@@ -59,46 +57,31 @@ public class User implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "nombre")
     private String nombre;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "ci")
-    private String ci;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1", fetch = FetchType.LAZY)
-    private List<Authorities> authoritiesList;
+    @Size(min = 1, max = 50)
+    @Column(name = "email")
+    private String email;
 
-    private boolean isSelected;
-     
-    public boolean isIsSelected() {
-        return isSelected;
-    }
-    public void setIsSelected(boolean isSelected) {
-        this.isSelected = isSelected;
-    }
+    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private List<Authorities> AuthoritiesList;
     
-    public User() {
+    public Users() {
     }
 
-    public User(String user) {
-        this.username = user;
+    public Users(String username) {
+        this.username = username;
     }
 
-    public User(String user, String password, boolean enable, String nombre, String ci) {
-        this.username = user;
+    public Users(String username, String password, boolean enable, String nombre, String email) {
+        this.username = username;
         this.password = password;
         this.enable = enable;
         this.nombre = nombre;
-        this.ci = ci;
+        this.email = email;
     }
-    public User(String user, String password, String ci, boolean enable, String nombre, List<Authorities> authorities) {
-       this.username = user;
-       this.password = password;
-       this.enable = enable;
-       this.nombre = nombre;
-       this.ci = ci;
-       this.authoritiesList = authorities;
-    }
-    
+
     public String getUsername() {
         return username;
     }
@@ -131,23 +114,22 @@ public class User implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getCi() {
-        return ci;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCi(String ci) {
-        this.ci = ci;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @XmlTransient
     public List<Authorities> getAuthoritiesList() {
-        return authoritiesList;
+        return AuthoritiesList;
     }
 
-    public void setAuthoritiesList(List<Authorities> authoritiesList) {
-        this.authoritiesList = authoritiesList;
+    public void setAuthoritiesList(List<Authorities> AuthoritiesList) {
+        this.AuthoritiesList = AuthoritiesList;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -158,10 +140,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Users)) {
             return false;
         }
-        User other = (User) object;
+        Users other = (Users) object;
         if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
             return false;
         }
@@ -170,7 +152,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.User[ user=" + username + " ]";
+        return "entities.Users[ username=" + username + " ]";
     }
     
 }

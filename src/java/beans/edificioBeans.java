@@ -144,13 +144,17 @@ public class edificioBeans implements Serializable{
     public String nombreApell(Trabajador trabajador) {
 
         String nombApell;
-        if (trabajador==null){
-            return "desconocido";
-        }
+
         return nombApell = trabajador.getNombre() + " " + trabajador.getApellidos();
-
     }
+    
+    public String nombreApellbeca(Becado becado) {
 
+        String nombApellbecado;
+
+        return nombApellbecado = becado.getNombre() + " " + becado.getSegundonombre() + " " + becado.getApellidos();
+    }
+    
     public void edit() {
         boolean flag = false;
         int count = 0;
@@ -352,7 +356,7 @@ public class edificioBeans implements Serializable{
         }
 
     }
-
+    
    /* public void delete(Edificio edific) {
         try {
             control.edificioJPA.destroy(edific.getId());

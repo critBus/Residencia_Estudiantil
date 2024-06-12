@@ -40,8 +40,6 @@
 
                                                     <p:dataTable var="pa" value="#{varonesHembrasEdificiosBeans.listEdificio}" sortBy="#{pa.nombre}" >
 
-
-
                                                         <p:column headerText="Edificio" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.nombre}" filterBy="#{pa.nombre}">
                                                             <h:outputText value="#{pa.nombre}"/>
                                                         </p:column>
@@ -65,18 +63,8 @@
                                                         <p:column headerText="Hembras %" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}" filterBy="#{varonesHembrasEdificiosBeans.porcentaje_hembras(pa)}">
                                                             <h:outputText value="#{varonesHembrasEdificiosBeans.porcentaje_hembras_str(pa)}"/>
                                                         </p:column>
-
-
-
                                                     </p:dataTable>
-
-
-
                                                 </h:form>
-
-
-
-
                                             </div>
                                         </div>
                                     </div>

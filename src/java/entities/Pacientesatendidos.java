@@ -64,10 +64,7 @@ public class Pacientesatendidos implements Serializable {
     @JoinColumn(name = "medicoci_medico", referencedColumnName = "ci_medico")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Medico medicociMedico;
-    
-    @Column(name = "tipoconsulltaid")
-    private String tipoconsulltaid;
-    
+
     public Pacientesatendidos() {
     }
 
@@ -81,7 +78,6 @@ public class Pacientesatendidos implements Serializable {
         this.becadoci = becado;
         this.medicociMedico = medico;
         this.tipoconsulta = tipoConsulta;
-        this.tipoconsulltaid="";
     }
 
     public String getId() {
@@ -132,15 +128,6 @@ public class Pacientesatendidos implements Serializable {
     public void setMedicociMedico(Medico medicociMedico) {
         this.medicociMedico = medicociMedico;
     }
-
-    public String getTipoconsulltaid() {
-        return tipoconsulltaid;
-    }
-
-    public void setTipoconsulltaid(String tipoconsulltaid) {
-        this.tipoconsulltaid = tipoconsulltaid;
-    }
-    
 
     @Override
     public int hashCode() {

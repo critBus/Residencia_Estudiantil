@@ -55,6 +55,14 @@ public class sancionesBeans implements Serializable{
     Map<String, String> map_capitulo = new HashMap<>();
     
     Sanciones sanciones;
+    Becado becado;
+    Incisoreglam incisoreglam;
+    Articuloreglam articuloreglam;
+    Capituloreglam capituloreglam;
+    
+    public sancionesBeans(){
+        
+    }
     
     public void cargarList(){
         
@@ -101,40 +109,38 @@ public class sancionesBeans implements Serializable{
         
     }
   }
-    
-    public void insert(){
+
+        public void insert() {
         
-        Becado bec = control.becadoJPA.findBecado(becadoCi);
+        Capituloreglam cr = control.capituloReglamJPA.findCapituloreglam(capituloId);
+        Becado becado = control.becadoJPA.findBecado(becadoCi);
         
-        IncisoreglamPK i = new IncisoreglamPK(incisoId, articuloId, capituloId);
-        Incisoreglam incisoreglam = control.incisoReglamJPA.findIncisoreglam(i);
-        
-        ArticuloreglamPK a = new ArticuloreglamPK(articuloId,capituloId);
-        Articuloreglam articuloreglam = control.articuloReglamJPA.findArticuloreglam(a);
-        
-        Capituloreglam c = control.capituloReglamJPA.findCapituloreglam(capituloId);
-        
-        if (fecha == null || becadoCi.isEmpty() || sancion.isEmpty() || tiempo.isEmpty() || estado.isEmpty() || descripcion.isEmpty() || incisoId.isEmpty() || articuloId.isEmpty() || capituloId.isEmpty()) {
+        if (becadoCi.isEmpty() || fecha == null || articuloId.isEmpty() || capituloId.isEmpty() || incisoId.isEmpty() || sancion.isEmpty() || tiempo.isEmpty() || estado.isEmpty() || descripcion.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
-        }else{
+
+        } else {
+            
             try {
                 
-                for (Sanciones sa : listSanciones) {
-                    if (fecha.equals(sa.getSancionesPK().getFecha()) && becadoCi.equals(sa.getSancionesPK().getBecadoci())) {
-                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe la Sanción", "Atención"));
+                for (Sanciones in : listSanciones) {
+                    if (in.getSancionesPK().getFecha().equals(fecha) && in.getSancionesPK().getBecadoci().equals(becadoCi)) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe la sanción", "Atención"));
                         return;
                     }
-
                 }
                 
-                SancionesPK e = new SancionesPK(fecha, becadoCi);
-                Sanciones san = new Sanciones(e);
+                SancionesPK s = new SancionesPK(fecha, becadoCi);
                 
-                control.sancionesJpa.create(new Sanciones(e, bec, incisoreglam));
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sancion ha sido insertada", "Atención"));
-            } catch (Exception e) {
+                IncisoreglamPK ipk = new IncisoreglamPK(incisoId, articuloId, capituloId);
+                Incisoreglam inc = control.incisoReglamJPA.findIncisoreglam(ipk);
+                
+                control.sancionesJpa.create(new Sanciones(s, sancion, tiempo, estado, descripcion, inc));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La sanción ha sido insertado", "Atención"));
+            } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al insertar", "Atención"));
+
             }
+
         }
     }
     
@@ -142,22 +148,23 @@ public class sancionesBeans implements Serializable{
         boolean flag = false;
         int count = 0;
 
-        Sanciones s = control.sancionesJpa.findSanciones(sanciones.getSancionesPK());
+        SancionesPK e = new SancionesPK(fecha, becadoCi);
+        Sanciones san = new Sanciones(e);
 
         if (!sancion.isEmpty() && !sancion.equals(sanciones.getSancion())) {
-            s.setSancion(sancion);
+            san.setSancion(sancion);
             flag = true;
         
         if (tiempo.isEmpty() && !tiempo.equals(sanciones.getTiempo())) {
-            s.setTiempo(tiempo);
+            san.setTiempo(tiempo);
             flag = true;
         }
         if (estado.isEmpty() && !estado.equals(sanciones.getEstado())) {
-            s.setEstado(estado);
+            san.setEstado(estado);
             flag = true;
         }
         if (descripcion.isEmpty() && !descripcion.equals(sanciones.getDescripcion())) {
-            s.setDescripcion(descripcion);
+            san.setDescripcion(descripcion);
             flag = true;
         }
         }else if (sancion.isEmpty() || tiempo.isEmpty() || estado.isEmpty() || descripcion.isEmpty()) {
@@ -167,7 +174,7 @@ public class sancionesBeans implements Serializable{
 
         if (flag) {
             try {
-                control.sancionesJpa.edit(s);             
+                control.sancionesJpa.edit(san);             
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La Sancion ha sido modificada", "Atención"));
             
             } catch (Exception ex) {
@@ -194,6 +201,15 @@ public class sancionesBeans implements Serializable{
         return fecha.getDate() + " / " + (fecha.getMonth() + 1) + " / " + (fecha.getYear() + 1900);
 
     }
+    
+    public String nombreApellbeca(Becado becado) {
+
+        String nombApellbecado;
+
+        return nombApellbecado = becado.getNombre() + " " + becado.getSegundonombre() + " " + becado.getApellidos();
+
+    }
+    
     public Date getFecha() {
         return fecha;
     }
@@ -345,6 +361,36 @@ public class sancionesBeans implements Serializable{
     public void setSanciones(Sanciones sanciones) {
         this.sanciones = sanciones;
     }
-    
-    
+
+    public Becado getBecado() {
+        return becado;
+    }
+
+    public void setBecado(Becado becado) {
+        this.becado = becado;
+    }
+
+    public Incisoreglam getIncisoreglam() {
+        return incisoreglam;
+    }
+
+    public void setIncisoreglam(Incisoreglam incisoreglam) {
+        this.incisoreglam = incisoreglam;
+    }
+
+    public Articuloreglam getArticuloreglam() {
+        return articuloreglam;
+    }
+
+    public void setArticuloreglam(Articuloreglam articuloreglam) {
+        this.articuloreglam = articuloreglam;
+    }
+
+    public Capituloreglam getCapituloreglam() {
+        return capituloreglam;
+    }
+
+    public void setCapituloreglam(Capituloreglam capituloreglam) {
+        this.capituloreglam = capituloreglam;
+    }
 }

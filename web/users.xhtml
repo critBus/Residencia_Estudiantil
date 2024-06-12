@@ -43,80 +43,73 @@
                                                 <h:form id="formulario">
                                                     <p:growl id="msg"/>
                                                     #{usersBeans.update_list()}
-                                                    <p:dataTable var="use" value="#{usersBeans.users_list}" rowKey="#{use.username}" editable="true" sortBy="#{use.username}">
+                                                    <p:dataTable paginator="true" rows="10" emptyMessage="No se han encontrado elementos" var="users" value="#{usersBeans.users_list}" rowKey="#{users.username}" editable="true" sortBy="#{users.username}">
                                                         <p:ajax event="rowEdit" listener="#{usersBeans.actualizar}" update=":form:msg"/>
                                                         <p:ajax event="rowEditCancel" listener="#{usersBeans.cancelar}" update=":form:msg"/>
                                                         <f:facet name="header">
                                                             <div align="left">
                                                                 <p:commandButton value="Añadir Usuario" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
-
                                                             </div>
                                                         </f:facet>
                                                         
-                                                        <p:column width="30">
-                                                            <h:selectBooleanCheckbox value="#{use.isSelected}"/>
+                                                        <p:column headerText="Usuario" filterBy="#{users.username}" filterMatchMode="contains" filterStyle="width:auto">
+                                                            <h:outputText value="#{users.username}"/>
                                                         </p:column>
-                                                        <p:column headerText="Usuario" sortBy="#{use.username}" filterBy="#{use.username}" style="text-align: center" priority="5">
-                                                            <h:outputText value="#{use.username}"/>
-                                                        </p:column>
+                                                        
                                                         <p:column headerText="Contraseña">
                                                         <p:cellEditor>
-                                                        <f:facet name="output">
-                                                            <h:outputText value="#{use.password}" />
-                                                        </f:facet>
-                                                        <f:facet name="input">
-                                                        <p:password value="#{usersBeans.password}"/>
-                                                        </f:facet>
+                                                            <f:facet name="output">
+                                                                <h:outputText value="#{users.password}" />
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                <p:password value="#{usersBeans.password}"/>
+                                                            </f:facet>
                                                         </p:cellEditor>
-                                                        </p:column>
-                                                        
-                                                        <p:column headerText="Nombre completo" filterBy="#{use.nombre}" filterMatchMode="contains" filterStyle="width:auto">
-                                                        <p:cellEditor>
-                                                        <f:facet name="output">
-                                                            <h:outputText value="#{use.nombre}" />
-                                                        </f:facet>
-                                                        <f:facet name="input">
-                                                            #{usersBeans.setNombre(use.nombre)}
-                                                            <p:inputText value="#{usersBeans.nombre}"/>
-                                                        </f:facet>
-                                                        </p:cellEditor>
-                                                        </p:column>
-                                                        
-                                                        <p:column headerText="Identificación" filterBy="#{use.ci}" filterMatchMode="contains" filterStyle="width:auto">
-                                                        <p:cellEditor>
-                                                        <f:facet name="output">
-                                                            #{usersBeans.setCi(use.ci)}
-                                                            <h:outputText value="#{use.ci}" />
-                                                        </f:facet>
-                                                        <f:facet name="input">
-                                                            #{usersBeans.setCi(use.ci)}
-                                                            <p:inputText value="#{usersBeans.ci}"/>
-                                                        </f:facet>
-                                                    </p:cellEditor>
                                                         </p:column>
                                                         
                                                         <p:column headerText="Habilitado" width="90">
                                                         <p:cellEditor>
                                                             <f:facet name="output">
-                                                                <center><h:selectBooleanCheckbox value="#{use.enable}" disabled="true"/></center>
+                                                                <center><h:selectBooleanCheckbox value="#{users.enable}" disabled="true"/></center>
                                                             </f:facet>
                                                             <f:facet name="input">
-                                                                #{usersBeans.setEnable(use.enable)}
+                                                                #{usersBeans.setEnable(users.enable)}
                                                                 <center><h:selectBooleanCheckbox value="#{usersBeans.enable}"/></center>
                                                             </f:facet>
                                                         </p:cellEditor>
-                                                    </p:column>
+                                                        </p:column>
                                                         
+                                                        <p:column headerText="Nombre completo" filterBy="#{users.nombre}" filterMatchMode="contains" filterStyle="width:auto">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output">
+                                                                <h:outputText value="#{users.nombre}" />
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                #{usersBeans.setNombre(users.nombre)}
+                                                                <p:inputText value="#{usersBeans.nombre}"/>
+                                                            </f:facet>
+                                                        </p:cellEditor>
+                                                        </p:column>
+                                                        
+                                                        <p:column headerText="Email" filterBy="#{users.email}" filterMatchMode="contains" filterStyle="width:auto">
+                                                        <p:cellEditor>
+                                                            <f:facet name="output">
+                                                                #{usersBeans.setEmail(users.email)}
+                                                                <h:outputText value="#{users.email}" />
+                                                            </f:facet>
+                                                            <f:facet name="input">
+                                                                #{usersBeans.setEmail(users.email)}
+                                                                <p:inputText value="#{usersBeans.email}"/>
+                                                            </f:facet>
+                                                        </p:cellEditor>
+                                                        </p:column>
 
                                                         <p:column width="100" headerText="Opciones" priority="5">
                                                             <p:commandButton update="formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{usersBeans.eliminar()}">                     
                                                                 <p:confirm message="¿Seguro de eliminar este usuario?." icon="ui-icon-alert"/>
                                                             </p:commandButton> 
-                                                            <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
-                                                                <f:setPropertyActionListener value="#{use}" target="#{usersBeans.username}"/>
-                                                            </p:commandButton>
                                                         </p:column>
-                                                    </p:dataTable>
+                                                    
 
                                                     <p:confirmDialog global="true" responsive="true">
                                                         <div align="right">
@@ -124,30 +117,28 @@
                                                             <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
                                                         </div> 
                                                     </p:confirmDialog>
-                                                </h:form> 
-
-
-                                                <h:form>
+                                                
                                                     <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
                                                               modal="true" draggable="false" closable="false" resizable="false" position="">
+                                                        
                                                         <p:panelGrid columns="2" style="background: lightgrey">
                                                             <h:outputLabel value="Usuario:"/>
                                                             <p:inputText value="#{usersBeans.username}"/>
                                                             <h:outputLabel value="Contraseña:"/>
-                                                            <p:password value="#{usersBeans.password}"/>
+                                                            <p:inputText value="#{usersBeans.password}"/>
                                                             <h:outputLabel value="Repetir Contraseña:"/>
                                                             <p:password value="#{usersBeans.password1}"/>
-                                                            <h:outputLabel value="Identificación"/>
-                                                            <p:inputText value="#{usersBeans.ci}"/>
                                                             <h:outputLabel value="Nombre Completo:"/>
                                                             <p:inputText value="#{usersBeans.nombre}"/>
-                                                 
+                                                            <h:outputLabel value="Email:"/>
+                                                            <p:inputText value="#{usersBeans.email}"/>
+                                                                         
                                                             <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
                                                             <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{usersBeans.add()}" style="color: black" oncomplete="PF('dlg1').hide()" />
                                                         </p:panelGrid>
                                                     </p:dialog>
+                                                    </p:dataTable>
                                                 </h:form>
-
                                             </div>
                                         </div>
                                     </div>

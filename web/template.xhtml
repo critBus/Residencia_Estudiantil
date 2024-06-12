@@ -61,7 +61,7 @@
                                         <img src="assets/img/logo_2.png" class="logo-lg" alt="" height="60"/>
                                     </a>
                                 </div>
-
+                                
                                 <!-- End Logo-->
 
                                 <div class="menu-extras topbar-custom navbar p-0">
@@ -176,10 +176,11 @@
                                         <li class="has-submenu">
                                             <a href="#"><i class="fas fa-id-badge"></i> Estudiantes Becados <i class="mdi mdi-chevron-down mdi-drop"></i></a>
                                             <ul class="submenu">
-
-                                                <li><a href="#">Registrar Becado</a></li>
-                                                <li><a href="enfermedades.faces">Enfermedades</a></li>
+                                                
                                                 <li><a href="becado.faces">Becados</a></li>
+                                                <li><a href="enfermedades.faces">Enfermedades</a></li>
+                                                <li><a href="becadoEnfermedad.faces">Becados con Enfermedades</a></li>
+                                                
 
                                                 <li class="has-submenu">
                                                     <a href="#">Evaluaciones del becado</a>
@@ -188,27 +189,12 @@
                                                         <li><a href="evalCuarteleria.faces">Evaluación de la Cuartelería</a></li>
                                                         <li><a href="aspect_evalcuartel.faces">Aspectos Evaluativos del Cuarteleria</a></li>                                                       
                                                         <li><a href="aspectEvalCuarto.faces">Aspectos Evaluativos del Cuarto</a></li>
-                                                        <li><a href="aspectEvalCuartoEvalCuarto.faces">Aspecto de Evaluación de los Cuartos</a></li>
                                                         <li><a href="evalCuarto.faces">Evaluación del Cuarto</a></li>
                                                         <li><a href="tipoEvalBecado.faces">Tipo Evaluación Becado</a></li>
                                                         <li><a href="evalBecado.faces">Evaluación Becado</a></li>
                                                         <li><a href="rangos.faces">Rangos</a></li>                                                       
                                                     </ul>
-                                                </li>
-
-                                                <li class="has-submenu">
-                                                    <a href="#">Resumen del becado</a>
-                                                    <ul class="submenu">
-                                                        <li><a href="resumen_hembras_varones.faces">Hembras y Varones por Edificio</a></li>
-                                                        <li><a href="resumen_evaluacion.faces">Evaluación</a></li>
-                                                        <li><a href="resumen_becados_ubicacion.faces">Ubicacion</a></li>
-                                                        <li><a href="resumen_guardias.faces">Guardias</a></li>
-                                                        <li><a href="resumen_asistencia_cuarteleria.faces">Asistencia Cuarteleria</a></li>
-                                                        <li><a href="resumen_planteamientos.faces">Planteamientos Por Fecha</a></li>
-                                                        <li><a href="resumen_paciente_atendido.faces">Pacientes Atendidos Por Fecha</a></li>
-
-                                                    </ul>
-                                                </li>    
+                                                </li>                                             
                                             </ul>
                                         </li>
 
@@ -218,8 +204,8 @@
                                                 <li class="has-submenu">
                                                     <a href="">Planteamientos</a>
                                                     <ul class="submenu">
-                                                        <li><a href="planteamiento.faces">Realizar Planteamientos</a></li>
-                                                    </ul>
+                                                <li><a href="planteamiento.faces">Realizar Planteamientos</a></li>
+                                                </ul>
                                                 </li>
                                                 <li class="has-submenu">
                                                     <a href="#">Residencia estudiantil</a>
@@ -228,13 +214,13 @@
                                                         <li><a href="piso.faces">Pisos</a></li>
                                                         <li><a href="cuarto.faces">Cuartos</a></li>
                                                         <li><a href="trabajoProductivo.faces">Trabajo Productivo</a></li>
-
+                                                        
                                                     </ul>
                                                 </li>
-
+                                                
                                                 <li class="has-submenu">
                                                     <a href="reglament.faces">Reglamento Interno de la Residencia Estudiantil</a>
-
+                                                    
                                                     <ul class="submenu">
                                                         <li><a href="sanciones.faces">Sanciones</a></li>
                                                     </ul>
@@ -251,6 +237,7 @@
                                                 <li><a href="medico.faces"> Médico</a></li>
                                                 <li><a href="pacientesAtendidos.faces"> Pacientes Atendidos</a></li>
                                                 <li><a href="pacienteAtendidoMedicamento.faces"> Pacientes que Recibieron Medicamento</a></li>
+                                                <li><a href="becadoMedicamento.faces"> Becados que han tomado Medicamento</a></li>
                                                 <li><a href="medicamentos.faces"> Medicamentos</a></li>
                                             </ul>
                                         </li>
@@ -261,14 +248,14 @@
                                         </li>
 
                                         <li class="has-submenu">
-                                            <a href="#">Usuarios</a>
-                                            <ul class="submenu">
-                                                <li><a href="users.faces">Usuarios</a></li>
-                                                <li><a href="RolesAdmin.faces">Roles</a></li>
-
-                                            </ul>
-                                        </li>
-
+                                                    <a href="#">Usuarios</a>
+                                                    <ul class="submenu">
+                                                        <li><a href="users.faces">Usuarios</a></li>
+                                                        <li><a href="RolesAdmin.faces">Roles</a></li>
+                                                        
+                                                    </ul>
+                                                </li>
+                                        
                                     </ul>
                                     <!-- End navigation menu -->
                                 </div>
@@ -371,9 +358,9 @@
         <script src="assets/js/app.js"></script>
 
 
+        
 
-
-
+        
     </h:body>
 
 </html>

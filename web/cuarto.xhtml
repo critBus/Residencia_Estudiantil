@@ -60,15 +60,6 @@
                                                             <h:outputText value="Edificio: #{cuart.piso.edificio.nombre}"/>
                                                         </p:column>
 
-                                                        <p:column width="100" headerText="Opciones" priority="5" style="position: static; text-align: center">
-                                                            
-                                                            <p:commandButton update="formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{cuartoBeans.delete(cuart)}">                                
-                                                                <p:confirm message="¿Seguro de eliminar este cuarto?." icon="ui-icon-alert" />
-                                                            </p:commandButton>  
-
-                                                        </p:column>
-
-
                                                     </p:dataTable>
 
                                                     <p:confirmDialog global="true" responsive="true">
@@ -86,7 +77,8 @@
                                                         <p:panelGrid columns="2" style="background: lightgrey">
                                                             
                                                             <h:outputLabel value="Cuarto:" for="cu"/>
-                                                            <p:selectOneMenu id="cu" value="#{cuartoBeans.idCuarto}" title="Cuartos">
+                                                            <p:selectOneMenu id="cu" value="#{cuartoBeans.id}" title="Cuartos">
+                                                                <f:selectItem itemLabel="- Seleccione un cuarto -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItem itemLabel="Cuarto 1" itemValue="1"/>
                                                                 <f:selectItem itemLabel="Cuarto 2" itemValue="2"/>
                                                                 <f:selectItem itemLabel="Cuarto 3" itemValue="3"/>
@@ -102,13 +94,13 @@
                                                             </p:selectOneMenu> 
 
                                                             <h:outputLabel value="Piso:" for="piso"/>
-                                                            <p:selectOneMenu id="piso" value="#{cuartoBeans.ubicacion}" title="Pisos">
+                                                            <p:selectOneMenu id="piso" value="#{cuartoBeans.idPiso}" title="Pisos">
                                                                 <f:selectItem itemLabel="- Seleccione un piso -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{cuartoBeans.map_piso}" />
                                                             </p:selectOneMenu>
                                                             
                                                             <h:outputLabel value="Edificio:" for="edificio"/>
-                                                            <p:selectOneMenu id="edificio" value="#{cuartoBeans.ubicacion}" title="Edificio">
+                                                            <p:selectOneMenu id="edificio" value="#{cuartoBeans.idEdif}" title="Edificio">
                                                                 <f:selectItem itemLabel="- Seleccione un edificio -" itemValue="" noSelectionOption="true"/>
                                                                 <f:selectItems value="#{cuartoBeans.map_edif}" />
                                                             </p:selectOneMenu>

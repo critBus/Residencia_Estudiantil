@@ -79,24 +79,19 @@ public class Sanciones implements Serializable {
         this.sancionesPK = sancionesPK;
     }
 
-    public Sanciones(SancionesPK sancionesPK, String sancion, String tiempo, String estado, String descripcion) {
+    public Sanciones(SancionesPK sancionesPK, String sancion, String tiempo, String estado, String descripcion, Incisoreglam incisoreglam) {
         this.sancionesPK = sancionesPK;
         this.sancion = sancion;
         this.tiempo = tiempo;
         this.estado = estado;
         this.descripcion = descripcion;
+        this.incisoreglam = incisoreglam;
     }
 
     public Sanciones(Date fecha, String becadoci) {
         this.sancionesPK = new SancionesPK(fecha, becadoci);
     }
 
-    public Sanciones(SancionesPK e, Becado bec, Incisoreglam incisoreglam) {
-        this.sancionesPK = e;
-        this.becado = bec;
-        this.incisoreglam = incisoreglam;
-    }
-    
     public SancionesPK getSancionesPK() {
         return sancionesPK;
     }

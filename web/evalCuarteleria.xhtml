@@ -67,9 +67,6 @@
                                                         </p:column>
 
                                                         <p:column width="140" headerText="Opciones" priority="5" style="text-align: center">
-                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{evalCuartelBeans.delete(ec)}">                                
-                                                                <p:confirm message="¿Seguro de eliminar esta evaluación?." icon="ui-icon-alert" />
-                                                            </p:commandButton>  
                                                             <p:commandButton update=":formulario editar" oncomplete="PF('dlg2').show()" icon="ui-icon-pencil" title="Modificar">
                                                                 <f:setPropertyActionListener value="#{ec}" target="#{evalCuartelBeans.evalCuartel}"/>
                                                             </p:commandButton>

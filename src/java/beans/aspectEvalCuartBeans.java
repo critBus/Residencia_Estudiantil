@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 @Named(value = "aspectEvalCuartBeans")
 @ManagedBean
 @SessionScoped
-public class aspectEvalCuartBeans implements Serializable {
+public class aspectEvalCuartBeans implements Serializable{
 
     int id = 0;
     String name;
@@ -44,7 +44,7 @@ public class aspectEvalCuartBeans implements Serializable {
 
     public void insert() {
 
-        if (name.isEmpty() || maxValue < 0) {
+        if (name.isEmpty() || maxValue == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
         } else {
             try {
@@ -80,7 +80,7 @@ public class aspectEvalCuartBeans implements Serializable {
         if (maxValue != 0 && maxValue != aspEvalCuart.getMaxvalue()) {
             a.setMaxvalue(maxValue);
             flag = true;
-        } else if (name.isEmpty() || maxValue < 0) {
+        } else if (name.isEmpty() || maxValue == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Existen campos vacíos", "Atención"));
             count++;
         }
@@ -118,7 +118,7 @@ public class aspectEvalCuartBeans implements Serializable {
 
         }
     }
-     */
+*/
     public void eliminando_lista_evaluacion(int aspectoeval) {
 
         //List<AspectEvalcuartoEvalcuarto> listado=new ArrayList();

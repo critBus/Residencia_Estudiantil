@@ -60,11 +60,11 @@
                                                             <h:outputText value="#{pis.edificio.nombre}"/>
                                                         </p:column>
                                                         
-                                                        <p:column headerText="Jefe de Piso" sortBy="#{pis.jefepiso.ci}" filterBy="#{pis.jefepiso.ci}" style="text-align: center">
-                                                            <h:outputText value="#{pis.jefepiso.ci}"/>
+                                                        <p:column headerText="Jefe de Piso" sortBy="#{pisoBeans.nombreApellbeca(pis.jefepiso)}" filterBy="#{pisoBeans.nombreApellbeca(pis.jefepiso)}" style="text-align: center">
+                                                            <h:outputText value="#{pis.jefepiso.nombre}"/>
                                                         </p:column>
                                                         <p:column headerText="Jefe de Limpieza" sortBy="#{pis.jefelimp.ci}" filterBy="#{pis.jefelimp.ci}" style="text-align: center">
-                                                            <h:outputText value="#{pis.jefelimp.ci}"/>
+                                                            <h:outputText value="#{pis.jefelimp.nombre}"/>
                                                         </p:column>
 
 

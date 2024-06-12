@@ -3,7 +3,7 @@ package beans;
 
 import entities.Authorities;
 import entities.AuthoritiesPK;
-import entities.User;
+import entities.Users;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,17 +22,25 @@ import org.primefaces.event.RowEditEvent;
 @SessionScoped
 public class authoritiesBeans implements Serializable{
     
-    ArrayList<Authorities> Authorities_list = new ArrayList<>(); //lista con lista de los authorities para mostrar en la tabla con primefaces
-    ArrayList<User> Users_list = new ArrayList<>(); //lista con lista de los usuarios para realizar busquedas para los combo box
-    ArrayList<Authorities> Authorities_list_delete = new ArrayList<>(); //lista con los elementos pendientes a eliminar
-    ArrayList<Authorities> Filtered_roles; //lista para obtener los elementos filtrados
+    ArrayList<Authorities> Authorities_list = new ArrayList<>();
+    ArrayList<Users> Users_list = new ArrayList<>();
+    ArrayList<Authorities> Authorities_list_delete = new ArrayList<>();
+    ArrayList<Authorities> Filtered_roles;
     private Map<String, String> list_users = new HashMap<>();
     private Map<String, String> list_authorities = new HashMap<>();
     
     public void update_users_autorities() {
-        Users_list = (ArrayList<User>) control.usersJpa.findUsersEntities();
+        Users_list = (ArrayList<Users>) control.usersJpa.findUsersEntities();
+//        Clasificadores_list = (ArrayList<Clasificador>) Controllers.clasificadorJpaController.findClasificadorEntities();
         list_authorities.put("ROLE_ADMIN", "ROLE_ADMIN");
         list_authorities.put("ROLE_USER", "ROLE_USER");
+//        for (int i = 0; i < Clasificadores_list.size(); i++) {
+//            if(Clasificadores_list.get(i).getIdClasificador()==0) //saltando el NO CLASIFICADO
+//                continue;
+//            String clas = "ROLE_"+Clasificadores_list.get(i).getClasificador();
+//            clas=clas.toUpperCase();
+//            list_authorities.put(clas, clas);
+//        }
         for (int i = 0; i < Users_list.size(); i++) {
             list_users.put(Users_list.get(i).getUsername(), Users_list.get(i).getUsername());
         }
@@ -46,11 +54,11 @@ public class authoritiesBeans implements Serializable{
         this.Authorities_list = Authorities_list;
     }
 
-    public ArrayList<User> getUsers_list() {
+    public ArrayList<Users> getUsers_list() {
         return Users_list;
     }
 
-    public void setUsers_list(ArrayList<User> Users_list) {
+    public void setUsers_list(ArrayList<Users> Users_list) {
         this.Users_list = Users_list;
     }
 
@@ -105,13 +113,16 @@ public class authoritiesBeans implements Serializable{
         this.authority_label = authority_label;
     }
     
+    //updagrade de la lista de elementos desde la base de datos
     public void update_List() {
         Authorities_list = (ArrayList<Authorities>) control.authoritiesJpa.findAuthoritiesEntities();
     }
     
+    //eliminar los elementos seleccionados en la base de datos
+    //hay q revisar la posibilidad de que el elementos no pueda ser eliminado porque tenga alguna dependencia de llave foranea
     public void eliminar() {
         for (Authorities auth : Authorities_list) {
-            if (auth.isIsSelected()) {
+            if (auth.equals("")) {
                 Authorities_list_delete.add(auth);
             }
         }
@@ -129,6 +140,8 @@ public class authoritiesBeans implements Serializable{
         }
     }
     
+    //añadir un nuevo rol a un usuario ya existente, de no existir o encontrarse duplicado el rol se devolvera error
+    //debe tenerse en cuenta que se permite a un mismo usuario poseer varios roles.
     public void añadir() {
         if (authority_label.equals("") || user.equals("")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, debe introducir correctamente los datos", "Eliminado"));
