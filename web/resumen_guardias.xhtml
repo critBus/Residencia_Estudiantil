@@ -27,8 +27,8 @@
                         </div>
                         <style>
                             .ui-datalist-content{
-                                    border: none;
-                                    background: transparent;
+                                border: none;
+                                background: transparent;
                             } 
                         </style>
                         <div class="row">
@@ -75,7 +75,7 @@
                                                             <p:dataList value="#{pa.lista_cumplieron}" emptyMessage=" - "
                                                                         var="nombre" 
                                                                         type="definition">
-                                                                
+
                                                                 #{nombre}
                                                             </p:dataList>
                                                         </p:column>
@@ -93,15 +93,15 @@
                                                             <h:outputText value="#{pa.porcentaje_incumplieron_str}"/>
                                                         </p:column>
 
-                                                        
-                                                        
+
+
                                                         <p:column headerText="Se Ausentaron" filterMatchMode="contains" 
                                                                   style="text-align: center" priority="2" 
                                                                   >
                                                             <p:dataList value="#{pa.lista_incumplieron}" var="nombre"
                                                                         emptyMessage=" - "
                                                                         type="definition">
-                                                                
+
                                                                 #{nombre}
                                                             </p:dataList>
                                                         </p:column>

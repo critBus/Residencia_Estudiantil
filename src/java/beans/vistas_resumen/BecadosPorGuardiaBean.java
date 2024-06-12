@@ -61,7 +61,7 @@ public class BecadosPorGuardiaBean {
         HashMap<Date, Guardia> map_guardias = new HashMap<Date, Guardia>();
         for (Evalguardia evaluacion : listEvalGuardia) {
             Date fecha = evaluacion.getEvalguardiaPK().getFecha();
-            String nombre=nombre_y_apellidos(evaluacion.getBecado());
+            String nombre = nombre_y_apellidos(evaluacion.getBecado());
             Guardia guardia = null;
             if (map_guardias.containsKey(fecha)) {
                 guardia = map_guardias.get(fecha);
@@ -121,7 +121,5 @@ public class BecadosPorGuardiaBean {
     public void setLista_guardias(List<Guardia> lista_guardias) {
         this.lista_guardias = lista_guardias;
     }
-
-    
 
 }
