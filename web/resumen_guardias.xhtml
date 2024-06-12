@@ -38,26 +38,44 @@
                                                     <p:growl id="msg"/>
                                                     #{becadosPorGuardiaBean.cargarList()}
 
-                                                    <p:dataTable var="pa" value="#{becadosPorGuardiaBean.listEvalGuardia}" sortBy="#{pa.evalguardiaPK.fecha}" >
+                                                    <p:dataTable var="pa" value="#{becadosPorGuardiaBean.lista_guardias}" sortBy="#{pa.fecha}" >
 
-                                                        <p:column headerText="Guardia" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.evalguardiaPK.fecha}" filterBy="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}">
-                                                            <h:outputText value="#{becadosPorGuardiaBean.dateFormat(pa.evalguardiaPK.fecha)}"/>
+                                                        <p:column headerText="Guardia" filterMatchMode="contains" 
+                                                                  style="text-align: center" priority="2" 
+                                                                  sortBy="#{pa.fecha}" 
+                                                                  filterBy="#{becadosPorGuardiaBean.dateFormat(pa.fecha)}">
+                                                            <h:outputText value="#{becadosPorGuardiaBean.dateFormat(pa.fecha)}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Puntuación" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.evaluacion}" filterBy="#{pa.evaluacion}">
-                                                            <h:outputText value="#{pa.evaluacion}"/>
+                                                        <p:column headerText="Asignados" filterMatchMode="contains" 
+                                                                  style="text-align: center" priority="2" 
+                                                                  sortBy="#{pa.cantidad}" filterBy="#{pa.cantidad}">
+                                                            <h:outputText value="#{pa.cantidad}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Realizo Guardia" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}" filterBy="#{becadosPorGuardiaBean.realizo_guardia(pa)}">
-                                                            <h:outputText value="#{becadosPorGuardiaBean.realizo_guardia(pa)}"/>
+                                                        <p:column headerText="Asistencias" filterMatchMode="contains" 
+                                                                  style="text-align: center" priority="2" 
+                                                                  sortBy="#{pa.cantidad_cumplieron}" filterBy="#{pa.cantidad_cumplieron}">
+                                                            <h:outputText value="#{pa.cantidad_cumplieron}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="CI Becado" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.becado.ci}" filterBy="#{pa.becado.ci}">
-                                                            <h:outputText value="#{pa.becado.ci}"/>
+                                                        <p:column headerText="Asistencias %" filterMatchMode="contains" 
+                                                                  style="text-align: center" priority="2" 
+                                                                  sortBy="#{pa.porcentaje_cumplieron}" filterBy="#{pa.porcentaje_cumplieron_str}">
+                                                            <h:outputText value="#{pa.porcentaje_cumplieron_str}"/>
                                                         </p:column>
 
-                                                        <p:column headerText="Nombre" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}" filterBy="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}">
-                                                            <h:outputText value="#{becadosPorGuardiaBean.nombre_y_apellidos(pa.becado)}"/>
+                                                        <p:column headerText="Ausencias" filterMatchMode="contains" 
+                                                                  style="text-align: center" priority="2" 
+                                                                  sortBy="#{pa.cantidad_incumplieron}"
+                                                                  filterBy="#{pa.cantidad_incumplieron}">
+                                                            <h:outputText value="#{pa.cantidad_incumplieron}"/>
+                                                        </p:column>
+
+                                                        <p:column headerText="Ausencias %" filterMatchMode="contains" 
+                                                                  style="text-align: center" priority="2" 
+                                                                  sortBy="#{pa.porcentaje_incumplieron}" filterBy="#{pa.porcentaje_incumplieron_str}">
+                                                            <h:outputText value="#{pa.porcentaje_incumplieron_str}"/>
                                                         </p:column>
 
 
