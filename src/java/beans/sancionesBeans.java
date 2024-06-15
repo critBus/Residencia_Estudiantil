@@ -59,10 +59,7 @@ public class sancionesBeans implements Serializable{
     Incisoreglam incisoreglam;
     Articuloreglam articuloreglam;
     Capituloreglam capituloreglam;
-    
-    public sancionesBeans(){
-        
-    }
+    String ubicacion;
     
     public void cargarList(){
         
@@ -112,10 +109,7 @@ public class sancionesBeans implements Serializable{
 
         public void insert() {
         
-        Capituloreglam cr = control.capituloReglamJPA.findCapituloreglam(capituloId);
-        Becado becado = control.becadoJPA.findBecado(becadoCi);
-        
-        if (becadoCi.isEmpty() || fecha == null || articuloId.isEmpty() || capituloId.isEmpty() || incisoId.isEmpty() || sancion.isEmpty() || tiempo.isEmpty() || estado.isEmpty() || descripcion.isEmpty()) {
+        if (becadoCi.isEmpty() || fecha == null || incisoId.isEmpty() || sancion.isEmpty() || tiempo.isEmpty() || estado.isEmpty() || descripcion.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
 
         } else {
@@ -129,12 +123,16 @@ public class sancionesBeans implements Serializable{
                     }
                 }
                 
-                SancionesPK s = new SancionesPK(fecha, becadoCi);
-                
-                IncisoreglamPK ipk = new IncisoreglamPK(incisoId, articuloId, capituloId);
-                Incisoreglam inc = control.incisoReglamJPA.findIncisoreglam(ipk);
-                
-                control.sancionesJpa.create(new Sanciones(s, sancion, tiempo, estado, descripcion, inc));
+                Incisoreglam IncisoreglamSeleccionado = null;
+                for (Incisoreglam c : listInciso) {
+                    if (c.getIncisoreglamPK().getId().toString().equals(incisoId)) {
+                        IncisoreglamSeleccionado = c;
+                        break;
+                    }
+                }
+                SancionesPK sancionesPK = new SancionesPK(fecha, becadoCi);
+                Sanciones sancion_a_agregar = new Sanciones(sancionesPK, sancion, tiempo, estado, descripcion, IncisoreglamSeleccionado);
+                control.sancionesJpa.create(sancion_a_agregar);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La sanción ha sido insertado", "Atención"));
             } catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al insertar", "Atención"));

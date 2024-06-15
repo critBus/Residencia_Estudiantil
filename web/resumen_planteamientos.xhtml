@@ -40,7 +40,7 @@
 
                                                     <p:dataTable var="pa" value="#{planteamientosRealizadosBeans.listPlantea}" sortBy="#{pa.fecha}" >
 
-                                                        <p:column headerText="Planteamiento"  filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.fecha}" filterBy="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}">
+                                                        <p:column headerText="Fecha"  filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.fecha}" filterBy="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}">
                                                             <h:outputText value="#{planteamientosRealizadosBeans.dateFormat(pa.fecha)}"/>
                                                         </p:column>
 

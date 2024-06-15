@@ -2,24 +2,20 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
-        <Node id="aspect_evalcuart.xhtml" x="150" y="600" zoom="true"/>
         <Node id="index.xhtml" x="150" y="150" zoom="true"/>
         <Node id="trabajador.xhtml" x="650" y="300" zoom="true"/>
         <Node id="insert_EvalCuarto.xhtml" x="1143" y="8" zoom="true"/>
         <Node id="repair_insert.xhtml" x="1455" y="160" zoom="true"/>
         <Node id="edificio.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="estado_sancion.xhtml" x="165" y="730" zoom="true"/>
         <Node id="evalCuarteleria.xhtml" x="1187" y="596" zoom="true"/>
         <Node id="login.xhtml" x="650" y="150" zoom="true"/>
         <Node id="aspect_evalcuartel.xhtml" x="650" y="600" zoom="true"/>
         <Node id="piso.xhtml" x="900" y="150" zoom="true"/>
         <Node id="profile.xhtml" x="150" y="300" zoom="true"/>
-        <Node id="estad_repair.xhtml" x="900" y="300" zoom="true"/>
         <Node id="insert_EvalCuartel.xhtml" x="1187" y="290" zoom="true"/>
         <Node id="page-404.xhtml" x="400" y="150" zoom="true"/>
         <Node id="reglament.xhtml" x="677" y="729" zoom="true"/>
         <Node id="evalCuarto.xhtml" x="1150" y="150" zoom="true"/>
-        <Node id="insert_EvalCuarto2.xhtml" x="1188" y="694" zoom="true"/>
         <Node id="template.xhtml" x="400" y="450" zoom="true"/>
         <Node id="reparaciones.xhtml" x="1498" y="10" zoom="true"/>
         <Node id="cuarto.xhtml" x="150" y="450" zoom="true"/>

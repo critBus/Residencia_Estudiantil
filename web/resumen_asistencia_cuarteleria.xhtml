@@ -45,7 +45,7 @@
 
                                                     <p:dataTable var="pa" value="#{becadosPorCuarteleriaBean.lista_cuarteleria}" sortBy="#{pa.fecha}" >
 
-                                                        <p:column headerText="Evaluación" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.fecha}" filterBy="#{becadosPorCuarteleriaBean.dateFormat(pa.fecha)}">
+                                                        <p:column headerText="Fecha" filterMatchMode="contains" style="text-align: center" priority="2" sortBy="#{pa.fecha}" filterBy="#{becadosPorCuarteleriaBean.dateFormat(pa.fecha)}">
                                                             <h:outputText value="#{becadosPorCuarteleriaBean.dateFormat(pa.fecha)}"/>
                                                         </p:column>
 

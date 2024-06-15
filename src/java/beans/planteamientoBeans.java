@@ -2,7 +2,6 @@
 package beans;
 
 import entities.Becado;
-import entities.Edificio;
 import entities.Planteamientos;
 import entities.Trabajador;
 import java.io.Serializable;
@@ -96,7 +95,51 @@ public class planteamientoBeans implements Serializable {
         }
 
     }
-    
+    public void edit() {
+        boolean flag = false;
+        int count = 0;
+
+        Planteamientos e = control.planteamientosJpa.findPlanteamientos(planteamientos.getId());
+        
+        if (!planteamiento.isEmpty() && !planteamiento.equals(planteamientos.getPlanteamiento())) {
+            e.setPlanteamiento(planteamiento);
+            flag = true;
+        }
+        if (respuesta.isEmpty() && !respuesta.equals(planteamientos.getRespuesta())) {
+            e.setRespuesta(respuesta);
+            flag = true;
+        }
+        if (estado.isEmpty() && !estado.equals(planteamientos.getEstado())) {
+            e.setEstado(estado);
+            flag = true;
+        }
+        if (asunto.isEmpty() && !asunto.equals(planteamientos.getAsunto())) {
+            e.setAsunto(asunto);
+            flag = true;
+        }
+        if (descripcion.isEmpty() && !descripcion.equals(planteamientos.getDescripcion())) {
+            e.setDescripcion(descripcion);
+            flag = true;
+        }
+        else if (planteamiento.isEmpty() || respuesta.isEmpty() || estado.isEmpty() || asunto.isEmpty() || descripcion.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Existen campos vacíos", "Atención"));
+            count++;
+        }
+
+        if (flag) {
+            try {
+                control.planteamientosJpa.edit(e);             
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El Planteamiento ha sido modificada", "Atención"));
+            
+            } catch (Exception ex) {
+                Logger.getLogger(planteamientoBeans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }else if (count == 0){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha realizado ningún cambio", "Atención"));
+        }
+
+    }
     public String nombreApell(Trabajador trabajador) {
 
         String nombApell;

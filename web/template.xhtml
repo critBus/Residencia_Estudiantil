@@ -77,7 +77,7 @@
                                     </ul>
                                     -->
 
-                                    <ul class="mb-0 nav navbar-right ml-auto list-inline">
+                                    <ul class=" mb-0 nav navbar-right ml-auto list-inline">
 
                                         <!--
                                         <li class="list-inline-item dropdown notification-list">
@@ -119,16 +119,16 @@
 
 
                                         <li class="list-inline-item notification-list d-none d-sm-inline-block">
-                                            <a href="#" id="btn-fullscreen" class="waves-effect waves-light notification-icon-box"><i class="fas fa-expand"></i></a>
+                                            <li><a href="${facesContext.externalContext.requestContextPath}/j_spring_security_logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                                         </li>
-                                        <li class="dropdown">
+                                        <li class="dropdown ">
                                             <a href="" class="dropdown-toggle profile waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">
                                                 <img src="assets/img/profile-user.png" alt="user-img" class="rounded-circle"/>
                                                 <span class="profile-username">
                                                     Euclides/Oquendo <span class="mdi mdi-chevron-down font-15"></span>
                                                 </span>
                                             </a>
-                                            <ul class="dropdown-menu">
+                                            <ul class=" dropdown-menu">
                                                 <li><a href="profile.faces" class="dropdown-item"> Perfil</a></li>
                                                 <li><a href="setting.faces" class="dropdown-item"> Ajustes </a></li>
                                                 <li class="dropdown-divider"></li>
@@ -248,13 +248,17 @@
                                         </li>
 
                                         <li class="has-submenu">
-                                                    <a href="#">Usuarios</a>
+                                            <a href="#"><i class="fas fa-user"></i>Usuarios</a>
                                                     <ul class="submenu">
                                                         <li><a href="users.faces">Usuarios</a></li>
                                                         <li><a href="RolesAdmin.faces">Roles</a></li>
                                                         
                                                     </ul>
                                                 </li>
+                                        
+                                        <li class="has-submenu">
+                                            <a href="reportesBecado.faces"><i class="fas fa-save"></i>Consultas</a>
+                                        </li>
                                         
                                     </ul>
                                     <!-- End navigation menu -->

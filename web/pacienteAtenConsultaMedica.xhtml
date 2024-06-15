@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -29,10 +33,10 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-10">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h3 class="m-b-30 m-t-0">Medicamento y Dosis que ha tomado el paciente</h3>
+                                        <h3 class="m-b-30 m-t-0">Pacientes Atendidos por consulta médica</h3>
                                         <div class="row">
                                             <div class="col-lg-12 col-sm-12 col-12">
                                                 <!--
@@ -41,22 +45,24 @@
                                                 </table>
                                                 -->
                                                 <h:form id="formulario">
-
-                                                    <p:dataTable var="patenmedicam" value="#{becadoMedicamentosBeans.listBecadoMedicamentos}" sortBy="#{patenmedicam.becadoMedicamentosPK.becadoci}" >
-
-                                                        <p:column headerText="Becado" priority="2" sortBy="#{becadoMedicamentosBeans.nombreApellbeca(patenmedicam.becado)}" filterBy="#{becadoMedicamentosBeans.nombreApellbeca(patenmedicam.becado)}" style="text-align: center">
-                                                            <h:outputText value="#{becadoMedicamentosBeans.nombreApellbeca(patenmedicam.becado)}"/>
+                                                    
+                                                    <p:dataTable var="pa" value="#{pacientesAtendidosBeans.listpacientesAtendidos}" sortBy="#{pa.id}" >
+                                                        
+                                                        <p:column headerText="Fecha" style="text-align: center" priority="2" width="14%" sortBy="#{pacientesAtendidosBeans.dateFormat(pa.fecha)}" filterBy="#{pacientesAtendidosBeans.dateFormat(pa.fecha)}">
+                                                            <h:outputText value="#{pacientesAtendidosBeans.dateFormat(pa.fecha)}" />
                                                         </p:column>
-                                                        <p:column headerText="Medicamento / Dosis" priority="2" filterBy="#{becadoMedicamentosBeans.medicaDosis(patenmedicam.medicamentos)}" sortBy="#{becadoMedicamentosBeans.medicaDosis(patenmedicam.medicamentos)}" style="text-align: center">
-                                                            <h:outputText value="#{becadoMedicamentosBeans.medicaDosis(patenmedicam.medicamentos)}"/>
+                                                        <p:column headerText="Becado" priority="2" sortBy="#{pacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}" filterBy="#{pacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}" style="text-align: center">
+                                                            <h:outputText value="#{pacientesAtendidosBeans.nombreApellbeca(pa.becadoci)}"/>
                                                         </p:column>
-                                                        <p:column headerText="Descripción" priority="2" sortBy="#{patenmedicam.descripcion}" filterBy="#{patenmedicam.descripcion}">
-                                                            <div style="text-align: justify">
-                                                                <h:outputText value="#{patenmedicam.descripcion}"/>
-                                                            </div>
+                                                        <p:column headerText="Médico" priority="2" filterBy="#{pacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}" sortBy="#{pacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}" style="text-align: center">
+                                                            <h:outputText value="#{pacientesAtendidosBeans.nombreApellmedico(pa.medicociMedico)}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Tipo Consulta" priority="2" width="24%" sortBy="#{pa.tipoconsulta}" filterBy="#{pa.tipoconsulta}" style="text-align: center">
+                                                            <h:outputText value="#{pa.tipoconsulta}"/>
                                                         </p:column>
                                                     </p:dataTable>
                                                 </h:form>
+
                                             </div>
                                         </div>
                                     </div>

@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +20,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,31 +32,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u")
     , @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username")
-    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
-    , @NamedQuery(name = "Users.findByEnable", query = "SELECT u FROM Users u WHERE u.enable = :enable")
+    , @NamedQuery(name = "Users.findByIdentificacion", query = "SELECT u FROM Users u WHERE u.identificacion = :identificacion")
     , @NamedQuery(name = "Users.findByNombre", query = "SELECT u FROM Users u WHERE u.nombre = :nombre")
-    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")})
+    , @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email")
+    , @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password")
+    , @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled")
+    , @NamedQuery(name = "Users.findByDescripcion", query = "SELECT u FROM Users u WHERE u.descripcion = :descripcion")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 50)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "password")
-    private String password;
+    @Size(min = 1, max = 11)
+    @Column(name = "identificacion")
+    private String identificacion;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "enable")
-    private boolean enable;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 100)
     @Column(name = "nombre")
     private String nombre;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
@@ -63,10 +63,21 @@ public class Users implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "password")
+    private String password;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "enabled")
+    private boolean enabled;
+    @Size(max = 255)
+    @Column(name = "descripcion")
+    private String descripcion;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users", fetch = FetchType.LAZY)
+    private List<Authorities> authoritiesList;
 
-    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY)
-    private List<Authorities> AuthoritiesList;
-    
     public Users() {
     }
 
@@ -74,12 +85,13 @@ public class Users implements Serializable {
         this.username = username;
     }
 
-    public Users(String username, String password, boolean enable, String nombre, String email) {
+    public Users(String username, String identificacion, String nombre, String email, String password, boolean enabled) {
         this.username = username;
-        this.password = password;
-        this.enable = enable;
+        this.identificacion = identificacion;
         this.nombre = nombre;
         this.email = email;
+        this.password = password;
+        this.enabled = enabled;
     }
 
     public String getUsername() {
@@ -90,20 +102,12 @@ public class Users implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getIdentificacion() {
+        return identificacion;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public boolean getEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
     }
 
     public String getNombre() {
@@ -122,12 +126,37 @@ public class Users implements Serializable {
         this.email = email;
     }
 
-    public List<Authorities> getAuthoritiesList() {
-        return AuthoritiesList;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAuthoritiesList(List<Authorities> AuthoritiesList) {
-        this.AuthoritiesList = AuthoritiesList;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<Authorities> getAuthoritiesList() {
+        return authoritiesList;
+    }
+
+    public void setAuthoritiesList(List<Authorities> authoritiesList) {
+        this.authoritiesList = authoritiesList;
     }
 
     @Override

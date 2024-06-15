@@ -4,7 +4,6 @@ package beans;
 import controller.exceptions.IllegalOrphanException;
 import controller.exceptions.NonexistentEntityException;
 import entities.Medico;
-import entities.Trabajador;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

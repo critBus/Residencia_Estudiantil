@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+ http://www.springframework.org/schema/security/spring-security.xsd" 
+       xmlns:context="http://www.springframework.org/schema/context">
+    <!--<context:component-scan base-package="security" />-->
+    <security:http auto-config='true'>
+        <!--Colocar reglas de navegacion-->
+        <!--<intercept-url pattern="/pages/**" access="ROLE_ADMIN"/>-->
+       <!-- <intercept-url pattern="/pages/**" access="ROLE_USER"/> --><!--En estos momentos esta es la unica forma de permitir acceder al rol usuario a la app-->
+        
+        <security:intercept-url pattern="/aspectEvalCuarto.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/aspectEvalCuarteleria.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/EvalBecado.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/EvalCuarteleria.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/EvalCuarto.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/EvalGuardia.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/Rango.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/TipoEvalBecado.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/planteamiento.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/trabajoProductivo.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/insert_Evalcuarto.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/insert_Evalcuarteleria.faces" access="ROLE_ESPECIALISTA"/>
+        
+        
+        <security:intercept-url pattern="/becado_enfermedad.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/becado_medicamento.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/becadoQuetieneenfermedades.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/enfermedades.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/medicamentosPorDosis.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/medicamentos.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/medico.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/pacienteAtendidomedicamento.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/pacienteatendido.faces" access="ROLE_MEDICO"/>
+        
+        
+        <security:intercept-url pattern="/sanciones.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/reglament.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/evalGuardia.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/evalGuardia.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/evalGuardia.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        
+        <security:intercept-url pattern="/index.faces" access="ROLE_JEFE_RESIDENCIA,ROLE_MEDICO,ROLE_ESPECIALISTA"/>  
+        <security:intercept-url pattern="/login.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>  
+        <security:intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
+        
+
+
+        <!--Al pasar por el login da acceso a una pagina-->
+        <security:form-login login-page='/login.faces' 
+                             default-target-url='/index.faces' 
+                             always-use-default-target='true'
+                             username-parameter="username" password-parameter="password"
+        />
+        <!--Deslogueo-->
+        <security:logout logout-success-url="/login.faces"/>
+    </security:http>
+
+    <!--Proveedor de seguridad para bases de datos (designar id)-->
+    <security:authentication-manager>
+       <security:authentication-provider>
+        <security:jdbc-user-service data-source-ref="securityDataSource"/>
+        <security:password-encoder hash="md5"/> 
+<!--        <security:user-service>
+            <security:user name="user" password="123" authorities="ROLE_USER"/>
+        </security:user-service>-->
+    </security:authentication-provider>
+    </security:authentication-manager>
+    
+
+
+    <!--Configurar e proveedir de seguridad-->
+    <bean id="securityDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/Residencia_Unah"/><!--URL de la base de datos a utilizar-->
+        <property name="username" value="postgres"/> <!--Usuario de postgress-->
+        <property name="password" value="postgres"/> <!--contraseña de postgress-->
+    </bean>
+</beans>

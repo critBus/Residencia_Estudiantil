@@ -73,7 +73,7 @@ public class evalGuardiaBeans implements Serializable {
         Becado bec = control.becadoJPA.findBecado(becadoCi);
         Trabajador califica = control.trabajadorJPA.findTrabajador(trabajadorci);
         
-        if (fecha == null || becadoCi.isEmpty() || evaluacion == 0 || trabajadorci.isEmpty()) {
+        if (fecha == null || becadoCi.isEmpty() || evaluacion < 0 || trabajadorci.isEmpty()) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Hay campos vacíos", "Atención"));
         }else{
             try {

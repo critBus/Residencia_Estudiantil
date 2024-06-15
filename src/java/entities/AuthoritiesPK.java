@@ -6,8 +6,11 @@
 package entities;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -16,8 +19,15 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AuthoritiesPK implements Serializable {
 
-    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "username")
     private String username;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "authority")
     private String authority;
 
     public AuthoritiesPK() {
@@ -27,8 +37,7 @@ public class AuthoritiesPK implements Serializable {
         this.username = username;
         this.authority = authority;
     }
-    
-    @Column(name="username", nullable=false, length=50)
+
     public String getUsername() {
         return username;
     }
@@ -36,8 +45,7 @@ public class AuthoritiesPK implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-    
-    @Column(name="authority", nullable=false, length=50)
+
     public String getAuthority() {
         return authority;
     }
@@ -46,22 +54,33 @@ public class AuthoritiesPK implements Serializable {
         this.authority = authority;
     }
 
-    public boolean equals(Object other) {
-         if ( (this == other ) ) return true;
-		 if ( (other == null ) ) return false;
-		 if ( !(other instanceof AuthoritiesPK) ) return false;
-		 AuthoritiesPK castOther = ( AuthoritiesPK ) other; 
-         
-		 return ( (this.getUsername()==castOther.getUsername()) || ( this.getUsername()!=null && castOther.getUsername()!=null && this.getUsername().equals(castOther.getUsername()) ) )
- && ( (this.getAuthority()==castOther.getAuthority()) || ( this.getAuthority()!=null && castOther.getAuthority()!=null && this.getAuthority().equals(castOther.getAuthority()) ) );
-   }
-   
-   public int hashCode() {
-         int result = 17;
-         
-         result = 37 * result + ( getUsername() == null ? 0 : this.getUsername().hashCode() );
-         result = 37 * result + ( getAuthority() == null ? 0 : this.getAuthority().hashCode() );
-         return result;
-   }   
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (username != null ? username.hashCode() : 0);
+        hash += (authority != null ? authority.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof AuthoritiesPK)) {
+            return false;
+        }
+        AuthoritiesPK other = (AuthoritiesPK) object;
+        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
+            return false;
+        }
+        if ((this.authority == null && other.authority != null) || (this.authority != null && !this.authority.equals(other.authority))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entities.AuthoritiesPK[ username=" + username + ", authority=" + authority + " ]";
+    }
     
 }

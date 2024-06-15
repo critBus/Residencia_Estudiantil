@@ -8,9 +8,11 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <body>
+        
         <ui:composition template="./template.xhtml">
 
             <ui:define name="content">
+
 
                 <div class="wrapper">
                     <div class="container-fluid">
@@ -29,7 +31,7 @@
 
                         <div class="row">
                             
-                            <div class="col-lg-12">
+                            <div class="col-lg-10">
                                 <div class="card">
                                     <div class="card-body">
                                         <h3 class="m-b-30 m-t-0">Gestión de Roles de usuario</h3>
@@ -42,59 +44,68 @@
                                                 -->
                                                 <h:form id="formulario">
                                                     <p:growl id="msg"/>
-                                                    #{authoritiesBeans.update_List()}
-                                                    #{authoritiesBeans.update_users_autorities()}
-                                                    <p:dataTable var="authority" value="#{authoritiesBeans.authorities_list}" rowKey="#{authority.authoritiesPK.username}" editable="true" sortBy="#{authority.authoritiesPK.username}">
-                                                        <f:facet name="header">
-                                                            <div align="left">
-                                                                <p:commandButton value="Añadir Roles" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
-                                                            </div>
-                                                        </f:facet>
-                                                        
-                                                        <p:column width="30">
-                                                           <h:selectBooleanCheckbox value="#{authority.isSelected}"/>
-                                                        </p:column>
-                                                        <p:column headerText="Usuario" filterBy="#{authority.authoritiesPK.username}" filterMatchMode="contains" filterStyle="width:auto">
-                                                            <h:outputText value="#{authority.authoritiesPK.username}" />
-                                                        </p:column>
-                                                        <p:column headerText="Rol" filterBy="#{authority.authoritiesPK.authority}" filterMatchMode="contains" filterStyle="width:auto">
-                                                            <h:outputText value="#{authority.authoritiesPK.authority}" />
-                                                        </p:column>
+                                                    #{authoritiesBeans.cargarList()}
+                                                    <p:dataTable var="art" value="#{authoritiesBeans.listauthori}" sortBy="#{art.authoritiesPK.authority}" >
 
+                                                        <f:facet name="header">
+                                                            <div align="left" >
+                                                                <p:commandButton value="Añadir Rol" onclick="PF('dlg1').show()" icon="ui-icon-circle-plus" style="color: black"/>
+
+                                                            </div>
+                                                            
+                                                        </f:facet>
+
+                                                        <p:column headerText="Usuario" sortBy="#{art.authoritiesPK.username}" filterBy="#{art.authoritiesPK.username}" style="text-align: center" priority="5">
+                                                            <h:outputText value="#{art.authoritiesPK.username}"/>
+                                                        </p:column>
+                                                        <p:column headerText="Rol" sortBy="#{art.authoritiesPK.username}" filterBy="#{art.authoritiesPK.authority}" style="text-align: center" priority="1">
+                                                            <h:outputText value="#{art.authoritiesPK.authority}" />
+                                                        </p:column>
+                                                        
                                                         <p:column width="100" headerText="Opciones" priority="5">
-                                                            <p:commandButton update="formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{authoritiesBeans.eliminar()}">                     
-                                                                <p:confirm message="¿Seguro de eliminar el/los elementos?." icon="ui-icon-alert"/>
-                                                            </p:commandButton> 
+                                                            <p:commandButton update=":formulario" icon="ui-icon-trash" title="Eliminar" actionListener="#{authoritiesBeans.delete(art)}">                                
+                                                                <p:confirm message="¿Seguro de eliminar este rol? ." icon="ui-icon-alert" />
+                                                            </p:commandButton>  
+
                                                         </p:column>
                                                     </p:dataTable>
 
-                                                    <p:confirmDialog global="true" responsive="true">
+                                                    <p:confirmDialog global="true" responsive="true" width="500">
                                                         <div align="right">
                                                             <p:commandButton value="Si" type="button" icon="ui-icon-check" styleClass="ui-confirmdialog-yes" />
                                                             <p:commandButton value="No" type="button" icon="ui-icon-close" styleClass="ui-confirmdialog-no"/>
                                                         </div> 
                                                     </p:confirmDialog>
+
                                                 </h:form> 
 
 
                                                 <h:form>
                                                     <p:dialog header="Nuevo" widgetVar="dlg1" showEffect="clip" hideEffect="clip" responsive="true"
-                                                              modal="true" draggable="false" closable="false" resizable="false" position="">
-                                                        <p:panelGrid columns="2" style="background: lightgrey">
+                                                              modal="true" draggable="false" closable="false" resizable="false">
+
+                                                        <p:panelGrid columns="2" style="background: white"> 
                                                             
-                                                            <h:outputLabel value="Usuario:" style="color: #000"/>
-                                                            <p:selectOneMenu value="#{authoritiesBeans.user}" style="width: 250px">
-                                                                <f:selectItems value="#{authoritiesBeans.list_users}"/>
+                                                            <h:outputLabel value="Usuario:" for="usa"/>
+                                                            <p:selectOneMenu id="usa" value="#{authoritiesBeans.username}" title="Usuario">
+                                                                <f:selectItem itemLabel="- Seleccione un usuario -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{authoritiesBeans.map_usuario}" />
                                                             </p:selectOneMenu>
 
-                                                            <h:outputLabel value="Rol:" style="color: #000"/>
-                                                            <p:selectOneMenu value="#{authoritiesBeans.authority_label}" style="width: 250px">
-                                                                <f:selectItems value="#{authoritiesBeans.list_authorities}"/>
-                                                            </p:selectOneMenu>
-                                                 
-                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black"/>
-                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{authoritiesBeans.añadir()}" style="color: black" oncomplete="PF('dlg1').hide()" />
+                                                            <h:outputLabel value="Rol:" for="rol"/>
+                                                            <p:selectOneMenu id="rol" value="#{authoritiesBeans.authority}" title="Rol">
+                                                                <f:selectItem itemLabel="- Seleccione un rol -" itemValue="" noSelectionOption="true"/>
+                                                                <f:selectItems value="#{authoritiesBeans.map_authoriti}" />
+                                                            </p:selectOneMenu>           
+                                                            
                                                         </p:panelGrid>
+
+                                                        <br/>
+                                                        <div align="center">
+                                                            <p:commandButton value="Cancelar" onclick="PF('dlg1').hide()" type="reset" icon="ui-icon-close" style="color: black; margin-right: 5px"/>
+                                                            <p:commandButton value="Aceptar" update="formulario" icon="ui-icon-check" actionListener="#{authoritiesBeans.insert()}" style="color: black; margin-left: 5px" oncomplete="PF('dlg1').hide()" />
+                                                        </div>
+
                                                     </p:dialog>
                                                 </h:form>
 
@@ -110,8 +121,6 @@
                     </div>
                 </div>
                 <!-- end wrapper -->
-
-
             </ui:define>
 
         </ui:composition>

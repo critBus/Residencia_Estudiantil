@@ -84,11 +84,11 @@ public class edificioBeans implements Serializable{
             try {
                 for (Edificio e : listEdif) {
 
-                    if (e.getId().equals(idEdificio)) {
+                    if (e.getId().equalsIgnoreCase(idEdificio)) {
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un edificio con el mismo ID", "Atención"));
                         return;
                     }
-                    if (e.getNombre().equals(nombre)) {
+                    if (e.getNombre().equalsIgnoreCase(nombre)) {
                         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un edificio con el mismo nombre", "Atención"));
                         return;
                     }

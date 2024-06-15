@@ -3,8 +3,6 @@ package beans;
 
 import controller.exceptions.IllegalOrphanException;
 import controller.exceptions.NonexistentEntityException;
-import entities.Authorities;
-import entities.AuthoritiesPK;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
@@ -17,65 +15,124 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.primefaces.event.RowEditEvent;
-
 @Named(value = "usersBeans")
 @ManagedBean
 @SessionScoped
 public class usersBeans implements Serializable {
     
-    ArrayList<Users> Users_list = new ArrayList<>();
-    ArrayList<Users> Users_list_delete = new ArrayList<>();
-    ArrayList<Users> Filtered_Users = new ArrayList<>();
+    public String passord_encrip(){
+    return DigestUtils.md5Hex("123");
+    }
     
-    Users user_selected = new Users();
+    String username;
+    String identificacion;
+    String nombre;
+    String email;
+    String password;
+    boolean enabled;
+    //String descripcion;
     
-    String username = "";
-    String password = "";
-    String password1 = "";
-    boolean enable;
-    String nombre = "";
-    String email = "";
+    List<Users> listusers = new ArrayList<>();
+
+    Users users;
+
+    public void cargarList() {
+        listusers = control.usersJpa.findUsersEntities();
+
+    }
     
-    public void clear_vars() {
-        username = "";
-        password = "";
-        password1 = "";
-        nombre = "";
-        email = "";
+    public String active(Users users) {
+        String active = "";
+
+        if (users.getEnabled()) {
+            active = "Activo";
+        }
+        if (!users.getEnabled()) {
+            active = "Inactivo";
+        }
+
+        return active;
+    }
+    public String nombreApell(Users trabjad) {
+
+        return trabjad.getNombre();
+    }
+    
+    public void insert() {
+
+        if (username.isEmpty() || password.isEmpty() || nombre.isEmpty() || email.isEmpty() || identificacion.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Existen campos vacíos", "Atención"));
+        } else {
+            try {
+                for (Users m : listusers) {
+                    
+                    if (m.getUsername().equalsIgnoreCase(username)) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe el usuario", "Atención"));
+                        return;
+                    }
+                    if (m.getIdentificacion().equals(identificacion)) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un usuario con la misma identificación", "Atención"));
+                        return;
+                    }
+                    if (m.getPassword().equals(password)) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un usuario con la misma contraseña", "Atención"));
+                        return;
+                    }
+                    if (m.getEmail().equalsIgnoreCase(email)) {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Ya existe un usuario con el mismo email", "Atención"));
+                        return;
+                    }
+                }
+                control.usersJpa.create(new Users(username, identificacion, nombre, email, DigestUtils.md5Hex(password), enabled));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El usuario ha sido insertado", "Atención"));
+            } catch (Exception e) {
+                Logger.getLogger(medicoBeans.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
+    
+    public void edit(){
         
-    }
+        boolean flag = false;
+        int count = 0;
 
-    public ArrayList<Users> getUsers_list() {
-        return Users_list;
-    }
+        Users a = control.usersJpa.findUsers(username);
+        
+        if (!password.isEmpty() ) {//&& !password.equals(users.getPassword())
+            a.setPassword(DigestUtils.md5Hex(password));
+            flag = true;
+        }
+        
+        if (!email.isEmpty() && !email.equals(users.getEmail())) {
+            a.setEmail(email);
+            flag = true;
 
-    public void setUsers_list(ArrayList<Users> Users_list) {
-        this.Users_list = Users_list;
-    }
+        } else if (password.isEmpty() || email.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Existen campos vacíos", "Atención"));
+            count++;
+        }
 
-    public ArrayList<Users> getUsers_list_delete() {
-        return Users_list_delete;
+        if (flag) {
+            try {
+                control.usersJpa.edit(a);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El usuario ha sido modificado", "Atención"));
+            } catch (Exception ex) {
+                Logger.getLogger(usersBeans.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (count == 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha realizado ningún cambio", "Atención"));
+        }   
     }
+    
+    public void delete(Users u) {
+        try {
+            control.usersJpa.destroy(u.getUsername());
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "El usuario se ha eliminado", "Atención"));
 
-    public void setUsers_list_delete(ArrayList<Users> Users_list_delete) {
-        this.Users_list_delete = Users_list_delete;
-    }
+        } catch (IllegalOrphanException | NonexistentEntityException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede eliminar el usuario", "Atención"));
 
-    public ArrayList<Users> getFiltered_Users() {
-        return Filtered_Users;
-    }
-
-    public void setFiltered_Users(ArrayList<Users> Filtered_Users) {
-        this.Filtered_Users = Filtered_Users;
-    }
-
-    public Users getUser_selected() {
-        return user_selected;
-    }
-
-    public void setUser_selected(Users user_selected) {
-        this.user_selected = user_selected;
+        }
     }
 
     public String getUsername() {
@@ -86,28 +143,12 @@ public class usersBeans implements Serializable {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getIdentificacion() {
+        return identificacion;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getPassword1() {
-        return password1;
-    }
-
-    public void setPassword1(String password1) {
-        this.password1 = password1;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setIdentificacion(String identificacion) {
+        this.identificacion = identificacion;
     }
 
     public String getNombre() {
@@ -126,111 +167,35 @@ public class usersBeans implements Serializable {
         this.email = email;
     }
 
-    public void update_list() {
-        Users_list = (ArrayList<Users>) control.usersJpa.findUsersEntities();
-    }
-    
-    /*List<User> listUser = new ArrayList<>();
-    
-    User user;
-    
-    public void cargarList() {
-        listUser = control.usersJpa.findUsersEntities();
-    }
-    
-    public String active(User u) {
-        String active = "";
-
-        if (u.getEnable()) {
-            active = "Activo";
-        }
-        if (!u.getEnable()) {
-            active = "Inactivo";
-        }
-
-        return active;
-    }
-    
-    public String nombreApell(User u) {
-
-        String nombApell;
-
-        return nombApell = u.getNombre();
-
-    }
-    */
-    public void add() {
-        if (username.equals("") || email.equals("") || password.equals("") || password1.equals("") || nombre.equals("")) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, datos inválidos", "ERROR"));
-            return;
-        }
-        if (!password.equals(password1)) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, las contraseñas no coinciden", "ERROR"));
-            return;
-        }
-        Users newUser = new Users(username, DigestUtils.md5Hex(password), true, nombre, email);
-        AuthoritiesPK authid = new AuthoritiesPK(username, "ROLE_USER");
-        Authorities auth = new Authorities(authid, newUser);
-        try {
-            control.usersJpa.create(newUser);
-            control.authoritiesJpa.create(auth);
-        } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, el elemento ya existe", "ERROR"));
-            return;
-        }
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Elemento añadido", "Aviso"));
-        update_list();
-    }
-    
-    public void modificar() {
-    }
-    
-    public void eliminar() {
-
-        boolean f = false;
-        for (Users ust : Users_list) {
-            if (ust.getEnable()) {
-                Users_list_delete.add(ust);
-            }
-        }
-        if (!Users_list_delete.isEmpty()) {
-            for (Users us1 : Users_list_delete) {
-                try {
-                    control.usersJpa.destroy(us1.getUsername());
-                } catch (Exception e) {
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, no es posible eliminar el elemento", "ERROR"));
-                    f = true;
-                }
-            }
-            if (f) {
-                return;
-            }
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminado", "Aviso"));
-            Users_list_delete.clear();
-            update_list();
-        }
-    }
-    public void actualizar(RowEditEvent event) {
-        Users us = (Users) event.getObject();
-
-        if (!email.equals("") && !nombre.equals("") && !password.equals("")) {
-            us.setEmail(email);
-            us.setNombre(nombre);
-            us.setEnable(enable);
-            us.setPassword(DigestUtils.md5Hex(password));
-            try {
-                control.usersJpa.edit(us);
-            } catch (Exception e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, no es posible modificar el elemento", "ERROR"));
-                return;
-            }
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Elemento modificado", "Aviso"));
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR, datos inválidos", "ERROR"));
-        }
-
+    public String getPassword() {
+        return password;
     }
 
-    public void cancelar() {
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<Users> getListusers() {
+        return listusers;
+    }
+
+    public void setListusers(List<Users> listusers) {
+        this.listusers = listusers;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

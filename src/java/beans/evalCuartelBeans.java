@@ -162,7 +162,7 @@ public class evalCuartelBeans implements Serializable {
                 control.evalCuarteleriaJPA.edit(e);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "La evaluación ha sido modificada", "Atención"));
             } catch (Exception ex) {
-                Logger.getLogger(evalCuartBeans.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(evalCuartelBeans.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (count == 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "No se ha realizado ningún cambio", "Atención"));
@@ -184,7 +184,23 @@ public class evalCuartelBeans implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "No se puede eliminar la evaluación del cuartelería", "Atención"));
         }
     }
+    
+    public String nombreApell(Trabajador trabajador) {
 
+        String nombApell;
+
+        return nombApell = trabajador.getNombre() + " " + trabajador.getApellidos();
+
+    }
+    
+    public String nombreApellbeca(Becado becado) {
+
+        String nombApellbecado;
+
+        return nombApellbecado = becado.getNombre() + " " + becado.getSegundonombre() + " " + becado.getApellidos();
+
+    }
+    
     public String cargarList2() {
 
         listAspEvalCuartel = control.aspectevalCuartelJPA.findAspectEvalcuartelEntities();
@@ -391,22 +407,6 @@ public class evalCuartelBeans implements Serializable {
         return fecha.getDate() + " / " + (fecha.getMonth() + 1) + " / " + (fecha.getYear() + 1900);
 
     }
-    
-    public String nombreApell(Trabajador trabajador) {
-
-        String nombApell;
-
-        return nombApell = trabajador.getNombre() + " " + trabajador.getApellidos();
-
-    }
-    
-    public String nombreApellbeca(Becado becado) {
-
-        String nombApellbecado;
-
-        return nombApellbecado = becado.getNombre() + " " + becado.getSegundonombre() + " " + becado.getApellidos();
-
-    }
 
     public Date getFecha() {
         return fecha;
@@ -559,4 +559,7 @@ public class evalCuartelBeans implements Serializable {
     public void setAspEv_EvCuartel(EvalcuarteleriaAspectevalcuartel aspEv_EvCuartel) {
         this.aspEv_EvCuartel = aspEv_EvCuartel;
     }
+
+    
+
 }

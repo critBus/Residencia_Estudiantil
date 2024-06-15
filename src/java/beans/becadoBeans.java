@@ -149,8 +149,8 @@ public class becadoBeans implements Serializable{
                 Logger.getLogger(edificioBeans.class.getName()).log(Level.WARNING, null, e);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error al insertar", "Atención"));
             }
-        }
     }
+        }
 
     public void resetear_campos() {
         ci = null;
@@ -271,9 +271,9 @@ public class becadoBeans implements Serializable{
             edificio = piso.getEdificio();
         }
         String nombre_piso = piso != null ? piso.getPisoPK().getId() : "sin piso";
-        String edificio_nombre = edificio != null ? edificio.getNombre() : "sin edificio";
+        String edificio_Id = edificio != null ? edificio.getId(): "sin edificio";
 
-        return edificio_nombre + " - piso:" + nombre_piso + " - cuarto:" + c.getCuartoPK().getId();
+        return "Edificio: "+ edificio_Id + " - piso: " + nombre_piso + " - cuarto: " + c.getCuartoPK().getId();
     }
 
     public static void showDialog(String id) {

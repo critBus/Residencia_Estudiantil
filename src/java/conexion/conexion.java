@@ -25,7 +25,7 @@ public class conexion {
     public Connection ConexionUnah() {
         try {
             Class.forName("org.postgresql.Driver");
-            con2 = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Residencia_Unah", "postgres", "postgres");
+            con2 = DriverManager.getConnection("jdbc:postgresql://10.4.1.26:5432/unah", "postgres", "postgres");
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(conexion.class.getName()).log(Level.SEVERE, null, ex);
         }

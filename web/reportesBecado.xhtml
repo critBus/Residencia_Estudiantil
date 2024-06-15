@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    
+    
+    <body>
+        
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="content">
+                
+                <div class="wrapper">
+                    <div class="container-fluid">
+                        <!-- Page-Title -->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="page-title-box">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-8">
+                                            <h3 class="page-title m-0">REPORTES</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-lg-6" >
+                                <div class="card">
+                                    <div class="card-body user-card" style="margin: 15px">
+                                        <h:form class="form-horizontal" >
+                                            
+                                            <h:panelGrid columns="2" styleClass="ui-panelgrid-blank" style="width: 100%" >   
+                                                <p:growl id="msg"/>
+                                                <div class="col-lg-5">
+                                                    <div class="list-group">
+                                                        <a href="resumen_hembras_varones.faces" class="list-group-item list-group-item-action">Porcentaje de becados varones y hembras por edificio </a>
+                                                        <a href="resumen_evaluacion.faces" class="list-group-item list-group-item-action">Promedio de becados por evaluación</a>
+                                                        <a href="resumen_guardias.faces" class="list-group-item list-group-item-action">Becados que han hecho la guardia y los que no han hecho</a>
+                                                        <a href="resumen_asistencia_cuarteleria.faces" class="list-group-item list-group-item-action">Becados que han hecho la cuarteleria y los que no han hecho</a>
+                                                        <a href="pisoEdificioTrabajoProd.faces" class="list-group-item list-group-item-action">Piso Edificio donde es asignado trabajo productivo</a>
+                                                        <a href="resumen_paciente_atendido.faces" class="list-group-item list-group-item-action">Pacientes atendidos</a>
+                                                    </div> <!-- list-group -->
+                                                </div> <!-- col -->
+                                            </h:panelGrid>
+                                        </h:form>
+                                    </div> <!-- card-body -->
+                                </div>
+                            </div>
+                        </div> <!-- end row -->
+
+
+                    </div>
+                </div>
+                <!-- end wrapper -->
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

@@ -58,7 +58,7 @@
                                                         <p:column headerText="Especialidad" sortBy="#{med.especialidad}" filterBy="#{med.especialidad}" style="text-align: center" priority="1">
                                                             <h:outputText value="#{med.especialidad}"/>
                                                         </p:column>
-                                                        <p:column headerText="Direccion" sortBy="#{med.direccion}" filterBy="#{med.direccion}" style="text-align: center" priority="1">
+                                                        <p:column headerText="Dirección" sortBy="#{med.direccion}" filterBy="#{med.direccion}" style="text-align: center" priority="1">
                                                             <h:outputText value="#{med.direccion}"/>
                                                         </p:column>
 
@@ -92,12 +92,12 @@
                                                             </p:inputMask>
                                                             <h:outputLabel value="Nombre:"/>
                                                             <p:inputText value="#{medicoBeans.nombre}" label="Nombre" type="text" 
-                                                                         placeholder="nombre" validatorMessage="Debe ser un nombre valido.">
+                                                                         placeholder="nombre" validatorMessage="Debe ser un nombre válido.">
                                                                 <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+$" />
                                                             </p:inputText>
                                                             <h:outputLabel value="Apellidos:"/>
                                                             <p:inputText value="#{medicoBeans.apellidos}" type="text" label="Apellidos"  placeholder="Apellidos" 
-                                                                         validatorMessage="Debe ser un apellido valido." >
+                                                                         validatorMessage="Debe ser un apellido válido." >
                                                                 <f:validateRegex pattern="^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+([ ][a-zA-ZáéíóúÁÉÍÓÚñÑ]+)?$" />
                                                             </p:inputText>
                                                             <h:outputLabel value="Especialidad:"/>
