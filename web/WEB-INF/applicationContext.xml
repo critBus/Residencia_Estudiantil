@@ -47,7 +47,9 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
         <security:intercept-url pattern="/index.faces" access="ROLE_JEFE_RESIDENCIA,ROLE_MEDICO,ROLE_ESPECIALISTA"/>  
         <security:intercept-url pattern="/login.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>  
         <security:intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
-        
+        <security:intercept-url pattern="/403.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>  
+        <security:intercept-url pattern="/404.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>  
+        <security:intercept-url pattern="/500.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>  
 
 
         <!--Al pasar por el login da acceso a una pagina-->

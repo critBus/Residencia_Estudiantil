@@ -50,4 +50,17 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>sam</param-value>
     </context-param>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/403.faces</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/404.faces</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/500.faces</location>
+    </error-page>
 </web-app>
