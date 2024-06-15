@@ -11,40 +11,70 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
     <security:http auto-config='true'>
         <!--Colocar reglas de navegacion-->
         <!--<intercept-url pattern="/pages/**" access="ROLE_ADMIN"/>-->
-       <!-- <intercept-url pattern="/pages/**" access="ROLE_USER"/> --><!--En estos momentos esta es la unica forma de permitir acceder al rol usuario a la app-->
+        <!-- <intercept-url pattern="/pages/**" access="ROLE_USER"/> --><!--En estos momentos esta es la unica forma de permitir acceder al rol usuario a la app-->
         
+        <security:intercept-url pattern="/articuloReglam.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <security:intercept-url pattern="/aspectEvalCuarto.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/aspectEvalCuarteleria.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/EvalBecado.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/EvalCuarteleria.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/EvalCuarto.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/EvalGuardia.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/Rango.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/TipoEvalBecado.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/planteamiento.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/trabajoProductivo.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/insert_Evalcuarto.faces" access="ROLE_ESPECIALISTA"/>
-        <security:intercept-url pattern="/insert_Evalcuarteleria.faces" access="ROLE_ESPECIALISTA"/>
-        
-        
-        <security:intercept-url pattern="/becado_enfermedad.faces" access="ROLE_MEDICO"/>
-        <security:intercept-url pattern="/becado_medicamento.faces" access="ROLE_MEDICO"/>
-        <security:intercept-url pattern="/becadoQuetieneenfermedades.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/aspectEvalCuartoEvalCuarto.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/aspect_evalcuartel.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/becado.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/becadoEnfermedad.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/becadoMedicamento.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/becadosQueTienenEnfermedades.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/cantidadBecadoCuarteleria.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/cantidadBecadoGuardia.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/capituloReglam.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/cuarto.faces" access="ROLE_ESPECIALISTA,ROLE_ADMIN"/>
+        <security:intercept-url pattern="/edificio.faces" access="ROLE_ESPECIALISTA,ROLE_ADMIN"/>
         <security:intercept-url pattern="/enfermedades.faces" access="ROLE_MEDICO"/>
-        <security:intercept-url pattern="/medicamentosPorDosis.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/evalBecado.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/evalCuartelAspectEvalCuartel.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/evalCuarteleria.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/evalCuarto.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/evalGuardia.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/insert_EvalCuartel.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/insert_EvalCuarto.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/incisoReglam.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/listadoEvalCuarteleria.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/listadoEvalGuardia.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/medicamentoPorDosis.faces" access="ROLE_MEDICO"/>
         <security:intercept-url pattern="/medicamentos.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/medicamentQueHaTomadoBecado.faces" access="ROLE_MEDICO"/>
         <security:intercept-url pattern="/medico.faces" access="ROLE_MEDICO"/>
-        <security:intercept-url pattern="/pacienteAtendidomedicamento.faces" access="ROLE_MEDICO"/>
-        <security:intercept-url pattern="/pacienteatendido.faces" access="ROLE_MEDICO"/>
-        
-        
-        <security:intercept-url pattern="/sanciones.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/mostrarLasEvalBecado.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/pacienteAtenConsultaMedica.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/pacienteAtendidoMedicamento.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/pacientesAtendidos.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/piso.faces" access="ROLE_ESPECIALISTA,ROLE_ADMIN"/>
+        <security:intercept-url pattern="/pisoEdificioTrabajoProd.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/planteamiento.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/profile.faces" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/rangos.faces" access="ROLE_ESPECIALISTA"/>
         <security:intercept-url pattern="/reglament.faces" access="ROLE_JEFE_RESIDENCIA"/>
-        <security:intercept-url pattern="/evalGuardia.faces" access="ROLE_JEFE_RESIDENCIA"/>
-        <security:intercept-url pattern="/evalGuardia.faces" access="ROLE_JEFE_RESIDENCIA"/>
-        <security:intercept-url pattern="/evalGuardia.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/reportesBecado.faces" access="ROLE_ESPECIALISTA,ROLE_MEDICO"/>
+        <security:intercept-url pattern="/reports.faces" access="ROLE_ESPECIALISTA,ROLE_MEDICO,ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/resumen_asistencia_cuarteleria.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/resumen_becados_ubicacion.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/resumen_evaluacion.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/resumen_guardias.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/resumen_hembras_varones.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/resumen_paciente_atendido.faces" access="ROLE_MEDICO"/>
+        <security:intercept-url pattern="/residenciaEstudiantil.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <security:intercept-url pattern="/resumen_planteamientos.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/RolesAdmin.faces" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/sancionBecado.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/sanciones.faces" access="ROLE_JEFE_RESIDENCIA"/>
+        <security:intercept-url pattern="/tipoEvalBecado.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/tipoEvalDeLosBecados.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/trabajador.faces" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/trabajoProductivo.faces" access="ROLE_ESPECIALISTA"/>
+        <security:intercept-url pattern="/users.faces" access="ROLE_ADMIN"/>
+        <security:intercept-url pattern="/setting.faces" access="ROLE_JEFE_RESIDENCIA,ROLE_MEDICO,ROLE_ESPECIALISTA,ROLE_ADMIN"/>
         
-        <security:intercept-url pattern="/index.faces" access="ROLE_JEFE_RESIDENCIA,ROLE_MEDICO,ROLE_ESPECIALISTA"/>  
+
+        
+        
+        <security:intercept-url pattern="/index.faces" access="ROLE_JEFE_RESIDENCIA,ROLE_MEDICO,ROLE_ESPECIALISTA,ROLE_ADMIN"/>  
         <security:intercept-url pattern="/login.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>  
         <security:intercept-url pattern="/resources/**" access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_ADMIN,ROLE_USER"/>
         <security:intercept-url pattern="/403.faces" access="IS_AUTHENTICATED_ANONYMOUSLY"/>  
@@ -64,13 +94,13 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 
     <!--Proveedor de seguridad para bases de datos (designar id)-->
     <security:authentication-manager>
-       <security:authentication-provider>
-        <security:jdbc-user-service data-source-ref="securityDataSource"/>
-        <security:password-encoder hash="md5"/> 
-<!--        <security:user-service>
-            <security:user name="user" password="123" authorities="ROLE_USER"/>
-        </security:user-service>-->
-    </security:authentication-provider>
+        <security:authentication-provider>
+            <security:jdbc-user-service data-source-ref="securityDataSource"/>
+            <security:password-encoder hash="md5"/> 
+            <!--        <security:user-service>
+                <security:user name="user" password="123" authorities="ROLE_USER"/>
+            </security:user-service>-->
+        </security:authentication-provider>
     </security:authentication-manager>
     
 
