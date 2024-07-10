@@ -1,6 +1,3 @@
 .idea
 build
 dist
-web/assets
-web/resources
-src/java/libs

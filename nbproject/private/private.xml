@@ -12,7 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/TRABAJO/Tesis%20Residencia%20Estudiantil/Tesis%20Residencia%20Estudiantil/sigre_2.0/sigre_2.0/web/WEB-INF/web.xml</file>
+            <file>file:/D:/TRABAJO/Tesis%20Residencia%20Estudiantil/Tesis%20Residencia%20Estudiantil/sigre_2.0/sigre_2.0/web/login.xhtml</file>
+            <file>file:/D:/TRABAJO/Tesis%20Residencia%20Estudiantil/Tesis%20Residencia%20Estudiantil/sigre_2.0/sigre_2.0/src/java/beans/usersBeans.java</file>
+            <file>file:/D:/TRABAJO/Tesis%20Residencia%20Estudiantil/Tesis%20Residencia%20Estudiantil/sigre_2.0/sigre_2.0/src/java/beans/becadoBeans.java</file>
+            <file>file:/D:/TRABAJO/Tesis%20Residencia%20Estudiantil/Tesis%20Residencia%20Estudiantil/sigre_2.0/sigre_2.0/src/java/beans/authoritiesBeans.java</file>
             <file>file:/D:/TRABAJO/Tesis%20Residencia%20Estudiantil/Tesis%20Residencia%20Estudiantil/sigre_2.0/sigre_2.0/web/WEB-INF/applicationContext.xml</file>
         </group>
     </open-files>
